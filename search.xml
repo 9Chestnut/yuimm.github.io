@@ -311,9 +311,9 @@
       
         <tags>
             
-            <tag> JAVAEE </tag>
-            
             <tag> SSM框架整合 </tag>
+            
+            <tag> JAVAEE </tag>
             
         </tags>
       
@@ -446,9 +446,9 @@
       
         <tags>
             
-            <tag> Mybatis </tag>
-            
             <tag> JAVAEE </tag>
+            
+            <tag> Mybatis </tag>
             
         </tags>
       
