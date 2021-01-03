@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Springboot_02, Yuimm">
-    <meta name="description" content="Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。">
+    <meta name="keywords" content="javaSE_02, Yuimm">
+    <meta name="description" content="javaSE是java的基础内容。------------------------------------">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Springboot_02 | Yuimm</title>
+    <title>javaSE_02 | Yuimm</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/awesome/css/all.css">
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Springboot_02</h1>
+                    <h1 class="description center-align post-title">javaSE_02</h1>
                 </div>
             </div>
         </div>
@@ -425,12 +425,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JAVAEE/">
-                                <span class="chip bg-color">JAVAEE</span>
+                            <a href="/tags/javaSE/">
+                                <span class="chip bg-color">javaSE</span>
                             </a>
                         
-                            <a href="/tags/Springboot/">
-                                <span class="chip bg-color">Springboot</span>
+                            <a href="/tags/JAVA/">
+                                <span class="chip bg-color">JAVA</span>
                             </a>
                         
                     </div>
@@ -441,8 +441,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                微服务
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
+                                编程语言
                             </a>
                         
                     </div>
@@ -454,28 +454,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-10
+                    2020-12-30
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-12-28
+                    2021-01-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    2.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    8 分
                 </div>
                 
 				
@@ -491,318 +491,274 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>SpringBoot使用一个全局的配置文件 ， 配置文件名称是固定的</p>
+                <h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_01.png" alt="image-20201229151841396"></p>
 <ul>
-<li><p>application.properties</p>
+<li><p><strong>虚拟机栈</strong></p>
+<p>执行殷引擎每调用一个函数，就会为这个函数创建一个栈帧，并加入虚拟机栈。即每个函数从调用到执行结束，其实就是对应栈帧的入栈和出栈。</p>
 </li>
-<li><p>语法结构 ：key=value</p>
+<li><p><strong>堆</strong></p>
+<p>被所有的线程所共享的一块区域，在虚拟机启动时创建，所有的对象实例及数组都在堆上分配。</p>
+<p>使用<strong>new</strong>关键字，表示在堆中开辟一块新的存储空间。</p>
 </li>
-<li><p>application.yml</p>
+<li><p><strong>方法区</strong></p>
+<p>也称静态区，存放所有的<strong>class</strong>字节码和<strong>static</strong>变量，方法区中包含的都是在程序中<strong>永远唯一</strong>的元素。</p>
 </li>
-<li><p>语法结构 ：key：空格 value</p>
+<li><p><strong>程序计数器</strong></p>
+</li>
+<li><p><strong>本地方法区</strong></p>
+<p>与虚拟机栈类似，为<strong>Native</strong>方法服务。</p>
 </li>
 </ul>
-<p><strong>配置文件的作用 ：</strong>修改SpringBoot自动配置的默认值，因为SpringBoot在底层都给我们自动配置好了；</p>
-<p>比如我们可以在配置文件中修改Tomcat 默认启动的端口号！测试一下！</p>
-<pre><code>server.port=8081</code></pre><h1 id="yaml概述"><a href="#yaml概述" class="headerlink" title="yaml概述"></a>yaml概述</h1><p>YAML是 “YAML Ain’t a Markup Language” （YAML不是一种标记语言）的递归缩写。在开发的这种语言时，YAML 的意思其实是：”Yet Another Markup Language”（仍是一种标记语言）</p>
-<p><strong>这种语言以数据**</strong>作<strong>**为中心，而不是以标记语言为重点！</strong></p>
-<p>以前的配置文件，大多数都是使用xml来配置；比如一个简单的端口配置，我们来对比下yaml和xml</p>
-<p>传统xml配置：</p>
-<pre><code>&lt;server&gt;
-    &lt;port&gt;8081&lt;port&gt;
-&lt;/server&gt;</code></pre><p> yaml配置：</p>
-<pre class=" language-yaml"><code class="language-yaml">server：
-  <span class="token key atrule">prot</span><span class="token punctuation">:</span> <span class="token number">8081</span></code></pre>
-<h1 id="yaml基础语法"><a href="#yaml基础语法" class="headerlink" title="yaml基础语法"></a>yaml基础语法</h1><p>说明：语法要求严格！</p>
-<p>1、空格不能省略</p>
-<p>2、以缩进来控制层级关系，只要是左边对齐的一列数据都是同一个层级的。</p>
-<p>3、属性和值的大小写都是十分敏感的。</p>
-<p><strong>字面量：普通的值  [ 数字，布尔值，字符串  ]</strong></p>
-<p>字面量直接写在后面就可以 ， 字符串默认不用加上双引号或者单引号；</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">k</span><span class="token punctuation">:</span> v</code></pre>
-<p>注意：</p>
+<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><p>​            —–<strong>类、接口、数组、枚举、标注</strong></p>
 <ul>
-<li><p>“ ” 双引号，不会转义字符串里面的特殊字符 ， 特殊字符会作为本身想表示的意思；</p>
-<p>比如 ：name: “kuang \n shen”  输出 ：kuang  换行  shen</p>
+<li><strong>基本数据类型是值传递</strong></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_02.png" alt="image-20201229154047005"></p>
+<ul>
+<li><strong>引用类型传递是地址的传递</strong></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_03.png" alt="image-20201229154428249"></p>
+<h2 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h2><ul>
+<li><p>方法名和类名相同的特殊方法就是构造器</p>
 </li>
-<li><p>‘’ 单引号，会转义特殊字符 ， 特殊字符最终会变成和普通字符一样输出</p>
-<p>比如 ：name: ‘kuang \n shen’  输出 ：kuang  \n  shen</p>
+<li><p>一个类至少存在一个构造器</p>
+</li>
+<li><p>禁止定义返回类型，也不需要使用return语句</p>
+</li>
+<li><p>构造器其实有返回值，返回的是当前创建对象的地址</p>
+</li>
+<li><p>作用：</p>
+<p>创建对象</p>
+<p>完成对象的初始化操作</p>
 </li>
 </ul>
-<p><strong>对象、Map（键值对）</strong></p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#对象、Map格式</span>
-<span class="token key atrule">k</span><span class="token punctuation">:</span> 
-    <span class="token key atrule">v1</span><span class="token punctuation">:</span>
-    v2<span class="token punctuation">:</span></code></pre>
-<p>在下一行来写对象的属性和值得关系，注意缩进；比如：</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">student</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> qinjiang
-    <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">3</span></code></pre>
-<p>行内写法</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">student</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">name</span><span class="token punctuation">:</span> qinjiang<span class="token punctuation">,</span><span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span></code></pre>
-<p><strong>数组（ List、set ）</strong></p>
-<p>用 - 值表示数组中的一个元素,比如：</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">pets</span><span class="token punctuation">:</span>
- <span class="token punctuation">-</span> cat
- <span class="token punctuation">-</span> dog
- <span class="token punctuation">-</span> pig</code></pre>
-<p>行内写法</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">pets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>cat<span class="token punctuation">,</span>dog<span class="token punctuation">,</span>pig<span class="token punctuation">]</span></code></pre>
-<p><strong>修改SpringBoot的默认端口号</strong></p>
-<p>配置文件中添加，端口号的参数，就可以切换端口；</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
-  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8082</span></code></pre>
-<h1 id="注入配置文件"><a href="#注入配置文件" class="headerlink" title="注入配置文件"></a>注入配置文件</h1><p>yaml文件更强大的地方在于，他可以给我们的实体类直接注入匹配值！</p>
-<h2 id="yaml注入配置文件"><a href="#yaml注入配置文件" class="headerlink" title="yaml注入配置文件"></a>yaml注入配置文件</h2><p>1、在springboot项目中的resources目录下新建一个文件 application.yml</p>
-<p>2、编写一个实体类 Dog；</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
+<h4 id="默认构造器"><a href="#默认构造器" class="headerlink" title="默认构造器"></a>默认构造器</h4><ul>
+<li>无参数、方法体</li>
+<li>如果类没有public修饰，那么默认构造器也没有</li>
+</ul>
+<h4 id="自定义构造器"><a href="#自定义构造器" class="headerlink" title="自定义构造器"></a>自定义构造器</h4><ul>
+<li>定义了构造器，编译器不会再创建默认构造器</li>
+<li>创建对象其实是再调用构造器</li>
+</ul>
+<h2 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h2><ul>
+<li>只能使用一次</li>
+</ul>
+<h2 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h2><ul>
+<li>通过static修饰的成员属于类本身，不属于对象</li>
+<li>可以修饰字段，方法，内部类</li>
+<li>作用：确定修饰的内容是属于类还是属于对象 </li>
+<li>随着类加载而加载</li>
+<li>优先于对象存在</li>
+<li>static修饰的成员被该类型的所有对象共享</li>
+<li>可以使用当前类的类名访问static成员</li>
+<li>静态方法不需要通过创建对象来调用</li>
+<li>静态方法不能访问普通成员，只能访问静态成员</li>
+<li>不能在方法中定义静态成员，方法中都属于局部变量，运行时在栈中分配空间，静态成员是在方法区中存储</li>
+</ul>
+<h2 id="局部变量和全局变量"><a href="#局部变量和全局变量" class="headerlink" title="局部变量和全局变量"></a>局部变量和全局变量</h2><ul>
+<li>局部变量，必须进行初始化才能使用。</li>
+</ul>
+<h2 id="封装、继承、多态"><a href="#封装、继承、多态" class="headerlink" title="封装、继承、多态"></a>封装、继承、多态</h2><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><ul>
+<li>protexted: 只能在同一个包中使用，但是继承状态下不同包也能用</li>
+<li>默认权限继承情况下也只能在同一个包中才能使用</li>
+</ul>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_04.png" alt="image-20201229223552889"></p>
+<ul>
+<li>继承中的方法覆盖</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_05.png" alt="image-20201229223821755"></p>
+<ul>
+<li>方法重载和方法重写的区别</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_06.png" alt="image-20201229223924305"></p>
+<ul>
+<li><p>父类中如果自定义了构造器，子类继承时，必须调用此构造器</p>
+</li>
+<li><p>子类初始化过程</p>
+<p>创建子类对象之前，会先创造父类对象</p>
+<p>调用子类的构造器之前，在子类构造器中会先调用父类的构造器</p>
+</li>
+<li><p><strong>父类中的静态方法和子类中的静态方法是一摸一样的  ？？称为方法的隐藏</strong></p>
+</li>
+</ul>
+<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p> 在方法调用时，通过父类进行调用，真正执行时，调用的是子类的方法，这种特征称之为多态。</p>
+<p>一个对象有多种形态。</p>
+<ul>
+<li><p>把子类对象赋值给父类的类型</p>
+<pre class=" language-java"><code class="language-java">Animal dog <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</li>
+<li><p><strong>作用：</strong></p>
+<p>当把不同的子类对象当作父类类型来看待，可以屏蔽不同子类对象之间的实现差异。从而写出通用的代码达到通用编程，以适应需求的不断变化。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_07.png" alt="image-20201229233821596"></p>
+</li>
+<li><p>注意问题</p>
+<p>如果父类中没有要调用的方法，但是子类中有，执行时，如果是多态就会报编译的错误，如果要使用，就强转为子类类型。</p>
+<p>如果父类和子类中都有，并且此方法是静态方法，多态情况下，调用的是父类中的静态方法。</p>
+</li>
+</ul>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>判断一个对象是否为指定的类 </p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">if</span><span class="token punctuation">(</span>dog <span class="token keyword">instanceof</span> <span class="token class-name">Animal</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span></code></pre>
+<h2 id="UML（标准建模语言）"><a href="#UML（标准建模语言）" class="headerlink" title="UML（标准建模语言）"></a>UML（标准建模语言）</h2><p>用来表示软件开发过程中类与类之间的关系</p>
+<h2 id="代码块与final关键字"><a href="#代码块与final关键字" class="headerlink" title="代码块与final关键字"></a>代码块与final关键字</h2><h4 id="局部代码块"><a href="#局部代码块" class="headerlink" title="局部代码块"></a>局部代码块</h4><ul>
+<li>直接定义在方法内部。</li>
+</ul>
+<h4 id="初始化代码块"><a href="#初始化代码块" class="headerlink" title="初始化代码块"></a>初始化代码块</h4><ul>
+<li>调用构造器，会把初始化代码块放在构造器当中。</li>
+<li>每创建一个对象（构造器执行一次），就会执行一次</li>
+</ul>
+<h4 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h4><ul>
+<li>在把字节码加载到jvm的时候执行，比main方法还早。</li>
+<li>只执行一次</li>
+</ul>
+<h4 id="类什么时候被加载"><a href="#类什么时候被加载" class="headerlink" title="类什么时候被加载"></a>类什么时候被加载</h4><p>当第一次使用该类的时候，就会把该类对象的字节码加载到jvm中</p>
+<p>继承状态下，先加载父类再加载子类</p>
+<h4 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h4><ul>
+<li>不可修改的，保证数据的安全</li>
+<li>可修饰字段、方法（子类不能覆盖）、类（类不能被继承）</li>
+<li>修饰字段时，没有初始值，必须手动设置初始值</li>
+<li>final修饰的字段可在局部代码块使用</li>
+<li>修饰引用类型，表示地址不能再修改</li>
+</ul>
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><p>对基本数据类型进行包装成一个对象。</p>
+<p>把基本数据类型变得更强大，以面向对象的思想去使用这些类型。</p>
+<h4 id="装箱"><a href="#装箱" class="headerlink" title="装箱"></a>装箱</h4><p>把基本数据类型 &gt;&gt; 包装类</p>
+<p>两种操作：</p>
+<pre class=" language-java"><code class="language-java">Integer num1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Data<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NoArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Value<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean到容器中</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>3、思考，我们原来是如何给bean注入属性值的！@Value，给狗狗类测试一下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean到容器中</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"阿黄"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"12"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>4、在SpringBoot的测试类下注入狗狗输出一下；</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> ch<span class="token punctuation">.</span>qos<span class="token punctuation">.</span>logback<span class="token punctuation">.</span>core<span class="token punctuation">.</span>net<span class="token punctuation">.</span>SyslogOutputStream<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Dog<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Person<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>SpringBootTest<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@SpringBootTest</span>
-<span class="token keyword">class</span> <span class="token class-name">SpringBootDemoApplicationTests</span> <span class="token punctuation">{</span>
-
-<span class="token annotation punctuation">@Autowired</span>
-    Dog dog<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">void</span> <span class="token function">contextLoads</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<p>结果成功输出，@Value注入成功.</p>
-<p>5、我们在编写一个复杂一点的实体类：Person 类</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Data<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NoArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>context<span class="token punctuation">.</span>properties<span class="token punctuation">.</span>ConfigurationProperties<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Boolean happy<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Date birth<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> maps<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>Object<span class="token operator">></span> lists<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Dog dog<span class="token punctuation">;</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<p>6、我们来使用yaml配置的方式进行注入，大家写的时候注意区别和优势，我们编写一个yaml配置！</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">person</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> qg
-  <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">3</span>
-  <span class="token key atrule">happy</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-  <span class="token key atrule">birth</span><span class="token punctuation">:</span> 2000/01/01
-  <span class="token key atrule">maps</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">k1</span><span class="token punctuation">:</span> v1<span class="token punctuation">,</span><span class="token key atrule">k2</span><span class="token punctuation">:</span> v2<span class="token punctuation">}</span>
-  <span class="token key atrule">lists</span><span class="token punctuation">:</span>
-   <span class="token punctuation">-</span> code
-   <span class="token punctuation">-</span> girl
-   <span class="token punctuation">-</span> music
-  <span class="token key atrule">dog</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> 旺财
-    <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">1</span></code></pre>
-<p>7、我们刚才已经把person这个对象的所有值都写好了，我们现在来注入到我们的类中！</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Data<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NoArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>context<span class="token punctuation">.</span>properties<span class="token punctuation">.</span>ConfigurationProperties<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/*
-@ConfigurationProperties作用：
-将配置文件中配置的每一个属性的值，映射到这个组件中；
-告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定
-参数 prefix = “person” : 将配置文件中的person下面的所有属性一一对应
-*/</span>
-<span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span>
-<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"person"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Boolean happy<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Date birth<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> maps<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>Object<span class="token operator">></span> lists<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Dog dog<span class="token punctuation">;</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<p>8、IDEA 提示，springboot配置注解处理器没有找到，让我们看文档，我们可以查看文档，找到一个依赖！</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_01.png" alt="springboot_02_01"></p>
-<p>版本号改为2.1.9再搜索</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_02.png" alt="springboot_02_02"></p>
-<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 导入配置文件处理器，配置文件进行绑定就会有提示，需要重启 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-configuration-processor<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></code></pre>
-<p>9、确认以上配置都OK之后，我们去测试类中测试一下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> ch<span class="token punctuation">.</span>qos<span class="token punctuation">.</span>logback<span class="token punctuation">.</span>core<span class="token punctuation">.</span>net<span class="token punctuation">.</span>SyslogOutputStream<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Dog<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Person<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>SpringBootTest<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@SpringBootTest</span>
-<span class="token keyword">class</span> <span class="token class-name">SpringBootDemoApplicationTests</span> <span class="token punctuation">{</span>
-<span class="token annotation punctuation">@Autowired</span>
-    Person person<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">void</span> <span class="token function">contextLoads</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<p>结果：所有值全部注入成功！</p>
-<p><strong>yaml配置注入到实体类完全OK！</strong></p>
-<h2 id="加载指定的配置文件"><a href="#加载指定的配置文件" class="headerlink" title="加载指定的配置文件"></a>加载指定的配置文件</h2><p><strong>@PropertySource ：</strong>加载指定的配置文件；</p>
-<p><strong>@configurationProperties</strong>：默认从全局配置文件中获取值；</p>
-<p>1、我们去在resources目录下新建一个<strong>person.properties</strong>文件</p>
-<pre><code>name=ks</code></pre><p>2、然后在我们的代码中指定加载person.properties文件</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@PropertySource</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"classpath:person.properties"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${name}"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>  
-<span class="token punctuation">}</span></code></pre>
-<p>3、再次输出测试一下：指定配置文件绑定成功！</p>
-<h2 id="配置文件占位符"><a href="#配置文件占位符" class="headerlink" title="配置文件占位符"></a>配置文件占位符</h2><p>配置文件还可以编写占位符生成随机数</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">person</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> qinjiang$<span class="token punctuation">{</span>random.uuid<span class="token punctuation">}</span> <span class="token comment" spellcheck="true"># 随机uuid</span>
-    <span class="token key atrule">age</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>random.int<span class="token punctuation">}</span>  <span class="token comment" spellcheck="true"># 随机int</span>
-    <span class="token key atrule">happy</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-    <span class="token key atrule">birth</span><span class="token punctuation">:</span> 2000/01/01
-    <span class="token key atrule">maps</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">k1</span><span class="token punctuation">:</span> v1<span class="token punctuation">,</span><span class="token key atrule">k2</span><span class="token punctuation">:</span> v2<span class="token punctuation">}</span>
-    <span class="token key atrule">lists</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> code
-      <span class="token punctuation">-</span> girl
-      <span class="token punctuation">-</span> music
-    <span class="token key atrule">dog</span><span class="token punctuation">:</span>
-      <span class="token key atrule">name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>person.hello<span class="token punctuation">:</span>other<span class="token punctuation">}</span>_旺财
-      <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">1</span></code></pre>
-<h2 id="回顾properties配置"><a href="#回顾properties配置" class="headerlink" title="回顾properties配置"></a>回顾properties配置</h2><p>我们上面采用的yaml方法都是最简单的方式，开发中最常用的；也是springboot所推荐的！那我们来唠唠其他的实现方式，道理都是相同的；写还是那样写；配置文件除了yml还有我们之前常用的properties ， 我们没有讲，我们来唠唠！</p>
-<p>【注意】properties配置文件在写中文的时候，会有乱码 ， 我们需要去IDEA中设置编码格式为UTF-8；</p>
-<p>settings–&gt;FileEncodings 中配置；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_03.png" alt="springboot_02_03"></p>
-<p><strong>测试步骤：</strong></p>
-<p>1、新建一个实体类User</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String sex<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>2、编辑配置文件 user.properties</p>
-<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">user1.name</span><span class="token punctuation">=</span><span class="token attr-value">kg</span>
-<span class="token attr-name">user1.age</span><span class="token punctuation">=</span><span class="token attr-value">18</span>
-<span class="token attr-name">user1.sex</span><span class="token punctuation">=</span><span class="token attr-value">男</span></code></pre>
-<p>3、我们在User类上使用@Value来进行注入！</p>
-<pre class=" language-java"><code class="language-java">
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean</span>
-<span class="token annotation punctuation">@PropertySource</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"classpath:user.properties"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//直接使用@value</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${user.name}"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//从配置文件中取值</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"#{9*2}"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// #{SPEL} Spring表达式</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"男"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// 字面量</span>
-    <span class="token keyword">private</span> String sex<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>4、Springboot测试</p>
-<pre class=" language-java"><code class="language-java">
-<span class="token annotation punctuation">@SpringBootTest</span>
-<span class="token keyword">class</span> <span class="token class-name">DemoApplicationTests</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@Autowired</span>
-    User user<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">contextLoads</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<p>结果正常输出</p>
-<h2 id="对比小结"><a href="#对比小结" class="headerlink" title="对比小结"></a>对比小结</h2><p>@Value这个使用起来并不友好！我们需要为每个属性单独注解赋值，比较麻烦；我们来看个功能对比图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_04.png" alt="springboot_02_04"></p>
-<p>1、@ConfigurationProperties只需要写一次即可 ， @Value则需要每个字段都添加</p>
-<p>2、松散绑定：这个什么意思呢? 比如我的yml中写的last-name，这个和lastName是一样的， - 后面跟着的字母默认是大写的。这就是松散绑定。可以测试一下</p>
-<p>3、JSR303数据校验 ， 这个就是我们可以在字段是增加一层过滤器验证 ， 可以保证数据的合法性</p>
-<p>4、复杂类型封装，yml中可以封装对象 ， 使用value就不支持</p>
-<p><strong>结论：</strong></p>
-<p>配置yml和配置properties都可以获取到值 ， 强烈推荐 yml；</p>
-<p>如果我们在某个业务中，只需要获取配置文件中的某个值，可以使用一下 @value；</p>
-<p>如果说，我们专门编写了一个JavaBean来和配置文件进行一一映射，就直接@configurationProperties，不要犹豫！</p>
-<p>注：本文来自狂神的教学和笔记，以供自己以后回顾学习使用，如有侵犯知识产权，请联系删除。</p>
-<script>
+Integer num1 <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>可以把一个字符串转成Integer类型，字符串必须是数字。</p>
+<h4 id="拆箱"><a href="#拆箱" class="headerlink" title="拆箱"></a>拆箱</h4><p>把包装类 &gt;&gt; 基本数据类型</p>
+<h4 id="自动装箱"><a href="#自动装箱" class="headerlink" title="自动装箱"></a>自动装箱</h4><p>可以直接把一个基本数据类型的值赋值给包装类对象。</p>
+<h4 id="自动拆箱"><a href="#自动拆箱" class="headerlink" title="自动拆箱"></a>自动拆箱</h4><p>可以直接把一个包装类对象赋值给基本数据类型。</p>
+<h4 id="String与其他类型转换"><a href="#String与其他类型转换" class="headerlink" title="String与其他类型转换"></a>String与其他类型转换</h4><p>通过<strong>toString()</strong>方法把包装类对象转为字符串</p>
+<h4 id="包装类与基本数据类型的区别"><a href="#包装类与基本数据类型的区别" class="headerlink" title="包装类与基本数据类型的区别"></a>包装类与基本数据类型的区别</h4><ul>
+<li>默认值不同</li>
+<li>包装类中提供了很多方法直接使用</li>
+<li>集合框架中不能存放基本数据类型，只能存对象</li>
+<li>类中成员变量一般使用包装类，方法中一般使用基本数据类型</li>
+</ul>
+<h4 id="包装类valueOf缓存设计"><a href="#包装类valueOf缓存设计" class="headerlink" title="包装类valueOf缓存设计"></a>包装类valueOf缓存设计</h4><p>缓存的数据范围只有 <strong>-128~127</strong></p>
+<h2 id="抽象类与接口"><a href="#抽象类与接口" class="headerlink" title="抽象类与接口"></a>抽象类与接口</h2><h4 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h4><ul>
+<li>在方法前面加一个关键字abstract</li>
+<li>没有方法体</li>
+<li>必须定义在抽象类中</li>
+<li>子类必须覆盖父类中的所有抽象方法</li>
+</ul>
+<h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><ul>
+<li>抽象类要有子类才行</li>
+<li>不能创建对象</li>
+<li>抽象类中可以有抽象方法，也可以有非抽象方法</li>
+<li>把子类变成抽象类就可以不覆盖方法</li>
+</ul>
+<h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><ul>
+<li>没有构造器，不能创建对象</li>
+<li>接口中定义变量，都是全局的静态常量</li>
+<li>接口可以多继承</li>
+<li><strong>面向接口编程</strong>，其实就是多态</li>
+</ul>
+<h4 id="接口与抽象类区别"><a href="#接口与抽象类区别" class="headerlink" title="接口与抽象类区别"></a>接口与抽象类区别</h4><ul>
+<li>抽象类有构造器，接口中没有构造器</li>
+<li>抽象类可以包含普通方法和抽象方法，接口中只有抽象方法</li>
+<li>接口中成员变量权限为：public static final，抽象类中是默认的权限</li>
+</ul>
+<h2 id="内部类与枚举"><a href="#内部类与枚举" class="headerlink" title="内部类与枚举"></a>内部类与枚举</h2><h4 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h4><p><strong>定义在类中的一个类</strong></p>
+<ul>
+<li>增强封装</li>
+<li>增加代码的维护性</li>
+<li>可以直接访问外部类当中的成员</li>
+</ul>
+<p><strong>内部类的划分</strong></p>
+<ul>
+<li><p><strong>实例内部类88</strong></p>
+<p>直接定义在类中，类前面没有任何修饰符</p>
+</li>
+<li><p>静态内部类</p>
+<p>再内部类前面加一个static</p>
+</li>
+<li><p>局部内部类</p>
+<p>定义再方法中的内部类</p>
+<p>只能在方法中使用</p>
+<p>不能包含静态变量</p>
+<p>可以使用局部变量，局部变量本质是final</p>
+</li>
+<li><p>匿名内部类</p>
+<p>属于局部内部类的一种特殊情况</p>
+<p>没有构造器   new父类的构造器或者接口</p>
+</li>
+</ul>
+<h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><p>表示有个事物固定的状态</p>
+<p>是一个特殊的类，多个常量对象的集合</p>
+<pre><code>[] enum 枚举的名称 {常量1，常量2…………}</code></pre><p>对构造器进行了私有化，不能再创建对象。</p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><ul>
+<li>长度可以改变</li>
+<li>能存储任意的对象</li>
+<li>集合只能存引用数据类型，如果放基本数据类型，会自动装箱。</li>
+</ul>
+<h4 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a><strong>Collection</strong></h4><ul>
+<li><p><strong>List（有序）</strong></p>
+<ul>
+<li><strong>ArrayList</strong>  数组</li>
+<li><strong>LinkedList</strong>  链表</li>
+<li><strong>Vector</strong>  数组,都会加锁</li>
+</ul>
+</li>
+<li><p><strong>Set（无序）（保证元素唯一）</strong></p>
+<ul>
+<li><p><strong>HashSet</strong>  Hash算法</p>
+</li>
+<li><p><strong>linkedHashSet</strong></p>
+</li>
+<li><p><strong>TreeSet</strong>  二叉树。</p>
+<p><strong>会对元素排序，自定义对象不能直接添加，必须实现Comparable接口,并且覆盖其中的compareTo方法，如果返回值是一个正数，都可以添加，添加到右树，而且是正序，返回0只添加一个元素，返回一个负数，也会全添加进去，添加到左树，但是是倒序。</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a><strong>ArrayList</strong></h4><ul>
+<li>可以添加重复的元素</li>
+<li>覆盖了<strong>toString</strong>方法</li>
+<li>对基本数据类型自动装箱</li>
+<li>toArray会把数组中的元素向上转型为Object类型</li>
+</ul>
+<h4 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h4><p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_08.png" alt="image-20201231161903856"></p>
+<ul>
+<li>无序</li>
+<li><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/javaSE_02_09.png" alt="image-20201231162848403"></li>
+<li>map元素的遍历<ol>
+<li>通过Iterator或者foreach</li>
+<li>通过entry</li>
+</ol>
+</li>
+</ul>
+<h4 id="迭代器-Iterator"><a href="#迭代器-Iterator" class="headerlink" title="迭代器 Iterator"></a>迭代器 Iterator</h4><p>collection的每一个实现类中都定义了自己的迭代方法</p>
+<h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><ul>
+<li>list可以根据角标操作元素</li>
+</ul>
+<p><strong>并发修改异常</strong></p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><ul>
+<li><p>广泛通用的类型</p>
+</li>
+<li><p>代码中类型不确定，谁调用谁就来指定类型，没有指明就是<strong>Object</strong>类型</p>
+</li>
+<li><p>在类中定义的泛型，只能用在普通方法上，不能用在静态方法上面</p>
+</li>
+<li><p>方法想要单独使用泛型，必须得有参数才有意义</p>
+</li>
+<li><p>通配符</p>
+<p>不知道使用什么类型来接收时，可以使用<strong>？</strong>表示未知，只能用来做接收</p>
+<p>使用</p>
+</li>
+<li><p>泛型的上下限</p>
+<p>extends：必须是指定类或者指定类型的子类</p>
+<p>super：必须是指定类或者指定类型的父类</p>
+</li>
+<li><p>泛型擦除   </p>
+</li>
+<li><p>数组转集合之后，仍不能添加、删除元素，转过之后，可以以面向对象的方式操作数组，会把整个数组当作一个对象。  </p>
+</li>
+</ul>
+<p><strong>集合嵌套</strong></p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><h4 id="JVM异常"><a href="#JVM异常" class="headerlink" title="JVM异常"></a>JVM异常</h4><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -845,7 +801,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yuimm.github.io/posts/springboot-02.html">http://yuimm.github.io/posts/springboot-02.html</a>
+                    <a href="http://yuimm.github.io/posts/javase-02.html">http://yuimm.github.io/posts/javase-02.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -883,12 +839,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JAVAEE/">
-                                    <span class="chip bg-color">JAVAEE</span>
+                                <a href="/tags/javaSE/">
+                                    <span class="chip bg-color">javaSE</span>
                                 </a>
                             
-                                <a href="/tags/Springboot/">
-                                    <span class="chip bg-color">Springboot</span>
+                                <a href="/tags/JAVA/">
+                                    <span class="chip bg-color">JAVA</span>
                                 </a>
                             
                         </div>
@@ -1321,30 +1277,30 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/springboot-03.html">
+                <a href="/posts/javase-03.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="Springboot_03">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="javaSE_03">
                         
-                        <span class="card-title">Springboot_03</span>
+                        <span class="card-title">javaSE_03</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。
+                            javaSE是java的基础内容。------------------------------------
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-02
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                    微服务
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
+                                    编程语言
                                 </a>
                             
                             
@@ -1354,12 +1310,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JAVAEE/">
-                        <span class="chip bg-color">JAVAEE</span>
+                    <a href="/tags/javaSE/">
+                        <span class="chip bg-color">javaSE</span>
                     </a>
                     
-                    <a href="/tags/Springboot/">
-                        <span class="chip bg-color">Springboot</span>
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
                     </a>
                     
                 </div>
@@ -1373,30 +1329,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/springboot-01.html">
+                <a href="/posts/javase-01.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="Springboot_01">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="javaSE_01">
                         
-                        <span class="card-title">Springboot_01</span>
+                        <span class="card-title">javaSE_01</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。
+                            javaSE是java的基础内容。------------------------------------
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-02
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                    微服务
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
+                                    编程语言
                                 </a>
                             
                             
@@ -1406,12 +1362,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JAVAEE/">
-                        <span class="chip bg-color">JAVAEE</span>
+                    <a href="/tags/javaSE/">
+                        <span class="chip bg-color">javaSE</span>
                     </a>
                     
-                    <a href="/tags/Springboot/">
-                        <span class="chip bg-color">Springboot</span>
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
                     </a>
                     
                 </div>

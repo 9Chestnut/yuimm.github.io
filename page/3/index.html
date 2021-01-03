@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: 编程语言, Yuimm">
-    <meta name="description" content="分类: 编程语言 | Yuimm">
+    <meta name="keywords" content="Yuimm">
+    <meta name="description" content="Yuimm">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>分类: 编程语言 | Yuimm</title>
+    <title>Yuimm</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/awesome/css/all.css">
@@ -299,6 +299,7 @@
 
 </header>
 
+    
     <div class="bg-cover pd-header about-cover">
     <div class="container">
     <div class="row">
@@ -340,110 +341,117 @@
     </div>
 </div>
 
+
 <main class="content">
 
     
+    <div id="indexCard" class="index-card">
+        <div class="container ">
+            <div class="card">
+                <div class="card-content">
+                    
+                        <div class="dream">
+    
+    <div class="title center-align">
+        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;我的梦想
+    </div>
+    
+    <div class="row">
+        <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">
+            每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。梦想是生命的灵魂，是心灵的灯塔，是引导人走向成功的信仰。有了崇高的梦想，只要矢志不渝地追求，梦想就会成为现实，奋斗就会变成壮举，生命就会创造奇迹。——罗伯·舒乐
+        </div>
+    </div>
+</div>
+                    
 
-<div id="category-cloud" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
-            </div>
-            <div class="tag-chips">
-                
-                
-                
-                <a href="/categories/WEB%E5%89%8D%E7%AB%AF/" title="WEB前端: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">WEB前端
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" title="版本控制: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F5EEF8;">版本控制
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/Linux/" title="Linux: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #D5F5E3;">Linux
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/SSM%E6%A1%86%E6%9E%B6/" title="SSM框架: 6">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #E8F8F5;">SSM框架
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" title="微服务: 7">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #FEF9E7;">微服务
-                        <span class="tag-length">7</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" title="编程语言: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            style="background-color: #F8F9F9;">编程语言
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-            </div>
+                    
+                        
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/aplayer/APlayer.min.css">
+<div class="music-player">
+    
+    <div class="title center-align">
+        <i class="fas fa-music"></i>&nbsp;&nbsp;听听音乐
+    </div>
+    
+    <div class="row">
+        <div class="col l8 offset-l2 m10 offset-m1 s12">
+            <div id="aplayer" class="music"></div>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/aplayer/APlayer.min.js"></script>
+<script>
+$(function () {
+    new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: 'false' === 'true',
+        autoplay: 'false' === 'true',
+        theme: '#42b983',
+        loop: 'all',
+        order: 'random',
+        preload: 'auto',
+        volume: Number('0.7'),
+        listFolded: 'true' === 'true',
+        listMaxHeight: '400px',
+        audio: eval([{"name":"負けないで (カバー)","artist":"坂井泉水","url":"http://music.163.com/song/media/outer/url?id=522709565.mp3","cover":"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20130821%2F20130821105838-269101762.jpg&refer=http%3A%2F%2Fpic.baike.soso.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611757551&t=4edefe9c460a4c9b7cde3952295dd0fe"},{"name":"画","artist":"赵雷","url":"http://music.163.com/song/media/outer/url?id=202369.mp3","cover":"https://p2.music.126.net/wldFtES1Cjnbqr5bjlqQbg==/18876415625841069.jpg"},{"name":"最佳损友","artist":"陈奕迅","url":"http://music.163.com/song/media/outer/url?id=65800.mp3","cover":"https://p2.music.126.net/7skxWYp7lF70y347YAjaBQ==/109951163256304204.jpg"}])
+    });
+});
+</script>
+                    
+
+                    
+
+                    
+                    <div id="recommend-sections" class="recommend">
+                        
+
+
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     
 
+    
+
+    
+
+    <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
-        <div class="row tags-posts">
+        <div class="row article-row">
             
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/posts/javase-03.html">
-                        <div class="card-image tag-image">
+                    <a href="/posts/mbatis-01.html">
+                        <div class="card-image">
                             
-                            <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="javaSE_03">
+                            <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="Mybatis_01">
                             
-                            <span class="card-title">javaSE_03</span>
+                            <span class="card-title">Mybatis_01</span>
                         </div>
                     </a>
+
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                javaSE是java的基础内容。------------------------------------
+                                MyBatis 是一款优秀的持久层框架,它支持定制化 SQL、存储过程以及高级映射。
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-02
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                                <a href="/categories/SSM%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    SSM框架
                                 </a>
                                 
                                 
@@ -454,12 +462,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/javaSE/">
-                            <span class="chip bg-color">javaSE</span>
+                        <a href="/tags/Mybatis/">
+                            <span class="chip bg-color">Mybatis</span>
                         </a>
                         
-                        <a href="/tags/JAVA/">
-                            <span class="chip bg-color">JAVA</span>
+                        <a href="/tags/JAVAEE/">
+                            <span class="chip bg-color">JAVAEE</span>
                         </a>
                         
                     </div>
@@ -467,32 +475,33 @@
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/posts/javase-02.html">
-                        <div class="card-image tag-image">
+                    <a href="/posts/springmvc-01.html">
+                        <div class="card-image">
                             
-                            <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="javaSE_02">
+                            <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="SpringMVC_01">
                             
-                            <span class="card-title">javaSE_02</span>
+                            <span class="card-title">SpringMVC_01</span>
                         </div>
                     </a>
+
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                javaSE是java的基础内容。------------------------------------
+                                Spring MVC是Spring Framework的一部分，是基于Java实现MVC的轻量级Web框架。
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-01
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                                <a href="/categories/SSM%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    SSM框架
                                 </a>
                                 
                                 
@@ -503,61 +512,12 @@
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/javaSE/">
-                            <span class="chip bg-color">javaSE</span>
+                        <a href="/tags/JAVAEE/">
+                            <span class="chip bg-color">JAVAEE</span>
                         </a>
                         
-                        <a href="/tags/JAVA/">
-                            <span class="chip bg-color">JAVA</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/posts/javase-01.html">
-                        <div class="card-image tag-image">
-                            
-                            <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="javaSE_01">
-                            
-                            <span class="card-title">javaSE_01</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                javaSE是java的基础内容。------------------------------------
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-02
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/javaSE/">
-                            <span class="chip bg-color">javaSE</span>
-                        </a>
-                        
-                        <a href="/tags/JAVA/">
-                            <span class="chip bg-color">JAVA</span>
+                        <a href="/tags/SpringMVC/">
+                            <span class="chip bg-color">SpringMVC</span>
                         </a>
                         
                     </div>
@@ -567,7 +527,32 @@
             
         </div>
     </article>
+
 </main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a href="/page/2/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">3 / 3</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a class="right btn-floating btn-large disabled">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
 
 
 
