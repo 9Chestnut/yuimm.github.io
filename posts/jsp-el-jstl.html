@@ -1021,24 +1021,24 @@ value属性设置值
     %>
     <c:choose>
         <c:when test="${ requestScope.height > 190 }">
-            <h2>小巨人</h2>
+            小巨人
         </c:when>
          <c:when test="${ requestScope.height > 180 }">
-            <h2>很高</h2>
+            很高
         </c:when>
         <c:when test="${ requestScope.height > 170 }">
-            <h2>还可以</h2>
+           还可以
         </c:when>
         <c:otherwise>
             <c:choose>
                 <c:when test="${requestScope.height > 160}">
-                    <h3>大于160</h3>
+                    大于160
                 </c:when>
                 <c:when test="${requestScope.height > 150}">
-                    <h3>大于150</h3>
+                    大于150
                 </c:when>
                 <c:when test="${requestScope.height > 140}">
-                    <h3>大于140</h3>
+                    大于140
                 </c:when>
                 <c:otherwise>
                     其他小于140
@@ -1050,7 +1050,7 @@ value属性设置值
 <li><p><strong>&lt;c:forEach /&gt;</strong></p>
 <p>作用：遍历输出使用。</p>
 <ul>
-<li><p><strong>遍历</strong> <strong>1</strong> <strong>到</strong> <strong>10**</strong>，输出** </p>
+<li><p><strong>遍历</strong> <strong>1</strong> <strong>到</strong> <strong>10，输出</strong> </p>
 <pre class=" language-jsp"><code class="language-jsp">    <%--1.遍历1到10，输出
         begin属性设置开始的索引
         end 属性设置结束的索引
@@ -1093,7 +1093,7 @@ value属性设置值
     </c:forEach></code></pre>
 </li>
 <li><p><strong>遍历</strong> <strong>List</strong> <strong>集合list中存放Student</strong> <strong>类，有属性：编号，用户名，密码，年龄，</strong> <strong>电话信息</strong></p>
-<pre class=" language-jsp"><code class="language-jsp">    <%--4.遍历List集合---list中存放 Student类，有属性：编号，用户名，密码，年龄，电话信息--%>
+<pre class=" language-11"><code class="language-11">    <%--4.遍历List集合---list中存放 Student类，有属性：编号，用户名，密码，年龄，电话信息--%>
     <%
         List<Student> studentList = new ArrayList<Student>();
         for (int i = 1; i <= 10; i++) {
