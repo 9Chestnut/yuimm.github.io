@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Springboot_04, Yuimm">
-    <meta name="description" content="Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。">
+    <meta name="keywords" content="Cookie_Session, Yuimm">
+    <meta name="description" content="------------------------------------------------------------------------------------">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Springboot_04 | Yuimm</title>
+    <title>Cookie_Session | Yuimm</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/awesome/css/all.css">
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Springboot_04</h1>
+                    <h1 class="description center-align post-title">Cookie_Session</h1>
                 </div>
             </div>
         </div>
@@ -425,12 +425,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JAVAEE/">
-                                <span class="chip bg-color">JAVAEE</span>
-                            </a>
-                        
-                            <a href="/tags/Springboot/">
-                                <span class="chip bg-color">Springboot</span>
+                            <a href="/tags/Cookie-Session/">
+                                <span class="chip bg-color">Cookie_Session</span>
                             </a>
                         
                     </div>
@@ -441,8 +437,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                微服务
+                            <a href="/categories/javaWeb/" class="post-category">
+                                javaWeb
                             </a>
                         
                     </div>
@@ -454,28 +450,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-14
+                    2021-01-23
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-12-28
+                    2021-01-23
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    701
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    7 分
                 </div>
                 
 				
@@ -491,34 +487,229 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="配置文件到底能写什么？怎么写？"><a href="#配置文件到底能写什么？怎么写？" class="headerlink" title="配置文件到底能写什么？怎么写？"></a>配置文件到底能写什么？怎么写？</h2><p>SpringBoot官方文档中有大量的配置</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_04_01.png" alt="springboot_04_01"></p>
-<h2 id="分析自动配置原理"><a href="#分析自动配置原理" class="headerlink" title="分析自动配置原理"></a>分析自动配置原理</h2><p><strong>一句话总结 ：根据当前不同的条件判断，决定这个配置类是否生效！</strong></p>
+                <h2 id="一、Cookie"><a href="#一、Cookie" class="headerlink" title="一、Cookie"></a>一、<strong>Cookie</strong></h2><h3 id="1、什么是-Cookie"><a href="#1、什么是-Cookie" class="headerlink" title="1、什么是 Cookie?"></a>1、<strong>什么是</strong> <strong>Cookie?</strong></h3><ol>
+<li>Cookie 翻译过来是饼干的意思。</li>
+<li>Cookie 是服务器通知客户端保存键值对的一种技术。</li>
+<li>客户端有了 Cookie 后，每次请求都发送给服务器。</li>
+<li>每个 Cookie 的大小不能超过 4kb</li>
+</ol>
+<h3 id="2、如何创建-Cookie"><a href="#2、如何创建-Cookie" class="headerlink" title="2、如何创建 Cookie"></a>2、<strong>如何创建</strong> <strong>Cookie</strong></h3><p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/cookie_01.jpg" alt="cookie_01"></p>
+<p><strong>Servlet 程序中的代码：</strong></p>
+<pre class=" language-java"><code class="language-java"> <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">createCookie</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+
+        <span class="token comment" spellcheck="true">// 1.创建cookie对象</span>
+        Cookie cookie <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cookie</span><span class="token punctuation">(</span><span class="token string">"k1"</span><span class="token punctuation">,</span><span class="token string">"v1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 2.通知客户端保存cookie</span>
+        resp<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        resp<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"cookie创建成功！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="3、服务器如何获取-Cookie"><a href="#3、服务器如何获取-Cookie" class="headerlink" title="3、服务器如何获取 Cookie"></a>3、<strong>服务器如何获取</strong> <strong>Cookie</strong></h3><p><strong>服务器获取客户端的 Cookie 只需要一行代码：req.getCookies():Cookie[]</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/cookie_02.jpg" alt="cookie_02"></p>
+<p><strong>Cookie 的工具类：</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>utils<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>Cookie<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/1/23 14:27
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CookieUtils</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查找指定名称的cookie对象
+     * @param name 指定的cookie名称
+     * @param cookies 所有的cookie
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Cookie <span class="token function">findCookie</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span>Cookie<span class="token punctuation">[</span><span class="token punctuation">]</span> cookies<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>name <span class="token operator">==</span> null <span class="token operator">||</span> cookies <span class="token operator">==</span> null <span class="token operator">||</span> cookies<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Cookie cookie <span class="token operator">:</span> cookies<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>name<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>cookie<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> cookie<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>servlet:</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">getCookie</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+
+        Cookie<span class="token punctuation">[</span><span class="token punctuation">]</span> cookies <span class="token operator">=</span> req<span class="token punctuation">.</span><span class="token function">getCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Cookie iWantCookie <span class="token operator">=</span> CookieUtils<span class="token punctuation">.</span><span class="token function">findCookie</span><span class="token punctuation">(</span><span class="token string">"k1"</span><span class="token punctuation">,</span>cookies<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>iWantCookie <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+            resp<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"找到了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="4、Cookie-值的修改"><a href="#4、Cookie-值的修改" class="headerlink" title="4、Cookie 值的修改"></a>4、<strong>Cookie</strong> <strong>值的修改</strong></h3><p>方案一： </p>
+<ol>
+<li>先创建一个要修改的同名（指的就是 key）的 Cookie 对象 </li>
+<li>在构造器，同时赋于新的 Cookie 值。</li>
+<li>调用 response.addCookie( Cookie );</li>
+</ol>
+<pre class=" language-java"><code class="language-java"> Cookie cookie <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cookie</span><span class="token punctuation">(</span><span class="token string">"k1"</span><span class="token punctuation">,</span><span class="token string">"newValue1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ resp<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>方案二： </p>
+<ol>
+<li>先查找到需要修改的 Cookie 对象 </li>
+<li>调用 setValue()方法赋于新的 Cookie 值。</li>
+<li>调用 response.addCookie()通知客户端保存修改</li>
+</ol>
+<pre class=" language-java"><code class="language-java"> Cookie cookie <span class="token operator">=</span> CookieUtils<span class="token punctuation">.</span><span class="token function">findCookie</span><span class="token punctuation">(</span><span class="token string">"key2"</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span><span class="token function">getCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cookie <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token comment" spellcheck="true">//            2、调用setValue()方法赋于新的Cookie值。</span>
+            cookie<span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span><span class="token string">"newValue2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//        3、调用response.addCookie()通知客户端保存修改</span>
+            resp<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+</code></pre>
+<h3 id="5、Cookie-生命控制"><a href="#5、Cookie-生命控制" class="headerlink" title="5、Cookie 生命控制"></a>5、<strong>Cookie</strong> <strong>生命控制</strong></h3><p>Cookie 的生命控制指的是如何管理 Cookie 什么时候被销毁（删除） </p>
+<p>setMaxAge() </p>
 <ul>
-<li>一但这个配置类生效；这个配置类就会给容器中添加各种组件；</li>
-<li>这些组件的属性是从对应的properties类中获取的，这些类里面的每一个属性又是和配置文件绑定的；</li>
-<li>所有在配置文件中能配置的属性都是在xxxxProperties类中封装着；</li>
-<li>配置文件能配置什么就可以参照某个功能对应的这个属性类</li>
+<li><p>正数，表示在指定的秒数后过期 </p>
+</li>
+<li><p>负数，表示浏览器一关，Cookie 就会被删除（默认值是-1） </p>
+</li>
+<li><p>零，表示马上删除 Cookie </p>
+</li>
 </ul>
-<h2 id="精髓"><a href="#精髓" class="headerlink" title="精髓"></a>精髓</h2><p>1、SpringBoot启动会加载大量的自动配置类</p>
-<p>2、我们看我们需要的功能有没有在SpringBoot默认写好的自动配置类当中；</p>
-<p>3、我们再来看这个自动配置类中到底配置了哪些组件；（只要我们要用的组件存在在其中，我们就不需要再手动配置了）</p>
-<p>4、给容器中自动配置类添加组件的时候，会从properties类中获取某些属性。我们只需要在配置文件中指定这些属性的值即可；</p>
-<p><strong>xxxxAutoConfigurartion：自动配置类；</strong>给容器中添加组件</p>
-<p><strong>xxxxProperties:封装配置文件中相关属性；</strong></p>
-<h2 id="了解：-Conditional"><a href="#了解：-Conditional" class="headerlink" title="了解：@Conditional"></a>了解：@Conditional</h2><p>了解完自动装配的原理后，我们来关注一个细节问题，<strong>自动配置类必须在一定的条件下才能生效；</strong></p>
-<p><strong>@Conditional派生注解（Spring注解版原生的@Conditional作用）</strong></p>
-<p>作用：必须是@Conditional指定的条件成立，才给容器中添加组件，配置配里面的所有内容才生效；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_04_02.png" alt="springboot_04_02"></p>
-<p><strong>那么多的自动配置类，必须在一定的条件下才能生效；也就是说，我们加载了这么多的配置类，但不是所有的都生效了。</strong></p>
-<p>我们怎么知道哪些自动配置类生效？</p>
-<p><strong>我们可以通过启用 debug=true属性；来让控制台打印自动配置报告，这样我们就可以很方便的知道哪些自动配置类生效；</strong></p>
-<pre><code>#开启springboot的调试类
-debug=true</code></pre><p><strong>Positive matches:（自动配置类启用的：正匹配）</strong></p>
-<p><strong>Negative matches:（没有启动，没有匹配成功的自动配置类：负匹配）</strong></p>
-<p><strong>Unconditional classes: （没有条件的类）</strong></p>
-<p>注：初步文档，以后理解深刻后再更新</p>
-<p>注：本文来自狂神的教学和笔记，以供自己以后回顾学习使用，如有侵犯知识产权，请联系删除。</p>
+<pre><code>  cookie.setMaxAge(0);
+  cookie.setMaxAge(-1);</code></pre><h3 id="6、Cookie-有效路径-Path-的设置"><a href="#6、Cookie-有效路径-Path-的设置" class="headerlink" title="6、Cookie 有效路径 Path 的设置"></a>6、<strong>Cookie</strong> <strong>有效路径</strong> <strong>Path</strong> <strong>的设置</strong></h3><p>Cookie 的 path 属性可以有效的过滤哪些 Cookie 可以发送给服务器。哪些不发。 </p>
+<p>path 属性是通过请求的地址来进行有效的过滤。 </p>
+<p>CookieA                    path=/工程路径 </p>
+<p>CookieB                    path=/工程路径/abc</p>
+<p>请求地址如下： </p>
+<p>​    <a href="http://ip:port/工程路径/a.html">http://ip:port/工程路径/a.html</a> </p>
+<p>​        CookieA 发送 </p>
+<p>​        CookieB 不发送 </p>
+<p>​    <a href="http://ip:port/工程路径/abc/a.html">http://ip:port/工程路径/abc/a.html</a> </p>
+<p>​        CookieA 发送 </p>
+<p>​        CookieB 发送</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">testPath</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        Cookie cookie <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cookie</span><span class="token punctuation">(</span><span class="token string">"path1"</span><span class="token punctuation">,</span> <span class="token string">"path1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// getContextPath() ===&gt;&gt;&gt;&gt;  得到工程路径</span>
+        cookie<span class="token punctuation">.</span><span class="token function">setPath</span><span class="token punctuation">(</span> req<span class="token punctuation">.</span><span class="token function">getContextPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"/abc"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ===&gt;&gt;&gt;&gt;  /工程路径/abc</span>
+        resp<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resp<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"创建了一个带有Path路径的Cookie"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="7、Cookie-练习—免输入用户名登录"><a href="#7、Cookie-练习—免输入用户名登录" class="headerlink" title="7、Cookie 练习—免输入用户名登录"></a>7、<strong>Cookie</strong> 练习—免输入用户名登录</h3><p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/cookie_03.jpg" alt="cookie_03"></p>
+<p>login.jsp 页面</p>
+<pre class=" language-html"><code class="language-html">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://localhost:8080/cookie_session/loginServlet<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>get<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        用户名：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${cookie.username.value}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>
+        密码：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>登录<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>LoginServlet 程序：</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+
+         String username <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         String password <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"hct"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token string">"hct"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             Cookie cookie <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cookie</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+             cookie<span class="token punctuation">.</span><span class="token function">setMaxAge</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token operator">*</span><span class="token number">60</span><span class="token operator">*</span><span class="token number">24</span><span class="token operator">*</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 当前cookie10天内有效</span>
+             response<span class="token punctuation">.</span><span class="token function">addCookie</span><span class="token punctuation">(</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+             System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"登陆成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+             System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"登录失败"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<h2 id="二、Session-会话"><a href="#二、Session-会话" class="headerlink" title="二、Session 会话"></a>二、<strong>Session</strong> <strong>会话</strong></h2><h3 id="1、什么是-Session-会话"><a href="#1、什么是-Session-会话" class="headerlink" title="1、什么是 Session 会话?"></a>1、<strong>什么是</strong> <strong>Session</strong> <strong>会话</strong>?</h3><ol>
+<li>Session 就一个接口（HttpSession）。 </li>
+<li>Session 就是会话。它是用来维护一个客户端和服务器之间关联的一种技术。 </li>
+<li>每个客户端都有自己的一个 Session 会话。</li>
+<li>Session 会话中，我们经常用来保存用户登录之后的信息。</li>
+</ol>
+<h3 id="2、如何创建-Session-和获取-id号-是否为新"><a href="#2、如何创建-Session-和获取-id号-是否为新" class="headerlink" title="2、如何创建 Session 和获取(id号,是否为新)"></a>2、<strong>如何创建</strong> <strong>Session</strong> <strong>和获取</strong>(id号,是否为新)</h3><p>如何创建和获取 Session。它们的 API 是一样的。 </p>
+<p>request.getSession() </p>
+<ul>
+<li><p>第一次调用是：创建 Session 会话 </p>
+</li>
+<li><p>之后调用都是：获取前面创建好的 Session 会话对象。 </p>
+</li>
+</ul>
+<p>isNew(); 判断到底是不是刚创建出来的（新的） </p>
+<ul>
+<li><p>true 表示刚创建 </p>
+</li>
+<li><p>false 表示获取之前创建 </p>
+</li>
+</ul>
+<p>每个会话都有一个身份证号。也就是 ID 值。而且这个 ID 是唯一的。 </p>
+<p>getId() 得到 Session 的会话 id 值。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">createOrGetSession</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+
+        <span class="token comment" spellcheck="true">// 创建session会话对象</span>
+        HttpSession session <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 判断当前session会话，是否是新创建出来的</span>
+        <span class="token keyword">boolean</span> aNew <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">isNew</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 获取session会话的唯一标识：id</span>
+        String id <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        response<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"得到的Session，它的id是："</span> <span class="token operator">+</span> id <span class="token operator">+</span> <span class="token string">" &lt;br /&gt; "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"这个Session是否是新创建的："</span> <span class="token operator">+</span> aNew <span class="token operator">+</span> <span class="token string">" &lt;br /&gt; "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="3、Session-域数据的存取"><a href="#3、Session-域数据的存取" class="headerlink" title="3、Session 域数据的存取"></a>3、<strong>Session</strong> <strong>域数据的存取</strong></h3><pre class=" language-java"><code class="language-java">    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">setAttribute</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+
+        request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"k1"</span><span class="token punctuation">,</span><span class="token string">"v1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">getAttribute</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+
+        Object k1 <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"k1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>k1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="4、Session-生命周期控制"><a href="#4、Session-生命周期控制" class="headerlink" title="4、Session 生命周期控制"></a>4、<strong>Session</strong> <strong>生命周期控制</strong></h3><p>public void setMaxInactiveInterval(int interval) 设置 Session 的超时时间（以秒为单位），超过指定的时长，Session就会被销毁。</p>
+<p>​        值为正数的时候，设定 Session 的超时时长。 </p>
+<p>​        值为负数表示永不超时（极少使用） </p>
+<p>public int getMaxInactiveInterval()获取 Session 的超时时间 </p>
+<p>public void invalidate() 让当前 Session 会话马上超时无效。</p>
+<p>Session 默认的超时时间长为 30 分钟。 </p>
+<p>因为在 Tomcat 服务器的配置文件 web.xml中默认有以下的配置，它就表示配置了当前 Tomcat 服务器下所有的 Session </p>
+<p>超时配置默认时长为：30 分钟。 </p>
+<session-config> 
+
+<p><session-timeout>30</session-timeout> </p>
+</session-config>
+
+<p>如果说。你希望你的 web 工程，默认的 Session 的超时时长为其他时长。你可以在你自己的 web.xml 配置文件中做 </p>
+<p>以上相同的配置。就可以修改你的 web 工程所有 Seession 的默认超时时长。</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--表示当前 web 工程。创建出来 的所有 Session 默认是 20 分钟 超时时长--&gt;</span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>session-config</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>session-timeout</span><span class="token punctuation">&gt;</span></span>20<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>session-timeout</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>session-config</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>如果你想只修改个别 Session 的超时时长。就可以使用上面的 API。setMaxInactiveInterval(int interval)来进行单独的设置。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">life3</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 先获取Session对象</span>
+        HttpSession session <span class="token operator">=</span> req<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 设置当前Session3秒后超时</span>
+        session<span class="token punctuation">.</span><span class="token function">setMaxInactiveInterval</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        resp<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"当前Session已经设置为3秒后超时"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<p>Session 马上被超时示例：</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">deleteNow</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 先获取Session对象</span>
+        HttpSession session <span class="token operator">=</span> req<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 让Session会话马上超时</span>
+        session<span class="token punctuation">.</span><span class="token function">invalidate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        resp<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"Session已经设置为超时（无效）"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="5、浏览器和-Session-之间关联的技术内幕"><a href="#5、浏览器和-Session-之间关联的技术内幕" class="headerlink" title="5、浏览器和 Session 之间关联的技术内幕"></a>5、<strong>浏览器和</strong> <strong>Session</strong> <strong>之间关联的技术内幕</strong></h3><p><strong>Session 技术，底层其实是基于 Cookie 技术来实现的。</strong>  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/cookie_04.jpg" alt="cookie_04"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -562,7 +753,7 @@ debug=true</code></pre><p><strong>Positive matches:（自动配置类启用的�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yuimm.github.io/posts/springboot-04.html">http://yuimm.github.io/posts/springboot-04.html</a>
+                    <a href="http://yuimm.github.io/posts/cookie-session.html">http://yuimm.github.io/posts/cookie-session.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -600,12 +791,8 @@ debug=true</code></pre><p><strong>Positive matches:（自动配置类启用的�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JAVAEE/">
-                                    <span class="chip bg-color">JAVAEE</span>
-                                </a>
-                            
-                                <a href="/tags/Springboot/">
-                                    <span class="chip bg-color">Springboot</span>
+                                <a href="/tags/Cookie-Session/">
+                                    <span class="chip bg-color">Cookie_Session</span>
                                 </a>
                             
                         </div>
@@ -1034,49 +1221,47 @@ debug=true</code></pre><p><strong>Positive matches:（自动配置类启用的�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/git-01.html">
+                <a href="/posts/cookie-session.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/git.jpg" class="responsive-img" alt="Git_01">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="Cookie_Session">
                         
-                        <span class="card-title">Git_01</span>
+                        <span class="card-title">Cookie_Session</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Git用于管理多人协同开发项目的技术。------------------------
+                            ------------------------------------------------------------------------------------
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" class="post-category">
-                                    版本控制
+                            <a href="/categories/javaWeb/" class="post-category">
+                                    javaWeb
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
-                        <span class="chip bg-color">版本控制</span>
-                    </a>
-                    
-                    <a href="/tags/Git/">
-                        <span class="chip bg-color">Git</span>
+                    <a href="/tags/Cookie-Session/">
+                        <span class="chip bg-color">Cookie_Session</span>
                     </a>
                     
                 </div>
@@ -1090,30 +1275,30 @@ debug=true</code></pre><p><strong>Positive matches:（自动配置类启用的�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/springboot-03.html">
+                <a href="/posts/file-download-upload.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="Springboot_03">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="File_Download_Upload">
                         
-                        <span class="card-title">Springboot_03</span>
+                        <span class="card-title">File_Download_Upload</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。
+                            ------------------------------------------------------------------------------------
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                    微服务
+                            <a href="/categories/javaWeb/" class="post-category">
+                                    javaWeb
                                 </a>
                             
                             
@@ -1123,12 +1308,8 @@ debug=true</code></pre><p><strong>Positive matches:（自动配置类启用的�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JAVAEE/">
-                        <span class="chip bg-color">JAVAEE</span>
-                    </a>
-                    
-                    <a href="/tags/Springboot/">
-                        <span class="chip bg-color">Springboot</span>
+                    <a href="/tags/File-Download-Upload/">
+                        <span class="chip bg-color">File_Download_Upload</span>
                     </a>
                     
                 </div>
