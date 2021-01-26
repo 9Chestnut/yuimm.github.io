@@ -464,14 +464,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    14 分
                 </div>
                 
 				
@@ -635,7 +635,7 @@
 <p>​                text 表示纯文本 </p>
 <p>​                xml 表示 xml 数据 </p>
 <p>​                json 表示 json 对象 </p>
-<pre class=" language-ja"><code class="language-ja">$(function(){
+<pre><code>$(function(){
                 // ajax请求
                 $("#ajaxBtn").click(function(){
 
@@ -653,8 +653,7 @@
                     })
 
                 });
-    });</code></pre>
-<p>$.get 方法和$.post 方法 </p>
+    });</code></pre><p>$.get 方法和$.post 方法 </p>
 <p>​        url                     请求的 url 地址 </p>
 <p>​        data                  发送的数据 </p>
 <p>​        callback            成功的回调函数 </p>
@@ -742,22 +741,22 @@ age=age</code></pre><pre><code>    @Test
         System.out.println("年龄：" + bundle.getString("age"));
     }
 </code></pre><h3 id="4-4、通过请求头国际化页面"><a href="#4-4、通过请求头国际化页面" class="headerlink" title="4.4、通过请求头国际化页面"></a><strong>4.4</strong>、通过请求头国际化页面</h3><p><strong>略</strong></p>
-<h3 id="4-5、通过显示的选择语言类型进行国际化"><a href="#4-5、通过显示的选择语言类型进行国际化" class="headerlink" title="4.5、通过显示的选择语言类型进行国际化"></a><strong>4.5</strong>、通过显示的选择语言类型进行国际化</h3><pre class=" language-jsp"><code class="language-jsp"><%@ page import="java.util.ResourceBundle" %>
-<%@ page import="java.util.Locale" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="pragma" content="no-cache" />
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
-<body>
+<h3 id="4-5、通过显示的选择语言类型进行国际化"><a href="#4-5、通过显示的选择语言类型进行国际化" class="headerlink" title="4.5、通过显示的选择语言类型进行国际化"></a><strong>4.5</strong>、通过显示的选择语言类型进行国际化</h3><pre><code>&lt;%@ page import="java.util.ResourceBundle" %&gt;
+&lt;%@ page import="java.util.Locale" %&gt;
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="pragma" content="no-cache" /&gt;
+&lt;meta http-equiv="cache-control" content="no-cache" /&gt;
+&lt;meta http-equiv="Expires" content="0" /&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-    <%
+    &lt;%
         Locale locale = null;
         String country = request.getParameter("country");
         System.out.println(country);
@@ -770,102 +769,100 @@ age=age</code></pre><pre><code>    @Test
         }
         ResourceBundle i18n = ResourceBundle.getBundle("i18n", locale);
         System.out.println(locale);
-    %>
+    %&gt;
 
-    <a href="i18n.jsp?country=cn">中文</a>|
-    <a href="i18n.jsp?country=usa">english</a>
-    <center>
-        <h1><%=i18n.getString("regist")%></h1>
-        <table>
-        <form>
-            <tr>
-                <td><%=i18n.getString("username")%></td>
-                <td><input name="username" type="text" /></td>
-            </tr>
-            <tr>
-                <td><%=i18n.getString("password")%></td>
-                <td><input type="password" /></td>
-            </tr>
-            <tr>
-                <td><%=i18n.getString("sex")%></td>
-                <td><input type="radio" /><%=i18n.getString("boy")%><input type="radio" /><%=i18n.getString("girl")%></td>
-            </tr>
-            <tr>
-                <td><%=i18n.getString("email")%></td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                <input type="reset" value="<%=i18n.getString("reset")%>" />&nbsp;&nbsp;
-                <input type="submit" value="<%=i18n.getString("submit")%>" /></td>
-            </tr>
-            </form>
-        </table>
-        <br /> <br /> <br /> <br />
-    </center>
+    &lt;a href="i18n.jsp?country=cn"&gt;中文&lt;/a&gt;|
+    &lt;a href="i18n.jsp?country=usa"&gt;english&lt;/a&gt;
+    &lt;center&gt;
+        &lt;h1&gt;&lt;%=i18n.getString("regist")%&gt;&lt;/h1&gt;
+        &lt;table&gt;
+        &lt;form&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;%=i18n.getString("username")%&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input name="username" type="text" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;%=i18n.getString("password")%&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type="password" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;%=i18n.getString("sex")%&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type="radio" /&gt;&lt;%=i18n.getString("boy")%&gt;&lt;input type="radio" /&gt;&lt;%=i18n.getString("girl")%&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;%=i18n.getString("email")%&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type="text" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td colspan="2" align="center"&gt;
+                &lt;input type="reset" value="&lt;%=i18n.getString("reset")%&gt;" /&gt;&amp;nbsp;&amp;nbsp;
+                &lt;input type="submit" value="&lt;%=i18n.getString("submit")%&gt;" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;/form&gt;
+        &lt;/table&gt;
+        &lt;br /&gt; &lt;br /&gt; &lt;br /&gt; &lt;br /&gt;
+    &lt;/center&gt;
     国际化测试：
-    <br /> 1、访问页面，通过浏览器设置，请求头信息确定国际化语言。
-    <br /> 2、通过左上角，手动切换语言
-</body>
-</html></code></pre>
-<h3 id="4-6、JSTL-标签库实现国际化"><a href="#4-6、JSTL-标签库实现国际化" class="headerlink" title="4.6、JSTL 标签库实现国际化"></a><strong>4.6</strong>、<strong>JSTL</strong> <strong>标签库实现国际化</strong></h3><pre class=" language-jsp"><code class="language-jsp"><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="pragma" content="no-cache" />
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-    <%--
+    &lt;br /&gt; 1、访问页面，通过浏览器设置，请求头信息确定国际化语言。
+    &lt;br /&gt; 2、通过左上角，手动切换语言
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><h3 id="4-6、JSTL-标签库实现国际化"><a href="#4-6、JSTL-标签库实现国际化" class="headerlink" title="4.6、JSTL 标签库实现国际化"></a><strong>4.6</strong>、<strong>JSTL</strong> <strong>标签库实现国际化</strong></h3><pre><code>&lt;%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %&gt;
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="pragma" content="no-cache" /&gt;
+&lt;meta http-equiv="cache-control" content="no-cache" /&gt;
+&lt;meta http-equiv="Expires" content="0" /&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;%--
         1. 使用标签设置local信息
         2. 使用标签设置baseName
         3. 使用标签输出国际化信息
-    --%>
+    --%&gt;
 
-    <%--1. 使用标签设置local信息--%>
-    <fmt:setLocale value="${param.locale}" />
-    <%--2. 使用标签设置baseName--%>
-    <fmt:setBundle basename="i18n" />
+    &lt;%--1. 使用标签设置local信息--%&gt;
+    &lt;fmt:setLocale value="${param.locale}" /&gt;
+    &lt;%--2. 使用标签设置baseName--%&gt;
+    &lt;fmt:setBundle basename="i18n" /&gt;
 
-    <a href="i18n_fmt.jsp?locale=zh_CN">中文</a>|
-    <a href="i18n_fmt.jsp?locale=en_US">english</a>
-    <center>
-        <h1><fmt:message key="regist" /></h1>
-        <table>
-        <form>
-            <tr>
-                <td><fmt:message key="username" /></td>
-                <td><input name="username" type="text" /></td>
-            </tr>
-            <tr>
-                <td><fmt:message key="password" /></td>
-                <td><input type="password" /></td>
-            </tr>
-            <tr>
-                <td><fmt:message key="sex" /></td>
-                <td><input type="radio" /><fmt:message key="boy" /><input type="radio" /><fmt:message key="girl" /></td>
-            </tr>
-            <tr>
-                <td><fmt:message key="email" /></td>
-                <td><input type="text" /></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                <input type="reset" value="<fmt:message key="reset" />" />&nbsp;&nbsp;
-                <input type="submit" value="<fmt:message key="submit" />" /></td>
-            </tr>
-            </form>
-        </table>
-        <br /> <br /> <br /> <br />
-    </center>
-</body>
-</html></code></pre>
-<script>
+    &lt;a href="i18n_fmt.jsp?locale=zh_CN"&gt;中文&lt;/a&gt;|
+    &lt;a href="i18n_fmt.jsp?locale=en_US"&gt;english&lt;/a&gt;
+    &lt;center&gt;
+        &lt;h1&gt;&lt;fmt:message key="regist" /&gt;&lt;/h1&gt;
+        &lt;table&gt;
+        &lt;form&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;fmt:message key="username" /&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input name="username" type="text" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;fmt:message key="password" /&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type="password" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;fmt:message key="sex" /&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type="radio" /&gt;&lt;fmt:message key="boy" /&gt;&lt;input type="radio" /&gt;&lt;fmt:message key="girl" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;fmt:message key="email" /&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type="text" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td colspan="2" align="center"&gt;
+                &lt;input type="reset" value="&lt;fmt:message key="reset" /&gt;" /&gt;&amp;nbsp;&amp;nbsp;
+                &lt;input type="submit" value="&lt;fmt:message key="submit" /&gt;" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;/form&gt;
+        &lt;/table&gt;
+        &lt;br /&gt; &lt;br /&gt; &lt;br /&gt; &lt;br /&gt;
+    &lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1651,7 +1648,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">79.2k</span>&nbsp;字
+                class="white-color">80k</span>&nbsp;字
             
             
             
