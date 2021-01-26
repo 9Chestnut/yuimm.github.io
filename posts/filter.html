@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Springboot_02, Yuimm">
-    <meta name="description" content="Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。">
+    <meta name="keywords" content="Filter, Yuimm">
+    <meta name="description" content="------------------------------------------------------------------------------------">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Springboot_02 | Yuimm</title>
+    <title>Filter | Yuimm</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/awesome/css/all.css">
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Springboot_02</h1>
+                    <h1 class="description center-align post-title">Filter</h1>
                 </div>
             </div>
         </div>
@@ -425,12 +425,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JAVAEE/">
-                                <span class="chip bg-color">JAVAEE</span>
-                            </a>
-                        
-                            <a href="/tags/Springboot/">
-                                <span class="chip bg-color">Springboot</span>
+                            <a href="/tags/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/">
+                                <span class="chip bg-color">Filter过滤器</span>
                             </a>
                         
                     </div>
@@ -441,8 +437,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                微服务
+                            <a href="/categories/javaWeb/" class="post-category">
+                                javaWeb
                             </a>
                         
                     </div>
@@ -454,28 +450,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-10
+                    2021-01-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-12-28
+                    2021-01-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    6 分
                 </div>
                 
 				
@@ -491,317 +487,173 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>SpringBoot使用一个全局的配置文件 ， 配置文件名称是固定的</p>
-<ul>
-<li><p>application.properties</p>
-</li>
-<li><p>语法结构 ：key=value</p>
-</li>
-<li><p>application.yml</p>
-</li>
-<li><p>语法结构 ：key：空格 value</p>
-</li>
-</ul>
-<p><strong>配置文件的作用 ：</strong>修改SpringBoot自动配置的默认值，因为SpringBoot在底层都给我们自动配置好了；</p>
-<p>比如我们可以在配置文件中修改Tomcat 默认启动的端口号！测试一下！</p>
-<pre><code>server.port=8081</code></pre><h1 id="yaml概述"><a href="#yaml概述" class="headerlink" title="yaml概述"></a>yaml概述</h1><p>YAML是 “YAML Ain’t a Markup Language” （YAML不是一种标记语言）的递归缩写。在开发的这种语言时，YAML 的意思其实是：”Yet Another Markup Language”（仍是一种标记语言）</p>
-<p><strong>这种语言以数据**</strong>作<strong>**为中心，而不是以标记语言为重点！</strong></p>
-<p>以前的配置文件，大多数都是使用xml来配置；比如一个简单的端口配置，我们来对比下yaml和xml</p>
-<p>传统xml配置：</p>
-<pre><code>&lt;server&gt;
-    &lt;port&gt;8081&lt;port&gt;
-&lt;/server&gt;</code></pre><p> yaml配置：</p>
-<pre class=" language-yaml"><code class="language-yaml">server：
-  <span class="token key atrule">prot</span><span class="token punctuation">:</span> <span class="token number">8081</span></code></pre>
-<h1 id="yaml基础语法"><a href="#yaml基础语法" class="headerlink" title="yaml基础语法"></a>yaml基础语法</h1><p>说明：语法要求严格！</p>
-<p>1、空格不能省略</p>
-<p>2、以缩进来控制层级关系，只要是左边对齐的一列数据都是同一个层级的。</p>
-<p>3、属性和值的大小写都是十分敏感的。</p>
-<p><strong>字面量：普通的值  [ 数字，布尔值，字符串  ]</strong></p>
-<p>字面量直接写在后面就可以 ， 字符串默认不用加上双引号或者单引号；</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">k</span><span class="token punctuation">:</span> v</code></pre>
-<p>注意：</p>
-<ul>
-<li><p>“ ” 双引号，不会转义字符串里面的特殊字符 ， 特殊字符会作为本身想表示的意思；</p>
-<p>比如 ：name: “kuang \n shen”  输出 ：kuang  换行  shen</p>
-</li>
-<li><p>‘’ 单引号，会转义特殊字符 ， 特殊字符最终会变成和普通字符一样输出</p>
-<p>比如 ：name: ‘kuang \n shen’  输出 ：kuang  \n  shen</p>
-</li>
-</ul>
-<p><strong>对象、Map（键值对）</strong></p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">#对象、Map格式</span>
-<span class="token key atrule">k</span><span class="token punctuation">:</span> 
-    <span class="token key atrule">v1</span><span class="token punctuation">:</span>
-    v2<span class="token punctuation">:</span></code></pre>
-<p>在下一行来写对象的属性和值得关系，注意缩进；比如：</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">student</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> qinjiang
-    <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">3</span></code></pre>
-<p>行内写法</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">student</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">name</span><span class="token punctuation">:</span> qinjiang<span class="token punctuation">,</span><span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span></code></pre>
-<p><strong>数组（ List、set ）</strong></p>
-<p>用 - 值表示数组中的一个元素,比如：</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">pets</span><span class="token punctuation">:</span>
- <span class="token punctuation">-</span> cat
- <span class="token punctuation">-</span> dog
- <span class="token punctuation">-</span> pig</code></pre>
-<p>行内写法</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">pets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>cat<span class="token punctuation">,</span>dog<span class="token punctuation">,</span>pig<span class="token punctuation">]</span></code></pre>
-<p><strong>修改SpringBoot的默认端口号</strong></p>
-<p>配置文件中添加，端口号的参数，就可以切换端口；</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
-  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8082</span></code></pre>
-<h1 id="注入配置文件"><a href="#注入配置文件" class="headerlink" title="注入配置文件"></a>注入配置文件</h1><p>yaml文件更强大的地方在于，他可以给我们的实体类直接注入匹配值！</p>
-<h2 id="yaml注入配置文件"><a href="#yaml注入配置文件" class="headerlink" title="yaml注入配置文件"></a>yaml注入配置文件</h2><p>1、在springboot项目中的resources目录下新建一个文件 application.yml</p>
-<p>2、编写一个实体类 Dog；</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
+                <h2 id="一、Filter-过滤器"><a href="#一、Filter-过滤器" class="headerlink" title="一、Filter 过滤器"></a>一、<strong>Filter</strong> 过滤器</h2><h3 id="1、什么是过滤器"><a href="#1、什么是过滤器" class="headerlink" title="1、什么是过滤器"></a>1、<strong>什么是过滤器</strong></h3><ol>
+<li>Filter 过滤器它是 JavaWeb 的三大组件之一。三大组件分别是：Servlet 程序、Listener 监听器、Filter 过滤器</li>
+<li>Filter 过滤器它是 JavaEE 的规范。也就是接口</li>
+<li>Filter 过滤器它的作用是：<strong>拦截请求</strong>，过滤响应。</li>
+</ol>
+<p><strong>拦截请求常见的应用场景有：</strong> </p>
+<p>​    1、权限检查 </p>
+<p>​    2、日记操作 </p>
+<p>​    3、事务管理 </p>
+<p>​        ……等等 </p>
+<h3 id="2、Filter-初体验"><a href="#2、Filter-初体验" class="headerlink" title="2、Filter 初体验"></a>2、<strong>Filter</strong> <strong>初体验</strong></h3><p>要求：在你的 web 工程下，有一个 admin 目录。这个 admin 目录下的所有资源（html 页面、jpg 图片、jsp 文件、等等）都必须是用户登录之后才允许访问。 </p>
+<p>思考：根据之前我们学过内容。我们知道，用户登录之后都会把用户登录的信息保存到 Session 域中。所以要检查用户是否 登录，可以判断 Session 中否包含有用户登录的信息即可！！！</p>
+<p><strong>Filter 的工作流程图：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/filter_01.jpg" alt="filter_01"></p>
+<p><strong>Filter 的代码：</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AdminFilter</span> <span class="token keyword">implements</span> <span class="token class-name">Filter</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * 专门用于拦截请求，可以做权限检查
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doFilter</span><span class="token punctuation">(</span>ServletRequest servletRequest<span class="token punctuation">,</span> ServletResponse servletResponse<span class="token punctuation">,</span> FilterChain filterChain<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> ServletException <span class="token punctuation">{</span>
 
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Data<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NoArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Value<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
+        HttpServletRequest httpServletRequest <span class="token operator">=</span> <span class="token punctuation">(</span>HttpServletRequest<span class="token punctuation">)</span> servletRequest<span class="token punctuation">;</span>
+        HttpSession session <span class="token operator">=</span> httpServletRequest<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Object user <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 如果等于null，说明还没有登录</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>user <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            servletRequest<span class="token punctuation">.</span><span class="token function">getRequestDispatcher</span><span class="token punctuation">(</span><span class="token string">"/login.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span>servletRequest<span class="token punctuation">,</span>servletResponse<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 让程序继续往下访问用户的目标资源</span>
+            filterChain<span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span>servletRequest<span class="token punctuation">,</span>servletResponse<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-<span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean到容器中</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>3、思考，我们原来是如何给bean注入属性值的！@Value，给狗狗类测试一下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean到容器中</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"阿黄"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"12"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>4、在SpringBoot的测试类下注入狗狗输出一下；</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> ch<span class="token punctuation">.</span>qos<span class="token punctuation">.</span>logback<span class="token punctuation">.</span>core<span class="token punctuation">.</span>net<span class="token punctuation">.</span>SyslogOutputStream<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Dog<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Person<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>SpringBootTest<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@SpringBootTest</span>
-<span class="token keyword">class</span> <span class="token class-name">SpringBootDemoApplicationTests</span> <span class="token punctuation">{</span>
-
-<span class="token annotation punctuation">@Autowired</span>
-    Dog dog<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">void</span> <span class="token function">contextLoads</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span></code></pre>
+<p><strong>web.xml 中的配置：</strong></p>
+<pre class=" language-xml"><code class="language-xml">    <span class="token comment" spellcheck="true">&lt;!-- filter标签用于配置一个Filter过滤器 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--给filter起一个别名--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-name</span><span class="token punctuation">></span></span>AdminFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-name</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--配置filter的全类名--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-class</span><span class="token punctuation">></span></span>com.hct.filter.AdminFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-class</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter</span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!--配置filter过滤器的拦截路径--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-mapping</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--表示当前的拦截路径给哪个filter使用--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-name</span><span class="token punctuation">></span></span>AdminFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-name</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!-- url-pattern配置拦截路径
+           / 表示请求地址为：http://IP:port/工程路径/   映射到IDEA的web目录
+           /admin/* 表示请求地址为：http://IP:port/工程路径/admin/*
+       --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/admin/*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-mapping</span><span class="token punctuation">></span></span></code></pre>
+<h3 id="3、Filter-过滤器的使用步骤"><a href="#3、Filter-过滤器的使用步骤" class="headerlink" title="3、Filter 过滤器的使用步骤"></a>3、Filter 过滤器的使用步骤</h3><p>1、编写一个类去实现 Filter 接口 </p>
+<p>2、实现过滤方法 doFilter() </p>
+<p>3、到 web.xml 中去配置 Filter 的拦截路径</p>
+<h3 id="4、完整的用户登录"><a href="#4、完整的用户登录" class="headerlink" title="4、完整的用户登录"></a>4、<strong>完整的用户登录</strong></h3><p><strong>login.jsp 页面 == 登录表单</strong></p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://localhost:8080/filterDemo/loginServlet<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>get<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    用户名：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    密码：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></code></pre>
+<p><strong>LoginServlet 程序</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>servlet<span class="token punctuation">;</span>
 
-<span class="token punctuation">}</span>
-</code></pre>
-<p>结果成功输出，@Value注入成功.</p>
-<p>5、我们在编写一个复杂一点的实体类：Person 类</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>ServletException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpServlet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpServletRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpServletResponse<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
 
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Data<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NoArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>context<span class="token punctuation">.</span>properties<span class="token punctuation">.</span>ConfigurationProperties<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/1/23 19:56
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginServlet</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span> <span class="token punctuation">{</span>
 
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span>HttpServletRequest req<span class="token punctuation">,</span> HttpServletResponse resp<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException<span class="token punctuation">,</span> IOException <span class="token punctuation">{</span>
 
-<span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Boolean happy<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Date birth<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> maps<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>Object<span class="token operator">></span> lists<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Dog dog<span class="token punctuation">;</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<p>6、我们来使用yaml配置的方式进行注入，大家写的时候注意区别和优势，我们编写一个yaml配置！</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">person</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> qg
-  <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">3</span>
-  <span class="token key atrule">happy</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-  <span class="token key atrule">birth</span><span class="token punctuation">:</span> 2000/01/01
-  <span class="token key atrule">maps</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">k1</span><span class="token punctuation">:</span> v1<span class="token punctuation">,</span><span class="token key atrule">k2</span><span class="token punctuation">:</span> v2<span class="token punctuation">}</span>
-  <span class="token key atrule">lists</span><span class="token punctuation">:</span>
-   <span class="token punctuation">-</span> code
-   <span class="token punctuation">-</span> girl
-   <span class="token punctuation">-</span> music
-  <span class="token key atrule">dog</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> 旺财
-    <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">1</span></code></pre>
-<p>7、我们刚才已经把person这个对象的所有值都写好了，我们现在来注入到我们的类中！</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Data<span class="token punctuation">;</span>
-<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NoArgsConstructor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>context<span class="token punctuation">.</span>properties<span class="token punctuation">.</span>ConfigurationProperties<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/*
-@ConfigurationProperties作用：
-将配置文件中配置的每一个属性的值，映射到这个组件中；
-告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定
-参数 prefix = “person” : 将配置文件中的person下面的所有属性一一对应
-*/</span>
-<span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@Component</span>
-<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"person"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Boolean happy<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Date birth<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> maps<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>Object<span class="token operator">></span> lists<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Dog dog<span class="token punctuation">;</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<p>8、IDEA 提示，springboot配置注解处理器没有找到，让我们看文档，我们可以查看文档，找到一个依赖！</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_01.png" alt="springboot_02_01"></p>
-<p>版本号改为2.1.9再搜索</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_02.png" alt="springboot_02_02"></p>
-<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 导入配置文件处理器，配置文件进行绑定就会有提示，需要重启 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-configuration-processor<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></code></pre>
-<p>9、确认以上配置都OK之后，我们去测试类中测试一下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> ch<span class="token punctuation">.</span>qos<span class="token punctuation">.</span>logback<span class="token punctuation">.</span>core<span class="token punctuation">.</span>net<span class="token punctuation">.</span>SyslogOutputStream<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Dog<span class="token punctuation">;</span>
-<span class="token keyword">import</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springBoot_demo<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Person<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>SpringBootTest<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@SpringBootTest</span>
-<span class="token keyword">class</span> <span class="token class-name">SpringBootDemoApplicationTests</span> <span class="token punctuation">{</span>
-<span class="token annotation punctuation">@Autowired</span>
-    Person person<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">void</span> <span class="token function">contextLoads</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resp<span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token string">"text/html; charset=UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String username <span class="token operator">=</span> req<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String password <span class="token operator">=</span> req<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"hct"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token string">"hct"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            req<span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            resp<span class="token punctuation">.</span><span class="token function">getWriter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"登录 成功！！！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            req<span class="token punctuation">.</span><span class="token function">getRequestDispatcher</span><span class="token punctuation">(</span><span class="token string">"/login.jsp"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span>resp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-
 <span class="token punctuation">}</span>
 </code></pre>
-<p>结果：所有值全部注入成功！</p>
-<p><strong>yaml配置注入到实体类完全OK！</strong></p>
-<h2 id="加载指定的配置文件"><a href="#加载指定的配置文件" class="headerlink" title="加载指定的配置文件"></a>加载指定的配置文件</h2><p><strong>@PropertySource ：</strong>加载指定的配置文件；</p>
-<p><strong>@configurationProperties</strong>：默认从全局配置文件中获取值；</p>
-<p>1、我们去在resources目录下新建一个<strong>person.properties</strong>文件</p>
-<pre><code>name=ks</code></pre><p>2、然后在我们的代码中指定加载person.properties文件</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@PropertySource</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"classpath:person.properties"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${name}"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>  
+<h2 id="二、Filter-的生命周期"><a href="#二、Filter-的生命周期" class="headerlink" title="二、Filter 的生命周期"></a>二、<strong>Filter</strong> <strong>的生命周期</strong></h2><p>Filter 的生命周期包含几个方法 </p>
+<p>​    1、构造器方法 </p>
+<p>​    2、init 初始化方法 </p>
+<p>​        第 1，2 步，在 web 工程启动的时候执行（Filter 已经创建） </p>
+<p>​    3、doFilter 过滤方法 </p>
+<p>​        第 3 步，每次拦截到请求，就会执行 </p>
+<p>​    4、destroy 销毁 </p>
+<p>​        第 4 步，停止 web 工程的时候，就会执行（停止 web 工程，也会销毁 Filter 过滤器）</p>
+<h2 id="三、FilterConfig-类"><a href="#三、FilterConfig-类" class="headerlink" title="三、FilterConfig 类"></a>三、<strong>FilterConfig</strong> <strong>类</strong></h2><p>FilterConfig 类见名知义，它是 Filter 过滤器的配置文件类。 </p>
+<p>Tomcat 每次创建 Filter 的时候，也会同时创建一个 FilterConfig 类，这里包含了 Filter 配置文件的配置信息。 </p>
+<p>FilterConfig 类的作用是获取 filter 过滤器的配置内容 </p>
+<p>​    1、获取 Filter 的名称 filter-name 的内容 </p>
+<p>​    2、获取在 Filter 中配置的 init-param 初始化参数 </p>
+<p>​    3、获取 ServletContext 对象 </p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span> 
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span>FilterConfig filterConfig<span class="token punctuation">)</span> <span class="token keyword">throws</span> ServletException <span class="token punctuation">{</span>         
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2.Filter 的 init(FilterConfig filterConfig)初始化"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+     <span class="token comment" spellcheck="true">// 1、获取 Filter 的名称 filter-name 的内容</span>
+     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"filter-name 的值是："</span> <span class="token operator">+</span> filterConfig<span class="token punctuation">.</span><span class="token function">getFilterName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token comment" spellcheck="true">// 2、获取在 web.xml 中配置的 init-param 初始化参数</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"初始化参数 username 的值是："</span> <span class="token operator">+</span> filterConfig<span class="token punctuation">.</span><span class="token function">getInitParameter</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"初始化参数 url 的值是："</span> <span class="token operator">+</span> filterConfig<span class="token punctuation">.</span><span class="token function">getInitParameter</span><span class="token punctuation">(</span><span class="token string">"url"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token comment" spellcheck="true">// 3、获取 ServletContext 对象 </span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>filterConfig<span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
 <span class="token punctuation">}</span></code></pre>
-<p>3、再次输出测试一下：指定配置文件绑定成功！</p>
-<h2 id="配置文件占位符"><a href="#配置文件占位符" class="headerlink" title="配置文件占位符"></a>配置文件占位符</h2><p>配置文件还可以编写占位符生成随机数</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">person</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> qinjiang$<span class="token punctuation">{</span>random.uuid<span class="token punctuation">}</span> <span class="token comment" spellcheck="true"># 随机uuid</span>
-    <span class="token key atrule">age</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>random.int<span class="token punctuation">}</span>  <span class="token comment" spellcheck="true"># 随机int</span>
-    <span class="token key atrule">happy</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-    <span class="token key atrule">birth</span><span class="token punctuation">:</span> 2000/01/01
-    <span class="token key atrule">maps</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">k1</span><span class="token punctuation">:</span> v1<span class="token punctuation">,</span><span class="token key atrule">k2</span><span class="token punctuation">:</span> v2<span class="token punctuation">}</span>
-    <span class="token key atrule">lists</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> code
-      <span class="token punctuation">-</span> girl
-      <span class="token punctuation">-</span> music
-    <span class="token key atrule">dog</span><span class="token punctuation">:</span>
-      <span class="token key atrule">name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>person.hello<span class="token punctuation">:</span>other<span class="token punctuation">}</span>_旺财
-      <span class="token key atrule">age</span><span class="token punctuation">:</span> <span class="token number">1</span></code></pre>
-<h2 id="回顾properties配置"><a href="#回顾properties配置" class="headerlink" title="回顾properties配置"></a>回顾properties配置</h2><p>我们上面采用的yaml方法都是最简单的方式，开发中最常用的；也是springboot所推荐的！那我们来唠唠其他的实现方式，道理都是相同的；写还是那样写；配置文件除了yml还有我们之前常用的properties ， 我们没有讲，我们来唠唠！</p>
-<p>【注意】properties配置文件在写中文的时候，会有乱码 ， 我们需要去IDEA中设置编码格式为UTF-8；</p>
-<p>settings–&gt;FileEncodings 中配置；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_03.png" alt="springboot_02_03"></p>
-<p><strong>测试步骤：</strong></p>
-<p>1、新建一个实体类User</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String sex<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>2、编辑配置文件 user.properties</p>
-<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">user1.name</span><span class="token punctuation">=</span><span class="token attr-value">kg</span>
-<span class="token attr-name">user1.age</span><span class="token punctuation">=</span><span class="token attr-value">18</span>
-<span class="token attr-name">user1.sex</span><span class="token punctuation">=</span><span class="token attr-value">男</span></code></pre>
-<p>3、我们在User类上使用@Value来进行注入！</p>
-<pre class=" language-java"><code class="language-java">
-<span class="token annotation punctuation">@Component</span> <span class="token comment" spellcheck="true">//注册bean</span>
-<span class="token annotation punctuation">@PropertySource</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"classpath:user.properties"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//直接使用@value</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${user.name}"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//从配置文件中取值</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"#{9*2}"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// #{SPEL} Spring表达式</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"男"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// 字面量</span>
-    <span class="token keyword">private</span> String sex<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>4、Springboot测试</p>
-<pre class=" language-java"><code class="language-java">
-<span class="token annotation punctuation">@SpringBootTest</span>
-<span class="token keyword">class</span> <span class="token class-name">DemoApplicationTests</span> <span class="token punctuation">{</span>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--filter 标签用于配置一个 Filter 过滤器--></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter</span><span class="token punctuation">></span></span> 
+    <span class="token comment" spellcheck="true">&lt;!--给 filter 起一个别名--></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-name</span><span class="token punctuation">></span></span>AdminFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-name</span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!--配置 filter 的全类名--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>filter-class</span><span class="token punctuation">></span></span>com.atguigu.filter.AdminFilter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter-class</span><span class="token punctuation">></span></span>
 
-    <span class="token annotation punctuation">@Autowired</span>
-    User user<span class="token punctuation">;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init-param</span><span class="token punctuation">></span></span> 
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>username<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span> 
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>root<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>init-param</span><span class="token punctuation">></span></span> 
 
-    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">contextLoads</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init-param</span><span class="token punctuation">></span></span> 
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>url<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span> 
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>jdbc:mysql://localhost3306/test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>init-param</span><span class="token punctuation">></span></span> 
 
-<span class="token punctuation">}</span></code></pre>
-<p>结果正常输出</p>
-<h2 id="对比小结"><a href="#对比小结" class="headerlink" title="对比小结"></a>对比小结</h2><p>@Value这个使用起来并不友好！我们需要为每个属性单独注解赋值，比较麻烦；我们来看个功能对比图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springboot_02_04.png" alt="springboot_02_04"></p>
-<p>1、@ConfigurationProperties只需要写一次即可 ， @Value则需要每个字段都添加</p>
-<p>2、松散绑定：这个什么意思呢? 比如我的yml中写的last-name，这个和lastName是一样的， - 后面跟着的字母默认是大写的。这就是松散绑定。可以测试一下</p>
-<p>3、JSR303数据校验 ， 这个就是我们可以在字段是增加一层过滤器验证 ， 可以保证数据的合法性</p>
-<p>4、复杂类型封装，yml中可以封装对象 ， 使用value就不支持</p>
-<p><strong>结论：</strong></p>
-<p>配置yml和配置properties都可以获取到值 ， 强烈推荐 yml；</p>
-<p>如果我们在某个业务中，只需要获取配置文件中的某个值，可以使用一下 @value；</p>
-<p>如果说，我们专门编写了一个JavaBean来和配置文件进行一一映射，就直接@configurationProperties，不要犹豫！</p>
-<p>注：本文来自狂神的教学和笔记，以供自己以后回顾学习使用，如有侵犯知识产权，请联系删除。</p>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>filter</span><span class="token punctuation">></span></span></code></pre>
+<h2 id="四、FilterChain-过滤器链"><a href="#四、FilterChain-过滤器链" class="headerlink" title="四、FilterChain 过滤器链"></a>四、<strong>FilterChain</strong> <strong>过滤器链</strong></h2><p>Filter                过滤器 </p>
+<p>Chain              链，链条 </p>
+<p>FilterChain     就是过滤器链（多个过滤器如何一起工作）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/filter_02.jpg" alt="filter_02"></p>
+<h2 id="五、Filter-的拦截路径"><a href="#五、Filter-的拦截路径" class="headerlink" title="五、Filter 的拦截路径"></a>五、<strong>Filter</strong> <strong>的拦截路径</strong></h2><ol>
+<li><p><strong>精确匹配</strong></p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/target.jsp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span> 
+以上配置的路径，表示请求地址必须为：http://ip:port/工程路径/target.jsp</code></pre>
+</li>
+<li><p><strong>目录匹配</strong> </p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/admin/*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span> 
+以上配置的路径，表示请求地址必须为：http://ip:port/工程路径/admin/*</code></pre>
+</li>
+<li><p><strong>后缀名匹配</strong></p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>*.html<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span> 
+以上配置的路径，表示请求地址必须以.html 结尾才会拦截到 
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>*.do<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span> 
+以上配置的路径，表示请求地址必须以.do 结尾才会拦截到 
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>*.action<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span> 
+以上配置的路径，表示请求地址必须以.action 结尾才会拦截到</code></pre>
+<p><strong>备注：Filter 过滤器它只关心请求的地址是否匹配，不关心请求的资源是否存在！！！</strong></p>
+</li>
+</ol>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -845,7 +697,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yuimm.github.io/posts/springboot-02.html">http://yuimm.github.io/posts/springboot-02.html</a>
+                    <a href="http://yuimm.github.io/posts/filter.html">http://yuimm.github.io/posts/filter.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -883,12 +735,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JAVAEE/">
-                                    <span class="chip bg-color">JAVAEE</span>
-                                </a>
-                            
-                                <a href="/tags/Springboot/">
-                                    <span class="chip bg-color">Springboot</span>
+                                <a href="/tags/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/">
+                                    <span class="chip bg-color">Filter过滤器</span>
                                 </a>
                             
                         </div>
@@ -1321,30 +1169,30 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/springboot-03.html">
+                <a href="/posts/json-ajax-i18n-guo-ji-hua.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="Springboot_03">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="Json_Ajax_I18n国际化">
                         
-                        <span class="card-title">Springboot_03</span>
+                        <span class="card-title">Json_Ajax_I18n国际化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。
+                            ------------------------------------------------------------------------------------
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                    微服务
+                            <a href="/categories/javaWeb/" class="post-category">
+                                    javaWeb
                                 </a>
                             
                             
@@ -1354,12 +1202,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JAVAEE/">
-                        <span class="chip bg-color">JAVAEE</span>
-                    </a>
-                    
-                    <a href="/tags/Springboot/">
-                        <span class="chip bg-color">Springboot</span>
+                    <a href="/tags/javaWeb/">
+                        <span class="chip bg-color">javaWeb</span>
                     </a>
                     
                 </div>
@@ -1373,30 +1217,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/springboot-01.html">
+                <a href="/posts/cookie-session.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="Springboot_01">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="Cookie_Session">
                         
-                        <span class="card-title">Springboot_01</span>
+                        <span class="card-title">Cookie_Session</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spring是为了解决企业级应用开发的复杂性而创建的，简化开发。
+                            ------------------------------------------------------------------------------------
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                    微服务
+                            <a href="/categories/javaWeb/" class="post-category">
+                                    javaWeb
                                 </a>
                             
                             
@@ -1406,12 +1250,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JAVAEE/">
-                        <span class="chip bg-color">JAVAEE</span>
-                    </a>
-                    
-                    <a href="/tags/Springboot/">
-                        <span class="chip bg-color">Springboot</span>
+                    <a href="/tags/Cookie-Session/">
+                        <span class="chip bg-color">Cookie_Session</span>
                     </a>
                     
                 </div>
