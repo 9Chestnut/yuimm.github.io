@@ -461,21 +461,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-01-03
+                    2021-03-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
 				
@@ -790,6 +790,24 @@ service<span class="token punctuation">.</span><span class="token function">exec
 service<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">//关闭连接</span>
 service<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="字符串String"><a href="#字符串String" class="headerlink" title="字符串String"></a>字符串String</h2><p>字符串对象之间的比较不能使用 “==”，应该调用String类的<strong>equals</strong>方法。</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//i变量中保存的是100这个值</span>
+<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//s变量中保存的是"abc"这个字符串对象在字符串常量池中的内存地址</span>
+String s <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">;</span></code></pre>
+<h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a><strong>StringBuffer</strong></h3><ul>
+<li><p>初始化容量为16</p>
+</li>
+<li><p>底层是byte[]数组</p>
+</li>
+<li><p>String底层的byte[]数组被定义为<strong>final</strong>，不再可变了，但是StringBuffer的没有final关键字。</p>
+</li>
+</ul>
+<p><strong>如何优化StringBuffer的性能：</strong></p>
+<p>​    在创建StringBuffer的时候尽可能给定一个初始化的容量，最好减少底层数组的扩容次数，预估一下，给一个稍微大一些的初始化的容量。</p>
+<p><strong>StringBuffer与StringBuild的区别：</strong></p>
+<p>​    StringBuffer中的所有方法都有：synchronized关键字修饰，表示StringBuffer在多线程环境下运行时安全的。</p>
+<p>​    StringBuild中的方法中没有，表示在多线程环境下运行是不安全的。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1582,7 +1600,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">95.2k</span>&nbsp;字
+                class="white-color">95.5k</span>&nbsp;字
             
             
             
