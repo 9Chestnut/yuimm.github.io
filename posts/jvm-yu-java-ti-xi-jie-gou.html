@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JSP_EL_JSTL, Yuimm">
-    <meta name="description" content="------------------------------------------------------------------------------------">
+    <meta name="keywords" content="JVM与Java体系结构, Yuimm">
+    <meta name="description" content="jVM虚拟机。----------------------------------------------------">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JSP_EL_JSTL | Yuimm</title>
+    <title>JVM与Java体系结构 | Yuimm</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/awesome/css/all.css">
@@ -308,7 +308,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JSP_EL_JSTL</h1>
+                    <h1 class="description center-align post-title">JVM与Java体系结构</h1>
                 </div>
             </div>
         </div>
@@ -425,8 +425,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JSP-EL-JSTL/">
-                                <span class="chip bg-color">JSP_EL_JSTL</span>
+                            <a href="/tags/JAVA/">
+                                <span class="chip bg-color">JAVA</span>
+                            </a>
+                        
+                            <a href="/tags/JVM/">
+                                <span class="chip bg-color">JVM</span>
                             </a>
                         
                     </div>
@@ -437,8 +441,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/javaWeb/" class="post-category">
-                                javaWeb
+                            <a href="/categories/JVM/" class="post-category">
+                                JVM
                             </a>
                         
                     </div>
@@ -450,28 +454,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-10
+                    2021-03-03
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-01-10
+                    2021-03-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.6k
+                    6.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    14 分
+                    22 分
                 </div>
                 
 				
@@ -487,654 +491,348 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、JSP"><a href="#一、JSP" class="headerlink" title="一、JSP"></a>一、JSP</h2><h3 id="1-jsp-的本质是什么"><a href="#1-jsp-的本质是什么" class="headerlink" title="1. jsp 的本质是什么"></a><strong>1. jsp</strong> <strong>的本质是什么</strong></h3><p>jsp 页面本质上是一个 Servlet 程序。 </p>
-<p>当我们第一次访问 jsp 页面的时候。Tomcat 服务器会帮我们把 jsp 页面翻译成为一个 java 源文件。并且对它进行编译成 为.class 字节码程序。我们跟踪原代码发现，HttpJspBase 类。它直接地继承了 HttpServlet 类。也就是说。jsp 翻译出来的 java 类，它间接了继 承了 HttpServlet 类。也就是说，翻译出来的是一个 Servlet 程序。</p>
-<h3 id="2-jsp-的三种语法"><a href="#2-jsp-的三种语法" class="headerlink" title="2. jsp 的三种语法"></a>2. <strong>jsp</strong> <strong>的三种语法</strong></h3><h4 id="2-1-jsp-头部的-page-指令"><a href="#2-1-jsp-头部的-page-指令" class="headerlink" title="2.1 jsp 头部的 page 指令"></a>2.1 <strong>jsp</strong> <strong>头部的</strong> <strong>page</strong> <strong>指令</strong></h4><p>jsp 的 page 指令可以修改 jsp 页面中一些重要的属性，或者行为。</p>
-<pre class=" language-jsp"><code class="language-jsp"><%@ page contentType="text/html;charset=UTF-8" language="java" %></code></pre>
+                <h1 id="JVM与Java体系结构"><a href="#JVM与Java体系结构" class="headerlink" title="JVM与Java体系结构"></a>JVM与Java体系结构</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为Java工程师的你曾被伤害过吗？你是否也遇到过这些问题？</p>
+<p>运行着的线上系统突然卡死，系统无法访问，甚至直接OOMM！</p>
 <ul>
-<li><p>language 属性             表示 jsp 翻译后是什么语言文件。暂时只支持 java。 </p>
+<li>想解决线上JVM GC问题，但却无从下手。</li>
+<li>新项目上线，对各种JVM参数设置一脸茫然，直接默认吧然后就JJ了</li>
+<li>每次面试之前都要重新背一遍JVM的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优VM参数，如何解决GC、OOM等问题，一脸懵逼。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704111417472.png" alt="image-20200704111417472"></p>
+<p>大部分Java开发人员，除会在项目中使用到与Java平台相关的各种高精尖技术，对于Java技术的核心Java虚拟机了解甚少。</p>
+<p>一些有一定工作经验的开发人员，打心眼儿里觉得SSM、微服务等上层技术才是重点，基础技术并不重要，这其实是一种本末倒置的“病态”。如果我们把核心类库的API比做数学公式的话，那么Java虚拟机的知识就好比公式的推导过程。</p>
+<p>计算机系统体系对我们来说越来越远，在不了解底层实现方式的前提下，通过高级语言很容易编写程序代码。但事实上计算机并不认识高级语言</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704112119729.png" alt="image-20200704112119729"></p>
+<h2 id="架构师每天都在思考什么？"><a href="#架构师每天都在思考什么？" class="headerlink" title="架构师每天都在思考什么？"></a>架构师每天都在思考什么？</h2><ul>
+<li>应该如何让我的系统更快？</li>
+<li>如何避免系统出现瓶颈？</li>
+</ul>
+<p>知乎上有条帖子：应该如何看招聘信息，直通年薪50万+？</p>
+<ul>
+<li>参与现有系统的性能优化，重构，保证平台性能和稳定性</li>
+<li>根据业务场景和需求，决定技术方向，做技术选型</li>
+<li>能够独立架构和设计海量数据下高并发分布式解决方案，满足功能和非功能需求</li>
+<li>解决各类潜在系统风险，核心功能的架构与代码编写</li>
+<li>分析系统瓶颈，解决各种疑难杂症，性能调优等</li>
+</ul>
+<h2 id="为什么要学习JVM"><a href="#为什么要学习JVM" class="headerlink" title="为什么要学习JVM"></a>为什么要学习JVM</h2><ul>
+<li><p>面试的需要（BATJ、TMD，PKQ等面试都爱问）</p>
 </li>
-<li><p>contentType 属性       表示 jsp 返回的数据类型是什么。也是源码中 response.setContentType()参数值。</p>
+<li><p>中高级程序员必备技能</p>
+<ul>
+<li>项目管理、调优的需求</li>
+</ul>
 </li>
-<li><p>pageEncoding 属性    表示当前 jsp 页面文件本身的字符集。</p>
-</li>
-<li><p>import 属性                 跟 java 源代码中一样。用于导包，导类。</p>
-</li>
-<li><p>autoFlush 属性           设置当 out 输出流缓冲区满了之后，是否自动刷新冲级区。默认值是 true。</p>
-</li>
-<li><p>buffer 属性                  设置 out 缓冲区的大小。默认是 8kb</p>
-</li>
-<li><p>errorPage 属性           设置当 jsp 页面运行时出错，自动跳转去的错误页面路径。</p>
-</li>
-<li><p>isErrorPage 属性        设置当前 jsp 页面是否是错误信息页面。默认是 false。如果是 true 可以 </p>
-<p>获取异常信息。 </p>
-</li>
-<li><p>session 属性               设置访问当前 jsp 页面，是否会创建 HttpSession 对象。默认是 true。</p>
-</li>
-<li><p>extends 属性              设置 jsp 翻译出来的 java 类默认继承谁。</p>
+<li><p>追求极客的精神</p>
+<ul>
+<li>比如：垃圾回收算法、JIT（及时编译器）、底层原理</li>
+</ul>
 </li>
 </ul>
-<h4 id="2-2-jsp-中的常用脚本"><a href="#2-2-jsp-中的常用脚本" class="headerlink" title="2.2 jsp 中的常用脚本"></a>2.2 <strong>jsp</strong> <strong>中的常用脚本</strong></h4><ol>
-<li><p><strong>声明脚本(极少使用)</strong> </p>
-<p>声明脚本的格式是： <strong>&lt;%!</strong> 声明 java 代码 <strong>%&gt;</strong> </p>
-<p>作用：可以给 jsp 翻译出来的 java 类定义属性和方法甚至是静态代码块。内部类等</p>
+<h2 id="Java-vs-C"><a href="#Java-vs-C" class="headerlink" title="Java vs C++"></a>Java vs C++</h2><p>垃圾收集机制为我们打理了很多繁琐的工作，大大提高了开发的效率，但是，垃圾收集也不是万能的，懂得JVM内部的内存结构、工作机制，是设计高扩展性应用和诊断运行时问题的基础，也是Java工程师进阶的必备能力。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704112700211.png" alt="image-20200704112700211"></p>
+<p>C语言需要自己来分配内存和回收内存，Java全部交给JVM进行分配和回收。</p>
+<h2 id="推荐书籍"><a href="#推荐书籍" class="headerlink" title="推荐书籍"></a>推荐书籍</h2><p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704145340513.png" alt="image-20200704145340513"></p>
+<h2 id="Java生态圈"><a href="#Java生态圈" class="headerlink" title="Java生态圈"></a>Java生态圈</h2><p>Java是目前应用最为广泛的软件开发平台之一。随着Java以及Java社区的不断壮大Java 也早已不再是简简单单的一门计算机语言了，它更是一个平台、一种文化、一个社区。</p>
+<ul>
+<li><p>作为一个平台，Java虚拟机扮演着举足轻重的作用</p>
+<ul>
+<li>Groovy、Scala、JRuby、Kotlin等都是Java平台的一部分</li>
+</ul>
 </li>
-<li><p><strong>表达式脚本（常用）</strong> </p>
-<p>表达式脚本的格式是：<strong>&lt;%=</strong>表达式<strong>%&gt;</strong> </p>
-<p>表达式脚本的作用是：的 jsp 页面上输出数据。</p>
-<p>表达式脚本的特点： </p>
-<p>1、所有的表达式脚本都会被翻译到_jspService() 方法中 </p>
-<p>2、表达式脚本都会被翻译成为 out.print()输出到页面上 </p>
-<p>3、由于表达式脚本翻译的内容都在_jspService() 方法中,所以_jspService()方法中的对象都可以直接使用。 </p>
-<p>4、表达式脚本中的表达式不能以分号结束。</p>
+<li><p>作为灯种文化，Java几乎成为了“开源”的代名词。</p>
+<ul>
+<li>第三方开源软件和框架。如Tomcat、Struts，MyBatis，Spring等。</li>
+<li>就连JDK和JVM自身也有不少开源的实现，如openJDK、Harmony。</li>
+</ul>
 </li>
-<li><p><strong>代码脚本</strong></p>
-<p>代码脚本的格式是： </p>
-<p><strong>&lt;%</strong> java 语句 <strong>%&gt;</strong> </p>
-<p>代码脚本的作用是：可以在 jsp 页面中，编写我们自己需要的功能（写的是 java 语句）。</p>
-<p>代码脚本的特点是： </p>
-<p>1、代码脚本翻译之后都在_jspService 方法中 </p>
-<p>2、代码脚本由于翻译到_jspService()方法中，所以在_jspService()方法中的现有对象都可以直接使用。 </p>
-<p>3、还可以由多个代码脚本块组合完成一个完整的 java 语句。 </p>
-<p>4、代码脚本还可以和表达式脚本一起组合使用，在 jsp 页面上输出数据 </p>
-</li>
-</ol>
-<h4 id="2-3-jsp-中的三种注释"><a href="#2-3-jsp-中的三种注释" class="headerlink" title="2.3 jsp 中的三种注释"></a>2.3 <strong>jsp</strong> <strong>中的三种注释</strong></h4><ol>
-<li><p><strong>html</strong> <strong>注释</strong>  *<!--* *这是* *html* *注释* *-->*</p>
-<p>​    html 注释会被翻译到 java 源代码中。在_jspService 方法里，以 out.writer 输出到客户端。</p>
-</li>
-<li><p><strong>java</strong> <strong>注释</strong></p>
-<p>​    java 注释会被翻译到 java 源代码中。 </p>
-</li>
-<li><p><strong>jsp</strong> <strong>注释</strong>  *&lt;%–* <em>这是</em> <em>jsp</em> <em>注释</em> <em>–%&gt;</em></p>
-<p>​    jsp 注释可以注掉，jsp 页面中所有代码。</p>
-</li>
-</ol>
-<h3 id="3-jsp-九大内置对象"><a href="#3-jsp-九大内置对象" class="headerlink" title="3. jsp 九大内置对象"></a>3. <strong>jsp</strong> <strong>九大内置对象</strong></h3><p>jsp 中的内置对象，是指 Tomcat 在翻译 jsp 页面成为 Servlet 源代码后，内部提供的九大对象，叫内置对象。<img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/jsp_01.jpg" alt="jsp_01"></p>
-<h3 id="4-jsp-四大域对象"><a href="#4-jsp-四大域对象" class="headerlink" title="4. jsp 四大域对象"></a>4. <strong>jsp</strong> <strong>四大域对象</strong></h3><ol>
-<li>pageContext   (PageContextImpl 类)                当前 jsp 页面范围内有效 </li>
-<li>request            (HttpServletRequest 类)            一次请求内有效</li>
-<li>session             (HttpSession 类)、                     一个会话范围内有效（打开浏览器访问服务器，直到关闭浏览器）</li>
-<li>application     (ServletContext 类)                      整个 web 工程范围内都有效（只要 web 工程不停止，数据都在）</li>
-</ol>
-<p>域对象是可以像 Map 一样存取数据的对象。四个域对象功能一样。不同的是它们对数据的存取范围。 虽然四个域对象都可以存取数据。在使用上它们是有优先顺序的。 </p>
-<p>四个域在使用的时候，优先顺序分别是，他们从小到大的范围的顺序。 </p>
-<p><strong>pageContext ====&gt;&gt;&gt; request ====&gt;&gt;&gt; session ====&gt;&gt;&gt; application</strong></p>
-<h3 id="5-jsp-中的-out-输出和-response-getWriter-输出的区别"><a href="#5-jsp-中的-out-输出和-response-getWriter-输出的区别" class="headerlink" title="5. jsp 中的 out 输出和 response.getWriter 输出的区别"></a>5. <strong>jsp</strong> <strong>中的</strong> <strong>out</strong> <strong>输出和</strong> <strong>response.getWriter</strong> <strong>输出的区</strong>别</h3><p>response 中表示响应，我们经常用于设置返回给客户端的内容（输出）out 也是给用户做输出使用的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/jsp_02.jpg" alt="jsp_02"></p>
-<p>由于 jsp 翻译之后，底层源代码都是使用 out 来进行输出，所以一般情况下。我们在 jsp 页面中统一使用 out 来进行输出。避免打乱页面输出内容的顺序。 </p>
-<p>out.write() 输出字符串没有问题 </p>
-<p>out.print() 输出任意数据都没有问题（都转换成为字符串后调用的 write 输出） </p>
-<p>深入源码，浅出结论：在 jsp 页面中，可以统一使用 <strong>out.print()</strong>来进行输出</p>
-<h3 id="6-jsp-的常用标签"><a href="#6-jsp-的常用标签" class="headerlink" title="6. jsp 的常用标签"></a>6. <strong>jsp</strong> <strong>的常用标签</strong></h3><h4 id="6-1-jsp-静态包含"><a href="#6-1-jsp-静态包含" class="headerlink" title="6.1 jsp 静态包含"></a>6.1 <strong>jsp</strong> <strong>静态包含</strong></h4><pre class=" language-jsp"><code class="language-jsp"><%@ include file="/include/footer.jsp"%></code></pre>
-<p>file 属性指定你要包含的 jsp 页面的路径 </p>
-<p>地址中第一个斜杠 / 表示为 <a href="http://ip:port/**工程路径**/">http://ip:port/**工程路径**/</a> 映射到代码的 web 目录*</p>
-<p>静态包含的特点： </p>
-<p>1、静态包含不会翻译被包含的 jsp 页面。 </p>
-<p>2、静态包含其实是把被包含的 jsp 页面的代码拷贝到包含的位置执行输出</p>
-<h4 id="6-2-jsp-动态包含"><a href="#6-2-jsp-动态包含" class="headerlink" title="6.2 jsp 动态包含"></a>6.2 <strong>jsp</strong> <strong>动态包含</strong></h4><pre class=" language-jsp"><code class="language-jsp"><jsp:include page="/include/footer.jsp"> 
-    <jsp:param name="username" value="bbj"/> 
-    <jsp:param name="password" value="root"/>
-</jsp:include></code></pre>
-<p>page 属性是指定你要包含的 jsp 页面的路径 </p>
-<p>动态包含也可以像静态包含一样。把被包含的内容执行输出到包含位置 </p>
-<p><strong>动态包含的特点：</strong> </p>
-<p>1、动态包含会把包含的 jsp 页面也翻译成为 java 代码 </p>
-<p>2、动态包含底层代码使用如下代码去调用被包含的 jsp 页面执行输出。 </p>
-<p>​                JspRuntimeLibrary.include(request, response, “/include/footer.jsp”, out, false); </p>
-<p>3、动态包含，还可以传递参数</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/jsp_03.jpg" alt="jsp_03"></p>
-<h4 id="6-3-jsp-标签转发"><a href="#6-3-jsp-标签转发" class="headerlink" title="6.3 jsp 标签转发"></a>6.3 <strong>jsp</strong> <strong>标签</strong>转发</h4><pre class=" language-jsp"><code class="language-jsp"><jsp:forward page="/scope2.jsp"></jsp:forward></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/jsp_04.jpg" alt="jsp_04"></p>
-<h3 id="7-Listener-监听器"><a href="#7-Listener-监听器" class="headerlink" title="7. Listener 监听器"></a>7. <strong>Listener</strong> <strong>监听器</strong></h3><ul>
-<li><p>Listener 监听器它是 JavaWeb 的三大组件之一。JavaWeb 的三大组件分别是：Servlet 程序、Filter 过滤器、Listener 监 听器。</p>
-</li>
-<li><p>Listener 它是 JavaEE 的规范，就是接口。 </p>
-</li>
-<li><p>监听器的作用是，监听某种事物的变化。然后通过回调函数，反馈给客户（程序）去做一些相应的处理。 </p>
+<li><p>作为一个社区，Java拥有全世界最多的技术拥护者和开源社区支持，有数不清的论坛和资料。从桌面应用软件、嵌入式开发到企业级应用、后台服务器、中间件，都可以看到Java的身影。其应用形式之复杂、参与人数之众多也令人咋舌。</p>
 </li>
 </ul>
-<h4 id="ServletContextListener-监听器"><a href="#ServletContextListener-监听器" class="headerlink" title="ServletContextListener 监听器"></a><strong>ServletContextListener</strong> <strong>监听器</strong></h4><p>ServletContextListener 它可以监听 ServletContext 对象的创建和销毁。 </p>
-<p>ServletContext 对象在 web 工程启动的时候创建，在 web 工程停止的时候销毁。 </p>
-<p>监听到创建和销毁之后都会分别调用 ServletContextListener 监听器的方法反馈。</p>
-<p>两个方法分别是：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ServletContextListener</span> <span class="token keyword">extends</span> <span class="token class-name">EventListener</span> <span class="token punctuation">{</span> 
-    <span class="token comment" spellcheck="true">/*** 在 ServletContext 对象创建之后马上调用，做初始化 */</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">contextInitialized</span><span class="token punctuation">(</span>ServletContextEvent sce<span class="token punctuation">)</span><span class="token punctuation">;</span> 
-    <span class="token comment" spellcheck="true">/*** 在 ServletContext 对象销毁之后调用 */</span> 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">contextDestroyed</span><span class="token punctuation">(</span>ServletContextEvent sce<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>如何使用 ServletContextListener 监听器监听 ServletContext 对象。 </p>
-<p>使用步骤如下： </p>
-<p>1、编写一个类去实现 ServletContextListener </p>
-<p>2、实现其两个回调方法 </p>
-<p>3、到 web.xml 中去配置监听器</p>
-<p>监听器实现类：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyServletContextListenerImpl</span> <span class="token keyword">implements</span> <span class="token class-name">ServletContextListener</span> <span class="token punctuation">{</span>             <span class="token annotation punctuation">@Override</span> 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">contextInitialized</span><span class="token punctuation">(</span>ServletContextEvent sce<span class="token punctuation">)</span> <span class="token punctuation">{</span>                                  System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ServletContext 对象被创建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704151731216.png" alt="image-20200704151731216"></p>
+<p>每个语言都需要转换成字节码文件，最后转换的字节码文件都能通过Java虚拟机进行运行和处理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704152052489.png" alt="image-20200704152052489"></p>
+<p>随着Java7的正式发布，Java虚拟机的设计者们通过JSR-292规范基本实现在Java虚拟机平台上运行非Java语言编写的程序。</p>
+<p>Java虚拟机根本不关心运行在其内部的程序到底是使用何种编程语言编写的，它只关心“字节码”文件。也就是说Java虚拟机拥有语言无关性，并不会单纯地与Java语言“终身绑定”，只要其他编程语言的编译结果满足并包含Java虚拟机的内部指令集、符号表以及其他的辅助信息，它就是一个有效的字节码文件，就能够被虚拟机所识别并装载运行。</p>
+<h2 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h2><p>我们平时说的java字节码，指的是用java语言编译成的字节码。准确的说任何能在jvm平台上执行的字节码格式都是一样的。所以应该统称为：jvm字节码。</p>
+<p>不同的编译器，可以编译出相同的字节码文件，字节码文件也可以在不同的JVM上运行。</p>
+<p>Java虚拟机与Java语言并没有必然的联系，它只与特定的二进制文件格式—Class文件格式所关联，Class文件中包含了Java虚拟机指令集（或者称为字节码、Bytecodes）和符号表，还有一些其他辅助信息。</p>
+<h2 id="多语言混合编程"><a href="#多语言混合编程" class="headerlink" title="多语言混合编程"></a>多语言混合编程</h2><p>Java平台上的多语言混合编程正成为主流，通过特定领域的语言去解决特定领域的问题是当前软件开发应对日趋复杂的项目需求的一个方向。</p>
+<p>试想一下，在一个项目之中，并行处理用clojure语言编写，展示层使用JRuby/Rails，中间层则是Java，每个应用层都将使用不同的编程语言来完成，而且，接口对每一层的开发者都是透明的，各种语言之间的交互不存在任何困难，就像使用自己语言的原生API一样方便，因为它们最终都运行在一个虚拟机之上。</p>
+<p>对这些运行于Java虚拟机之上、Java之外的语言，来自系统级的、底层的支持正在迅速增强，以JSR-292为核心的一系列项目和功能改进（如Da Vinci Machine项目、Nashorn引擎、InvokeDynamic指令、java.lang.invoke包等），推动Java虚拟机从“Java语言的虚拟机”向 “多语言虚拟机”的方向发展。</p>
+<h2 id="Java发展的重大事件"><a href="#Java发展的重大事件" class="headerlink" title="Java发展的重大事件"></a>Java发展的重大事件</h2><ul>
+<li><p>1990年，在Sun计算机公司中，由Patrick Naughton、MikeSheridan及James Gosling领导的小组Green Team，开发出的新的程序语言，命名为oak，后期命名为Java</p>
+</li>
+<li><p>1995年，Sun正式发布Java和HotJava产品，Java首次公开亮相。</p>
+</li>
+<li><p>1996年1月23日sun Microsystems发布了JDK 1.0。</p>
+</li>
+<li><p>1998年，JDK1.2版本发布。同时，sun发布了JSP/Servlet、EJB规范，以及将Java分成了J2EE、J2SE和J2ME。这表明了Java开始向企业、桌面应用和移动设备应用3大领域挺进。</p>
+</li>
+<li><p>2000年，JDK1.3发布，Java HotSpot Virtual Machine正式发布，成为Java的默认虚拟机。</p>
+</li>
+<li><p>2002年，JDK1.4发布，古老的Classic虚拟机退出历史舞台。</p>
+</li>
+<li><p>2003年年底，Java平台的scala正式发布，同年Groovy也加入了Java阵营。</p>
+</li>
+<li><p>2004年，JDK1.5发布。同时JDK1.5改名为JavaSE5.0。</p>
+</li>
+<li><p>2006年，JDK6发布。同年，Java开源并建立了openJDK。顺理成章，Hotspot虚拟机也成为了openJDK中的默认虚拟机。</p>
+</li>
+<li><p>2007年，Java平台迎来了新伙伴Clojure。</p>
+</li>
+<li><p>2008年，oracle收购了BEA，得到了JRockit虚拟机。</p>
+</li>
+<li><p>2009年，Twitter宣布把后台大部分程序从Ruby迁移到scala，这是Java平台的又一次大规模应用。</p>
+</li>
+<li><p>2010年，oracle收购了sun，获得Java商标和最真价值的HotSpot虚拟机。此时，oracle拥有市场占用率最高的两款虚拟机HotSpot和JRockit，并计划在未来对它们进行整合：HotRockit</p>
+</li>
+<li><p>2011年，JDK7发布。在JDK1.7u4中，正式启用了新的垃圾回收器G1。</p>
+</li>
+<li><p>2017年，JDK9发布。将G1设置为默认Gc，替代CMS</p>
+</li>
+<li><p>同年，IBM的J9开源，形成了现在的open J9社区</p>
+</li>
+<li><p>2018年，Android的Java侵权案判决，Google赔偿oracle计88亿美元</p>
+</li>
+<li><p>同年，oracle宣告JavagE成为历史名词JDBC、JMS、Servlet赠予Eclipse基金会</p>
+</li>
+<li><p>同年，JDK11发布，LTS版本的JDK，发布革命性的zGc，调整JDK授权许可</p>
+</li>
+<li><p>2019年，JDK12发布，加入RedHat领导开发的shenandoah GC</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704182035810.png" alt="image-20200704182035810"></p>
+<p>在JDK11之前，oracleJDK中还会存在一些openJDK中没有的、闭源的功能。但在JDK11中，我们可以认为openJDK和oracleJDK代码实质上已经完全一致的程度。</p>
+<h2 id="虚拟机与Java虚拟机"><a href="#虚拟机与Java虚拟机" class="headerlink" title="虚拟机与Java虚拟机"></a>虚拟机与Java虚拟机</h2><h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><p>所谓虚拟机（Virtual Machine），就是一台虚拟的计算机。它是一款软件，用来执行一系列虚拟计算机指令。大体上，虚拟机可以分为系统虚拟机和程序虚拟机。</p>
+<ul>
+<li>大名鼎鼎的Visual Box，Mware就属于系统虚拟机，它们完全是对物理计算机的仿真，提供了一个可运行完整操作系统的软件平台。</li>
+<li>程序虚拟机的典型代表就是Java虚拟机，它专门为执行单个计算机程序而设计，在Java虚拟机中执行的指令我们称为Java字节码指令。</li>
+</ul>
+<p>无论是系统虚拟机还是程序虚拟机，在上面运行的软件都被限制于虚拟机提供的资源中。</p>
+<h3 id="Java虚拟机"><a href="#Java虚拟机" class="headerlink" title="Java虚拟机"></a>Java虚拟机</h3><p>Java虚拟机是一台执行Java字节码的虚拟计算机，它拥有独立的运行机制，其运行的Java字节码也未必由Java语言编译而成。</p>
+<p>JVM平台的各种语言可以共享Java虚拟机带来的跨平台性、优秀的垃圾回器，以及可靠的即时编译器。</p>
+<p>Java技术的核心就是Java虚拟机（JVM，Java Virtual Machine），因为所有的Java程序都运行在Java虚拟机内部。</p>
+<p>Java虚拟机就是二进制字节码的运行环境，负责装载字节码到其内部，解释/编译为对应平台上的机器指令执行。每一条Java指令，Java虚拟机规范中都有详细定义，如怎么取操作数，怎么处理操作数，处理结果放在哪里。</p>
+<p>特点：</p>
+<ul>
+<li>一次编译，到处运行</li>
+<li>自动内存管理</li>
+<li>自动垃圾回收功能</li>
+</ul>
+<h2 id="JVM的位置"><a href="#JVM的位置" class="headerlink" title="JVM的位置"></a>JVM的位置</h2><p>JVM是运行在操作系统之上的，它与硬件没有直接的交互</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704183048061.png" alt="image-20200704183048061"></p>
+<p>Java的体系结构</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704183236169.png" alt="image-20200704183236169"></p>
+<h2 id="JVM整体结构"><a href="#JVM整体结构" class="headerlink" title="JVM整体结构"></a>JVM整体结构</h2><ul>
+<li>HotSpot VM是目前市面上高性能虚拟机的代表作之一。</li>
+<li>它采用解释器与即时编译器并存的架构。</li>
+<li>在今天，Java程序的运行性能早已脱胎换骨，已经达到了可以和C/C++程序一较高下的地步。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704183436495.png" alt="image-20200704183436495"></p>
+<p>执行引擎包含三部分：解释器，及时编译器，垃圾回收器</p>
+<h2 id="Java代码执行流程"><a href="#Java代码执行流程" class="headerlink" title="Java代码执行流程"></a>Java代码执行流程</h2><p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200704210429535.png" alt="image-20200704210429535"></p>
+<p>只是能生成被Java虚拟机所能解释的字节码文件，那么理论上就可以自己设计一套代码了</p>
+<h2 id="JVM的架构模型"><a href="#JVM的架构模型" class="headerlink" title="JVM的架构模型"></a>JVM的架构模型</h2><p>Java编译器输入的指令流基本上是一种基于栈的指令集架构，另外一种指令集架构则是基于寄存器的指令集架构。具体来说：这两种架构之间的区别：</p>
+<p>基于栈式架构的特点</p>
+<ul>
+<li>设计和实现更简单，适用于资源受限的系统；</li>
+<li>避开了寄存器的分配难题：使用零地址指令方式分配。</li>
+<li>指令流中的指令大部分是零地址指令，其执行过程依赖于操作栈。指令集更小，编译器容易实现。</li>
+<li>不需要硬件支持，可移植性更好，更好实现跨平台</li>
+</ul>
+<p>基于寄存器架构的特点</p>
+<ul>
+<li>典型的应用是x86的二进制指令集：比如传统的PC以及Android的Davlik虚拟机。</li>
+<li>指令集架构则完全依赖硬件，可移植性差</li>
+<li>性能优秀和执行更高效</li>
+<li>花费更少的指令去完成一项操作。</li>
+<li>在大部分情况下，基于寄存器架构的指令集往往都以一地址指令、二地址指令和三地址指令为主，而基于栈式架构的指令集却是以零地址指令为主方水洋</li>
+</ul>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>同样执行2+3这种逻辑操作，其指令分别如下：</p>
+<p>基于栈的计算流程（以Java虚拟机为例）：</p>
+<pre class=" language-bash"><code class="language-bash">iconst_2 //常量2入栈
+istore_1
+iconst_3 // 常量3入栈
+istore_2
+iload_1
+iload_2
+iadd //常量2/3出栈，执行相加
+istore_0 // 结果5入栈</code></pre>
+<p>而基于寄存器的计算流程</p>
+<pre class=" language-bash"><code class="language-bash">mov eax,2 //将eax寄存器的值设为1
+add eax,3 //使eax寄存器的值加3</code></pre>
+<h3 id="字节码反编译"><a href="#字节码反编译" class="headerlink" title="字节码反编译"></a>字节码反编译</h3><p>我们编写一个简单的代码，然后查看一下字节码的反编译后的结果</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * @author: 陌溪
+ * @create: 2020-07-04-21:17
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StackStruTest</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token annotation punctuation">@Override</span> 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">contextDestroyed</span><span class="token punctuation">(</span>ServletContextEvent sce<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ServletContext 对象被销毁了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> 
 <span class="token punctuation">}</span></code></pre>
-<p>web.xml 中的配置：</p>
-<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--**配置监听器**--></span>* 
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>**listener**</span><span class="token punctuation">></span></span> 
-
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>**listener-class**</span><span class="token punctuation">></span></span>com.atguigu.listener.MyServletContextListenerImpl<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>**listener-class**</span><span class="token punctuation">></span></span> 
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>**listener**</span><span class="token punctuation">></span></span></code></pre>
-<h2 id="二、EL表达式"><a href="#二、EL表达式" class="headerlink" title="二、EL表达式"></a>二、EL表达式</h2><h3 id="1-什么是-EL-表达式，EL-表达式的作用"><a href="#1-什么是-EL-表达式，EL-表达式的作用" class="headerlink" title="1. 什么是 EL 表达式，EL 表达式的作用?"></a>1. <strong>什么是</strong> <strong>EL</strong> <strong>表达式，</strong>EL <strong>表达式的作用</strong>?</h3><p>EL 表达式的全称是：Expression  Language。是表达式语言。 </p>
-<p>EL 表达式的什么作用：EL 表达式主要是代替 jsp 页面中的表达式脚本在 jsp 页面中进行数据的输出。 </p>
-<p>因为 EL 表达式在输出数据的时候，要比 jsp 的表达式脚本要简洁很多。</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>%</span>
-        <span class="token attr-name">request.setAttribute("key","value");</span>
-    <span class="token attr-name">%</span><span class="token punctuation">></span></span>
-    表达式脚本输出：&lt;%=request.getAttribute("key1")%><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
-    EL表达式输出：${key1}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></code></pre>
-<p>EL 表达式的格式是：${表达式} </p>
-<p>EL 表达式在输出 null 值的时候，输出的是空串。jsp 表达式脚本输出 null 值的时候，输出的是 null 字符串。</p>
-<h3 id="2-EL-表达式搜索域数据的顺序"><a href="#2-EL-表达式搜索域数据的顺序" class="headerlink" title="2. EL 表达式搜索域数据的顺序"></a>2. <strong>EL</strong> <strong>表达式搜索域数据的顺序</strong></h3><p>EL 表达式主要是在 jsp 页面中输出数据。 </p>
-<p>主要是输出域对象中的数据。 </p>
-<p>当四个域中都有相同的 key 的数据的时候，EL 表达式会按照四个域的从小到大的顺序去进行搜索，找到就输出。</p>
-<h3 id="3-EL-表达式输出-Bean-的普通属性，数组属性。Lis集合属性，map集合属性"><a href="#3-EL-表达式输出-Bean-的普通属性，数组属性。Lis集合属性，map集合属性" class="headerlink" title="3. EL 表达式输出 Bean 的普通属性，数组属性。Lis集合属性，map集合属性"></a>3. <strong>EL</strong> <strong>表达式输出</strong> <strong>Bean</strong> 的普通属性，数组属性。Lis集合属性，map集合属性</h3><ol>
-<li>需求——输出 Person 类中普通属性，数组属性。list 集合属性和 map 集合属性。</li>
-</ol>
-<pre class=" language-jsp"><code class="language-jsp"><body>
-    <%
-        Person person = new Person();
-        person.setName("sssss");
-        person.setPhones(new String[]{"1111111","222222","333333"});
-        List<String> cities = new ArrayList<>();
-        cities.add("北京");
-        cities.add("上海");
-        cities.add("深圳");
-        person.setCities(cities);
-
-        Map<String,Object> map = new HashMap<>();
-        map.put("k1","v1");
-        map.put("k2","v2");
-        map.put("k3","v4");
-        person.setMap(map);
-        pageContext.setAttribute("p",person);
-
-    %>
-
-    输出person：${p}<br>
-                ${p.name}<br>
-                ${p.phones[0]}<br>
-                ${p.cities}<br>
-                ${p.cities[0]}<br>
-                ${p.map}<br>
-                ${p.map.k1}<br>
-
-</body></code></pre>
-<h3 id="4-EL-表达式——运算"><a href="#4-EL-表达式——运算" class="headerlink" title="4. EL 表达式——运算"></a>4. <strong>EL</strong> <strong>表达式——运算</strong></h3><p>语法：${ 运算表达式 } ， EL 表达式支持如下运算符：</p>
-<ol>
-<li><p><strong>关系运算</strong> </p>
-<table>
-<thead>
-<tr>
-<th align="center"><strong>关系运算符</strong></th>
-<th align="center"><strong>说</strong> 明</th>
-<th align="center">范  例</th>
-<th align="center">结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">== 或 eq</td>
-<td align="center">等于</td>
-<td align="center">${ 5 == 5 } 或 ${ 5 eq 5 }</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">!= 或 ne</td>
-<td align="center">不等于</td>
-<td align="center">${ 5 !=5 } 或 ${ 5 ne 5 }</td>
-<td align="center">false</td>
-</tr>
-<tr>
-<td align="center">&lt; 或 lt</td>
-<td align="center">小于</td>
-<td align="center">${ 3 &lt; 5 } 或 ${ 3 lt 5 }</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">&gt; 或 gt</td>
-<td align="center">大于</td>
-<td align="center">${ 2 &gt; 10 } 或 ${ 2 gt 10 }</td>
-<td align="center">false</td>
-</tr>
-<tr>
-<td align="center">&lt;= 或 le</td>
-<td align="center">小于等于</td>
-<td align="center">${ 5 &lt;= 12 } 或 ${ 5 le 12 }</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">&gt;= 或 ge</td>
-<td align="center">大于等于</td>
-<td align="center">${ 3 &gt;= 5 } 或 ${ 3 ge 5 }</td>
-<td align="center">false</td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>逻辑运算</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center"><strong>逻辑运算符</strong></th>
-<th align="center">说  明</th>
-<th align="center">范  例</th>
-<th align="center">结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&amp;&amp; 或 and</td>
-<td align="center">与运算</td>
-<td align="center">${ 12 == 12 &amp;&amp; 12 &lt; 11 } 或 ${ 12 == 12 and 12 &lt; 11 }</td>
-<td align="center">false</td>
-</tr>
-<tr>
-<td align="center">|| 或 or</td>
-<td align="center">或运算</td>
-<td align="center">${ 12 == 12 || 12 &lt; 11 } 或 ${ 12 == 12 or 12 &lt; 11 }</td>
-<td align="center">true</td>
-</tr>
-<tr>
-<td align="center">! 或 not</td>
-<td align="center">取反运算</td>
-<td align="center">${ !true } 或 ${not true }</td>
-<td align="center">false</td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>算数运算</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center"><strong>算数运算符</strong></th>
-<th align="center">说  明</th>
-<th align="center">范  例</th>
-<th align="center">结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">+</td>
-<td align="center">加法</td>
-<td align="center">${ 12 + 18 }</td>
-<td align="center">30</td>
-</tr>
-<tr>
-<td align="center">-</td>
-<td align="center">减法</td>
-<td align="center">${ 18 - 8 }</td>
-<td align="center">10</td>
-</tr>
-<tr>
-<td align="center">*</td>
-<td align="center">乘法</td>
-<td align="center">${ 12 * 12 }</td>
-<td align="center">144</td>
-</tr>
-<tr>
-<td align="center">/ 或 div</td>
-<td align="center">除法</td>
-<td align="center">${ 144 / 12 } 或 ${ 144 <strong>div</strong> 12 }</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="center">% 或 mod</td>
-<td align="center">取模</td>
-<td align="center">${ 144 % 10 } 或 ${ 144 <strong>mod</strong> 10 }</td>
-<td align="center">4</td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>empty</strong> <strong>运算</strong></p>
-<p>empty 运算可以判断一个数据是否为空，如果为空，则输出 true,不为空输出 false。 </p>
-<p>以下几种情况为空： </p>
-<p>1、值为 null 值的时候，为空 </p>
-<p>2、值为空串的时候，为空 </p>
-<p>3、值是 Object 类型数组，长度为零的时候 </p>
-<p>4、list 集合，元素个数为零 </p>
-<p>5、map 集合，元素个数为零 </p>
-</li>
-<li><p><strong>三元运算</strong></p>
-<p>表达式 1？表达式 2：表达式 3 </p>
-<p>如果表达式 1 的值为真，返回表达式 2 的值，如果表达式 1 的值为假，返回表达式 3 的值。</p>
-</li>
-<li><p><strong>“.”点运算 和 [] 中括号运算符</strong></p>
-<p>.点运算，可以输出 Bean 对象中某个属性的值。 </p>
-<p>[]中括号运算，可以输出有序集合中某个元素的值。 </p>
-<p>并且[]中括号运算，还可以输出 map 集合中 key 里含有特殊字符的 key 的值。</p>
-</li>
-</ol>
-<h3 id="5-EL-表达式的-11-个隐含对象"><a href="#5-EL-表达式的-11-个隐含对象" class="headerlink" title="5. EL 表达式的 11 个隐含对象"></a>5. <strong>EL</strong> <strong>表达式的</strong> <strong>11</strong> <strong>个隐含对象</strong></h3><p>EL 个达式中 11 个隐含对象，是 EL 表达式中自己定义的，可以直接使用。</p>
-<table>
-<thead>
-<tr>
-<th>变量</th>
-<th>类型</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pageContext</td>
-<td>PageContextImpl</td>
-<td>它可以获取 jsp 中的九大内置对象</td>
-</tr>
-<tr>
-<td>pageScope</td>
-<td>Map&lt;String,Object&gt;</td>
-<td>它可以获取 pageContext 域中的数据</td>
-</tr>
-<tr>
-<td>requestScope</td>
-<td>Map&lt;String,Object&gt;</td>
-<td>它可以获取 Request 域中的数据</td>
-</tr>
-<tr>
-<td>sessionScope</td>
-<td>Map&lt;String,Object&gt;</td>
-<td>它可以获取 Session 域中的数据</td>
-</tr>
-<tr>
-<td>applicationScope</td>
-<td>Map&lt;String,Object&gt;</td>
-<td>它可以获取 ServletContext 域中的数据</td>
-</tr>
-<tr>
-<td>param</td>
-<td>Map&lt;String,String&gt;</td>
-<td>它可以获取请求参数的值</td>
-</tr>
-<tr>
-<td>paramValues</td>
-<td>Map&lt;String,String[]&gt;</td>
-<td>它也可以获取请求参数的值，获取多个值的时候使用。</td>
-</tr>
-<tr>
-<td>header</td>
-<td>Map&lt;String,String&gt;</td>
-<td>它可以获取请求头的信息</td>
-</tr>
-<tr>
-<td>headerValues</td>
-<td>Map&lt;String,String[]&gt;</td>
-<td>它可以获取请求头的信息，它可以获取多个值的情况</td>
-</tr>
-<tr>
-<td>cookie</td>
-<td>Map&lt;String,Cookie&gt;</td>
-<td>它可以获取当前请求的 Cookie 信息</td>
-</tr>
-<tr>
-<td>initParam</td>
-<td>Map&lt;String,String&gt;</td>
-<td>它可以获取在 web.xml 中配置的<context-param>上下文参数</context-param></td>
-</tr>
-</tbody></table>
-<h4 id="1-EL-获取四个特定域中的属性"><a href="#1-EL-获取四个特定域中的属性" class="headerlink" title="1. EL 获取四个特定域中的属性"></a>1. <strong>EL</strong> <strong>获取四个特定域中的属性</strong></h4><p>pageScope                  ======             pageContext 域</p>
-<p>requestScope             ======             Request 域 </p>
-<p>sessionScope              ======            Session 域</p>
-<p>applicationScope       ======            ServletContext 域</p>
-<h4 id="2-pageContext-对象的使用"><a href="#2-pageContext-对象的使用" class="headerlink" title="2. pageContext 对象的使用"></a>2. <strong>pageContext</strong> <strong>对象的使用</strong></h4><ol>
-<li><p>协议： request.getScheme() 它可以获取请求的协议</p>
-</li>
-<li><p>服务器 ip： request.getServerName() 获取请求的服务器 <strong>ip</strong> 或域名</p>
-</li>
-<li><p>服务器端口： request.getServerPort() 获取请求的服务器端口号</p>
-</li>
-<li><p><strong>获取工程路径：</strong> getContextPath()获取当前工程路径</p>
-</li>
-<li><p>获取请求方法： request.getMethod() 获取请求的方式（<strong>GET 或 POST</strong>）</p>
-</li>
-<li><p>获取客户端 ip 地址： request.getRemoteHost() 获取客户端的 ip 地址</p>
-</li>
-<li><p>获取会话的 id 编号： session.getId() 获取会话的唯一标识 </p>
-</li>
-</ol>
-<h4 id="3-EL-表达式其他隐含对象的使用"><a href="#3-EL-表达式其他隐含对象的使用" class="headerlink" title="3. EL 表达式其他隐含对象的使用"></a>3. <strong>EL</strong> <strong>表达式其他隐含对象的使用</strong></h4><pre class=" language-jsp"><code class="language-jsp">输出请求参数 username 的值：${ param.username } <br> 输
-出请求参数 password 的值：${ param.password } <br> 
-输出请求参数 username 的值：${ paramValues.username[0] } <br> 
-输出请求参数 hobby 的值：${ paramValues.hobby[0] } <br> 
-输出请求参数 hobby 的值：${ paramValues.hobby[1] } <br>
-
-http://localhost:8080/09_EL_JSTL/other_el_obj.jsp?username=wzg168&password=666666&hobby=java&hobby=cpp
-输出请求头【User-Agent】的值：${ header['User-Agent'] } <br> 
-输出请求头【Connection】的值：${ header.Connection } <br> 
-输出请求头【User-Agent】的值：${ headerValues['User-Agent'][0] } <br>
-
-
-获取 Cookie 的名称：${ cookie.JSESSIONID.name } <br> 
-获取 Cookie 的值：${ cookie.JSESSIONID.value } <br></code></pre>
-<h2 id="三、JSTL-标签库"><a href="#三、JSTL-标签库" class="headerlink" title="三、JSTL 标签库"></a>三、<strong>JSTL</strong> <strong>标签库</strong></h2><p>JSTL 标签库 全称是指 JSP Standard Tag Library JSP 标准标签库。是一个不断完善的开放源代码的 JSP 标 </p>
-<p>签库。</p>
-<p>EL 表达式主要是为了替换 jsp 中的表达式脚本，而标签库则是为了替换代码脚本。这样使得整个 jsp 页面 </p>
-<p>变得更佳简洁。</p>
-<h3 id="1-JSTL-由五个不同功能的标签库组成。"><a href="#1-JSTL-由五个不同功能的标签库组成。" class="headerlink" title="1. JSTL 由五个不同功能的标签库组成。"></a>1. <strong>JSTL 由五个不同功能的标签库组成。</strong></h3><table>
-<thead>
-<tr>
-<th>功能范围</th>
-<th>URL</th>
-<th>前缀</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>核心标签库**</strong>–<strong>**重点</strong></td>
-<td><strong><a href="http://java.sun.com/jsp/jstl/core" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/core</a></strong></td>
-<td>c</td>
-</tr>
-<tr>
-<td>格式化</td>
-<td><a href="http://java.sun.com/jsp/jstl/fmt" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/fmt</a></td>
-<td>fmt</td>
-</tr>
-<tr>
-<td>函数</td>
-<td><a href="http://java.sun.com/jsp/jstl/functions" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/functions</a></td>
-<td>fn</td>
-</tr>
-<tr>
-<td>数据库(不使用)</td>
-<td><a href="http://java.sun.com/jsp/jstl/sql" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/sql</a></td>
-<td>sql</td>
-</tr>
-<tr>
-<td>XML(不使用)</td>
-<td><a href="http://java.sun.com/jsp/jstl/xml" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/xml</a></td>
-<td>x</td>
-</tr>
-</tbody></table>
-<p>在 jsp 标签库中使用 taglib 指令引入标签库 </p>
-<pre class=" language-jsp"><code class="language-jsp"> CORE 标签库 
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
- XML 标签库
- <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %> 
- FMT 标签库 
- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
- SQL 标签库 
- <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %> FUNCTIONS 标签库 
- <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %></code></pre>
-<h3 id="2-JSTL-标签库的使用步骤"><a href="#2-JSTL-标签库的使用步骤" class="headerlink" title="2. JSTL 标签库的使用步骤"></a>2. <strong>JSTL</strong> <strong>标签库的使用步骤</strong></h3><ol>
-<li>先导入 jstl 标签库的 jar 包 或<strong>导入Maven依赖</strong>。 </li>
-<li>第二步，使用 taglib 指令引入标签库。</li>
-</ol>
-<h3 id="3-core-核心库使用"><a href="#3-core-核心库使用" class="headerlink" title="3. core 核心库使用"></a>3. <strong>core</strong> <strong>核心库使用</strong></h3><ol>
-<li><p><strong>&lt;c:set /&gt;（使用很少）</strong></p>
-<p>作用：set 标签可以往域中保存数据 </p>
-<pre class=" language-jsp"><code class="language-jsp"><%--
-i.<c:set />
-作用：set标签可以往域中保存数据
-
-域对象.setAttribute(key,value);
-scope 属性设置保存到哪个域
-    page表示PageContext域（默认值）
-    request表示Request域
-    session表示Session域
-    application表示ServletContext域
-var属性设置key是多少
-value属性设置值
---%>
-
-保存之前：${ sessionScope.abc } <br>
-<c:set scope="session" var="abc" value="abcValue"/>
-保存之后：${ sessionScope.abc } <br></code></pre>
-</li>
-<li><p><strong>&lt;c:if /&gt;</strong></p>
-<p>if 标签用来做 if 判断。</p>
-<pre class=" language-jsp"><code class="language-jsp"><%--
-   ii.<c:if />
-     if标签用来做if判断。
-     test属性表示判断的条件（使用EL表达式输出）
---%>
-
-<c:if test="${ 12 == 12 }">
-    <h1>12等于12</h1>
-</c:if>
-<c:if test="${ 12 != 12 }">
-    <h1>12不等于12</h1>
-</c:if></code></pre>
-</li>
-<li><p><strong>&lt;c:choose&gt; &lt;c:when&gt; &lt;c:otherwise&gt;标签</strong></p>
-<p>作用：多路判断。跟 switch … case …. default 非常接近 </p>
-<pre class=" language-jsp"><code class="language-jsp">    <%--
-    iii.<c:choose> <c:when> <c:otherwise>标签
-    作用：多路判断。跟switch ... case .... default非常接近
-
-    choose标签开始选择判断
-    when标签表示每一种判断情况
-        test属性表示当前这种判断情况的值
-    otherwise标签表示剩下的情况
-
-    <c:choose> <c:when> <c:otherwise>标签使用时需要注意的点：
-        1、标签里不能使用html注释，要使用jsp注释
-        2、when标签的父标签一定要是choose标签
-    --%>
-    <%
-        request.setAttribute("height", 180);
-    %>
-    <c:choose>
-        <c:when test="${ requestScope.height > 190 }">
-            小巨人
-        </c:when>
-         <c:when test="${ requestScope.height > 180 }">
-            很高
-        </c:when>
-        <c:when test="${ requestScope.height > 170 }">
-           还可以
-        </c:when>
-        <c:otherwise>
-            <c:choose>
-                <c:when test="${requestScope.height > 160}">
-                    大于160
-                </c:when>
-                <c:when test="${requestScope.height > 150}">
-                    大于150
-                </c:when>
-                <c:when test="${requestScope.height > 140}">
-                    大于140
-                </c:when>
-                <c:otherwise>
-                    其他小于140
-                </c:otherwise>
-            </c:choose>
-        </c:otherwise>
-    </c:choose></code></pre>
-</li>
-<li><p><strong>&lt;c:forEach /&gt;</strong></p>
-<p>作用：遍历输出使用。</p>
+<p>然后我们找到编译后的 class文件，使用下列命令进行反编译</p>
+<pre class=" language-bash"><code class="language-bash">javap -v StackStruTest.class</code></pre>
+<p>得到的文件为:</p>
+<pre><code>  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=4, args_size=1
+         0: iconst_2
+         1: istore_1
+         2: iconst_3
+         3: istore_2
+         4: iload_1
+         5: iload_2
+         6: iadd
+         7: istore_3
+         8: return
+      LineNumberTable:
+        line 9: 0
+        line 10: 2
+        line 11: 4
+        line 12: 8
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  args   [Ljava/lang/String;
+            2       7     1     i   I
+            4       5     2     j   I
+            8       1     3     k   I</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>由于跨平台性的设计，Java的指令都是根据栈来设计的。不同平台CPU架构不同，所以不能设计为基于寄存器的。优点是跨平台，指令集小，编译器容易实现，缺点是性能下降，实现同样的功能需要更多的指令。</p>
+<p>时至今日，尽管嵌入式平台已经不是Java程序的主流运行平台了（准确来说应该是HotSpotVM的宿主环境已经不局限于嵌入式平台了），那么为什么不将架构更换为基于寄存器的架构呢？</p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><ul>
+<li>跨平台性</li>
+<li>指令集小</li>
+<li>指令多</li>
+<li>执行性能比寄存器差</li>
+</ul>
+<h2 id="JVM生命周期"><a href="#JVM生命周期" class="headerlink" title="JVM生命周期"></a>JVM生命周期</h2><h3 id="虚拟机的启动"><a href="#虚拟机的启动" class="headerlink" title="虚拟机的启动"></a>虚拟机的启动</h3><p>Java虚拟机的启动是通过引导类加载器（bootstrap class loader）创建一个初始类（initial class）来完成的，这个类是由虚拟机的具体实现指定的。</p>
+<h3 id="虚拟机的执行"><a href="#虚拟机的执行" class="headerlink" title="虚拟机的执行"></a>虚拟机的执行</h3><ul>
+<li>一个运行中的Java虚拟机有着一个清晰的任务：执行Java程序。</li>
+<li>程序开始执行时他才运行，程序结束时他就停止。</li>
+<li>执行一个所谓的Java程序的时候，真真正正在执行的是一个叫做Java虚拟机的进程。</li>
+</ul>
+<h3 id="虚拟机的退出"><a href="#虚拟机的退出" class="headerlink" title="虚拟机的退出"></a>虚拟机的退出</h3><p>有如下的几种情况：</p>
 <ul>
-<li><p><strong>遍历</strong> <strong>1</strong> <strong>到</strong> <strong>10，输出</strong> </p>
-<pre class=" language-jsp"><code class="language-jsp">    <%--1.遍历1到10，输出
-        begin属性设置开始的索引
-        end 属性设置结束的索引
-        var 属性表示循环的变量(也是当前正在遍历到的数据)
-        for (int i = 1; i < 10; i++)
---%>
-    <table border="1">
-        <c:forEach begin="1" end="10" var="i">
-            <tr>
-                <td>第${i}行</td>
-            </tr>
-        </c:forEach>
-    </table></code></pre>
+<li><p>程序正常执行结束</p>
 </li>
-<li><p><strong>遍历</strong> <strong>Object</strong> <strong>数组</strong> </p>
-<pre class=" language-jsp"><code class="language-jsp">   <%-- 2.遍历Object数组
-        for (Object item: arr)
-        items 表示遍历的数据源（遍历的集合）
-        var 表示当前遍历到的数据
- --%>
-    <%
-        request.setAttribute("arr", new String[]{"18610541354","18688886666","18699998888"});
-    %>
-    <c:forEach items="${ requestScope.arr }" var="item">
-        ${ item } <br>
-    </c:forEach></code></pre>
+<li><p>程序在执行过程中遇到了异常或错误而异常终止</p>
 </li>
-<li><p><strong>遍历</strong> <strong>Map</strong> <strong>集合</strong> </p>
-<pre class=" language-jsp"><code class="language-jsp">    <%
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("key1", "value1");
-        map.put("key2", "value2");
-        map.put("key3", "value3");
-//        for ( Map.Entry<String,Object> entry : map.entrySet()) {
-//        }
-        request.setAttribute("map", map);
-    %>
-    <c:forEach items="${ requestScope.map }" var="entry">
-        <h1>${entry.key} = ${entry.value}</h1>
-    </c:forEach></code></pre>
+<li><p>由于操作系统用现错误而导致Java虚拟机进程终止</p>
 </li>
-<li><p><strong>遍历</strong> <strong>List</strong> <strong>集合list中存放Student</strong> <strong>类，有属性：编号，用户名，密码，年龄，</strong> <strong>电话信息</strong></p>
-<pre class=" language-11"><code class="language-11">    <%--4.遍历List集合---list中存放 Student类，有属性：编号，用户名，密码，年龄，电话信息--%>
-    <%
-        List<Student> studentList = new ArrayList<Student>();
-        for (int i = 1; i <= 10; i++) {
-            studentList.add(new Student(i,"username"+i ,"pass"+i,18+i,"phone"+i));
-        }
-        request.setAttribute("stus", studentList);
-    %>
-    <form action="" enctype=""></form>
-    <table>
-        <tr>
-            <th>编号</th>
-            <th>用户名</th>
-            <th>密码</th>
-            <th>年龄</th>
-            <th>电话</th>
-            <th>操作</th>
-        </tr>
-        <%--
-            items 表示遍历的集合
-            var 表示遍历到的数据
-            begin表示遍历的开始索引值
-            end 表示结束的索引值
-            step 属性表示遍历的步长值
-            varStatus 属性表示当前遍历到的数据的状态
-            for（int i = 1; i < 10; i+=2）
-        --%>
-    <c:forEach begin="2" end="7" step="2" varStatus="status" items="${requestScope.stus}" var="stu">
-        <tr>
-            <td>${stu.id}</td>
-            <td>${stu.username}</td>
-            <td>${stu.password}</td>
-            <td>${stu.age}</td>
-            <td>${stu.phone}</td>
-            <td>${status.step}</td>
-        </tr>
-    </c:forEach>
-    </table></code></pre>
+<li><p>某线程调用Runtime类或system类的exit方法，或Runtime类的halt方法，并且Java安全管理器也允许这次exit或halt操作。</p>
+</li>
+<li><p>除此之外，JNI（Java Native Interface）规范描述了用JNI Invocation API来加载或卸载 Java虚拟机时，Java虚拟机的退出情况。</p>
 </li>
 </ul>
-</li>
-</ol>
+<h2 id="JVM发展历程"><a href="#JVM发展历程" class="headerlink" title="JVM发展历程"></a>JVM发展历程</h2><h3 id="Sun-Classic-VM"><a href="#Sun-Classic-VM" class="headerlink" title="Sun Classic VM"></a>Sun Classic VM</h3><ul>
+<li>早在1996年Java1.0版本的时候，Sun公司发布了一款名为sun classic VM的Java虚拟机，它同时也是世界上第一款商用Java虚拟机，JDK1.4时完全被淘汰。</li>
+<li>这款虚拟机内部只提供解释器。现在还有及时编译器，因此效率比较低，而及时编译器会把热点代码缓存起来，那么以后使用热点代码的时候，效率就比较高。</li>
+<li>如果使用JIT编译器，就需要进行外挂。但是一旦使用了JIT编译器，JIT就会接管虚拟机的执行系统。解释器就不再工作。解释器和编译器不能配合工作。</li>
+<li>现在hotspot内置了此虚拟机。</li>
+</ul>
+<h3 id="Exact-VM"><a href="#Exact-VM" class="headerlink" title="Exact VM"></a>Exact VM</h3><p>为了解决上一个虚拟机问题，jdk1.2时，sun提供了此虚拟机。<br>Exact Memory Management：准确式内存管理</p>
+<ul>
+<li>也可以叫Non-Conservative/Accurate Memory Management</li>
+<li>虚拟机可以知道内存中某个位置的数据具体是什么类型。|</li>
+</ul>
+<p>具备现代高性能虚拟机的维形</p>
+<ul>
+<li>热点探测（寻找出热点代码进行缓存）</li>
+<li>编译器与解释器混合工作模式</li>
+</ul>
+<p>只在solaris平台短暂使用，其他平台上还是classic vm，英雄气短，终被Hotspot虚拟机替换</p>
+<h3 id="HotSpot-VM"><a href="#HotSpot-VM" class="headerlink" title="HotSpot VM"></a>HotSpot VM</h3><p>HotSpot历史</p>
+<ul>
+<li>最初由一家名为“Longview Technologies”的小公司设计</li>
+<li>1997年，此公司被sun收购；2009年，Sun公司被甲骨文收购。</li>
+<li>JDK1.3时，HotSpot VM成为默认虚拟机</li>
+</ul>
+<p>目前Hotspot占有绝对的市场地位，称霸武林。</p>
+<ul>
+<li>不管是现在仍在广泛使用的JDK6，还是使用比例较多的JDK8中，默认的虚拟机都是HotSpot</li>
+<li>Sun/oracle JDK和openJDK的默认虚拟机</li>
+<li>因此本课程中默认介绍的虚拟机都是HotSpot，相关机制也主要是指HotSpot的Gc机制。（比如其他两个商用虚机都没有方法区的概念）</li>
+</ul>
+<p>从服务器、桌面到移动端、嵌入式都有应用。</p>
+<p>名称中的HotSpot指的就是它的热点代码探测技术。</p>
+<ul>
+<li>通过计数器找到最具编译价值代码，触发即时编译或栈上替换</li>
+<li>通过编译器与解释器协同工作，在最优化的程序响应时间与最佳执行性能中取得平衡</li>
+</ul>
+<h3 id="JRockit"><a href="#JRockit" class="headerlink" title="JRockit"></a>JRockit</h3><p>专注于服务器端应用</p>
+<ul>
+<li>它可以不太关注程序启动速度，因此JRockit内部不包含解析器实现，全部代码都靠即时编译器编译后执行。</li>
+</ul>
+<p>大量的行业基准测试显示，JRockit JVM是世界上最快的JVM。</p>
+<ul>
+<li>使用JRockit产品，客户已经体验到了显著的性能提高（一些超过了70%）和硬件成本的减少（达50%）。</li>
+</ul>
+<p>优势：全面的Java运行时解决方案组合</p>
+<ul>
+<li>JRockit面向延迟敏感型应用的解决方案JRockit Real Time提供以毫秒或微秒级的JVM响应时间，适合财务、军事指挥、电信网络的需要</li>
+<li>MissionControl服务套件，它是一组以极低的开销来监控、管理和分析生产环境中的应用程序的工具。</li>
+</ul>
+<p>2008年，JRockit被oracle收购。</p>
+<p>oracle表达了整合两大优秀虚拟机的工作，大致在JDK8中完成。整合的方式是在HotSpot的基础上，移植JRockit的优秀特性。</p>
+<p>高斯林：目前就职于谷歌，研究人工智能和水下机器人</p>
+<h3 id="IBM的J9"><a href="#IBM的J9" class="headerlink" title="IBM的J9"></a>IBM的J9</h3><p>全称：IBM Technology for Java Virtual Machine，简称IT4J，内部代号：J9</p>
+<p>市场定位与HotSpot接近，服务器端、桌面应用、嵌入式等多用途VM广泛用于IBM的各种Java产品。</p>
+<p>目前，有影响力的三大商用虚拟机之一，也号称是世界上最快的Java虚拟机。</p>
+<p>2017年左右，IBM发布了开源J9VM，命名为openJ9，交给EClipse基金会管理，也称为Eclipse OpenJ9</p>
+<p>OpenJDK   -&gt; 是JDK开源了，包括了虚拟机</p>
+<h3 id="KVM和CDC-CLDC-Hotspot"><a href="#KVM和CDC-CLDC-Hotspot" class="headerlink" title="KVM和CDC / CLDC  Hotspot"></a>KVM和CDC / CLDC  Hotspot</h3><p>oracle在Java ME产品线上的两款虚拟机为：CDC/CLDC HotSpot Implementation VM KVM（Kilobyte）是CLDC-HI早期产品目前移动领域地位尴尬，智能机被Angroid和ioS二分天下。</p>
+<p>KVM简单、轻量、高度可移植，面向更低端的设备上还维持自己的一片市场</p>
+<ul>
+<li>智能控制器、传感器</li>
+<li>老人手机、经济欠发达地区的功能手机</li>
+</ul>
+<p>所有的虚拟机的原则：一次编译，到处运行。</p>
+<h3 id="Azul-VM"><a href="#Azul-VM" class="headerlink" title="Azul VM"></a>Azul VM</h3><p>前面三大“高性能Java虚拟机”使用在通用硬件平台上这里Azu1VW和BEALiquid VM是与特定硬件平台绑定、软硬件配合的专有虚拟机I</p>
+<ul>
+<li>高性能Java虚拟机中的战斗机。</li>
+</ul>
+<p>Azul VM是Azu1Systems公司在HotSpot基础上进行大量改进，运行于Azul Systems公司的专有硬件Vega系统上的ava虚拟机。</p>
+<p>每个Azu1VM实例都可以管理至少数十个CPU和数百GB内存的硬件资源，并提供在巨大内存范围内实现可控的GC时间的垃圾收集器、专有硬件优化的线程调度等优秀特性。</p>
+<p>2010年，AzulSystems公司开始从硬件转向软件，发布了自己的zing JVM，可以在通用x86平台上提供接近于Vega系统的特性。</p>
+<h3 id="Liquid-VM"><a href="#Liquid-VM" class="headerlink" title="Liquid VM"></a>Liquid VM</h3><p>高性能Java虚拟机中的战斗机。</p>
+<p>BEA公司开发的，直接运行在自家Hypervisor系统上Liquid VM即是现在的JRockit VE（Virtual Edition），</p>
+<p>Liquid VM不需要操作系统的支持，或者说它自己本身实现了一个专用操作系统的必要功能，如线程调度、文件系统、网络支持等。</p>
+<p>随着JRockit虚拟机终止开发，Liquid vM项目也停止了。</p>
+<h3 id="Apache-Marmony"><a href="#Apache-Marmony" class="headerlink" title="Apache Marmony"></a>Apache Marmony</h3><p>Apache也曾经推出过与JDK1.5和JDK1.6兼容的Java运行平台Apache Harmony。</p>
+<p>它是IElf和Inte1联合开发的开源JVM，受到同样开源的openJDK的压制，Sun坚决不让Harmony获得JCP认证，最终于2011年退役，IBM转而参与OpenJDK</p>
+<p>虽然目前并没有Apache Harmony被大规模商用的案例，但是它的Java类库代码吸纳进了Android SDK。</p>
+<h3 id="Micorsoft-JVM"><a href="#Micorsoft-JVM" class="headerlink" title="Micorsoft JVM"></a>Micorsoft JVM</h3><p>微软为了在IE3浏览器中支持Java Applets，开发了Microsoft JVM。</p>
+<p>只能在window平台下运行。但确是当时Windows下性能最好的Java VM。</p>
+<p>1997年，sun以侵犯商标、不正当竞争罪名指控微软成功，赔了sun很多钱。微软windowsXPSP3中抹掉了其VM。现在windows上安装的jdk都是HotSpot。</p>
+<h3 id="Taobao-JVM"><a href="#Taobao-JVM" class="headerlink" title="Taobao JVM"></a>Taobao JVM</h3><p>由AliJVM团队发布。阿里，国内使用Java最强大的公司，覆盖云计算、金融、物流、电商等众多领域，需要解决高并发、高可用、分布式的复合问题。有大量的开源产品。</p>
+<p>基于openJDK开发了自己的定制版本AlibabaJDK，简称AJDK。是整个阿里Java体系的基石。</p>
+<p>基于openJDK Hotspot VM发布的国内第一个优化、深度定制且开源的高性能服务器版Java虚拟机。</p>
+<ul>
+<li>创新的GCIH（GCinvisible heap）技术实现了off-heap，即将生命周期较长的Java对象从heap中移到heap之外，并且Gc不能管理GCIH内部的Java对象，以此达到降低GC的回收频率和提升Gc的回收效率的目的。</li>
+<li>GCIH中的对象还能够在多个Java虚拟机进程中实现共享</li>
+<li>使用crc32指令实现JvM intrinsic降低JNI的调用开销</li>
+<li>PMU hardware的Java profiling tool和诊断协助功能</li>
+<li>针对大数据场景的ZenGc </li>
+</ul>
+<p>taobao vm应用在阿里产品上性能高，硬件严重依赖inte1的cpu，损失了兼容性，但提高了性能</p>
+<p>目前已经在淘宝、天猫上线，把oracle官方JvM版本全部替换了。</p>
+<h3 id="Dalvik-VM"><a href="#Dalvik-VM" class="headerlink" title="Dalvik VM"></a>Dalvik VM</h3><p>谷歌开发的，应用于Android系统，并在Android2.2中提供了JIT，发展迅猛。</p>
+<p>Dalvik y只能称作虚拟机，而不能称作“Java虚拟机”，它没有遵循 Java虚拟机规范</p>
+<p>不能直接执行Java的Class文件</p>
+<p>基于寄存器架构，不是jvm的栈架构。</p>
+<p>执行的是编译以后的dex（Dalvik Executable）文件。执行效率比较高。</p>
+<ul>
+<li>它执行的dex（Dalvik Executable）文件可以通过class文件转化而来，使用Java语法编写应用程序，可以直接使用大部分的Java API等。</li>
+</ul>
+<p>Android 5.0使用支持提前编译（Ahead of Time Compilation，AoT）的ART VM替换Dalvik VM。</p>
+<h3 id="Graal-VM"><a href="#Graal-VM" class="headerlink" title="Graal VM"></a>Graal VM</h3><p>2018年4月，oracle Labs公开了GraalvM，号称 “Run Programs Faster Anywhere”，勃勃野心。与1995年java的”write once，run anywhere”遥相呼应。</p>
+<p>GraalVM在HotSpot VM基础上增强而成的跨语言全栈虚拟机，可以作为“任何语言”<br>的运行平台使用。语言包括：Java、Scala、Groovy、Kotlin；C、C++、Javascript、Ruby、Python、R等</p>
+<p>支持不同语言中混用对方的接口和对象，支持这些语言使用已经编写好的本地库文件</p>
+<p>工作原理是将这些语言的源代码或源代码编译后的中间格式，通过解释器转换为能被Graal VM接受的中间表示。Graal VM提供Truffle工具集快速构建面向一种新语言的解释器。在运行时还能进行即时编译优化，获得比原生编译器更优秀的执行效率。</p>
+<p>如果说HotSpot有一天真的被取代，Graalvm希望最大。但是Java的软件生态没有丝毫变化。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>具体JVM的内存结构，其实取决于其实现，不同厂商的JVM，或者同一厂商发布的不同版本，都有可能存在一定差异。主要以oracle HotSpot VM为默认虚拟机。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1178,7 +876,7 @@ value属性设置值
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yuimm.github.io/posts/jsp-el-jstl.html">http://yuimm.github.io/posts/jsp-el-jstl.html</a>
+                    <a href="http://yuimm.github.io/posts/jvm-yu-java-ti-xi-jie-gou.html">http://yuimm.github.io/posts/jvm-yu-java-ti-xi-jie-gou.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1216,8 +914,12 @@ value属性设置值
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JSP-EL-JSTL/">
-                                    <span class="chip bg-color">JSP_EL_JSTL</span>
+                                <a href="/tags/JAVA/">
+                                    <span class="chip bg-color">JAVA</span>
+                                </a>
+                            
+                                <a href="/tags/JVM/">
+                                    <span class="chip bg-color">JVM</span>
                                 </a>
                             
                         </div>
@@ -1650,30 +1352,30 @@ value属性设置值
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/file-download-upload.html">
+                <a href="/posts/lei-jia-zai-zi-xi-tong.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="File_Download_Upload">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="类加载子系统">
                         
-                        <span class="card-title">File_Download_Upload</span>
+                        <span class="card-title">类加载子系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ------------------------------------------------------------------------------------
+                            jVM虚拟机。----------------------------------------------------
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-03
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/javaWeb/" class="post-category">
-                                    javaWeb
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -1683,8 +1385,12 @@ value属性设置值
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/File-Download-Upload/">
-                        <span class="chip bg-color">File_Download_Upload</span>
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
+                    </a>
+                    
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
                     </a>
                     
                 </div>
@@ -1698,12 +1404,12 @@ value属性设置值
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/javaweb-01.html">
+                <a href="/posts/spring5.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="javaWeb第一个项目">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="Spring5">
                         
-                        <span class="card-title">javaWeb第一个项目</span>
+                        <span class="card-title">Spring5</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1714,14 +1420,14 @@ value属性设置值
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-27
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/javaWeb/" class="post-category">
-                                    javaWeb
+                            <a href="/categories/Spring/" class="post-category">
+                                    Spring
                                 </a>
                             
                             
@@ -1731,8 +1437,8 @@ value属性设置值
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/javaWeb/">
-                        <span class="chip bg-color">javaWeb</span>
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
                 </div>
