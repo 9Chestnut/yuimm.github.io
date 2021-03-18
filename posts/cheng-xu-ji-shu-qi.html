@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringMVC_03, Yuimm">
-    <meta name="description" content="Spring MVC是Spring Framework的一部分，是基于Java实现MVC的轻量级Web框架。">
+    <meta name="keywords" content="程序计数器, Yuimm">
+    <meta name="description" content="jVM虚拟机。----------------------------------------------------">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SpringMVC_03 | Yuimm</title>
+    <title>程序计数器 | Yuimm</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_CDN@V1.0.1/source/libs/awesome/css/all.css">
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SpringMVC_03</h1>
+                    <h1 class="description center-align post-title">程序计数器</h1>
                 </div>
             </div>
         </div>
@@ -425,12 +425,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JAVAEE/">
-                                <span class="chip bg-color">JAVAEE</span>
+                            <a href="/tags/JAVA/">
+                                <span class="chip bg-color">JAVA</span>
                             </a>
                         
-                            <a href="/tags/SpringMVC/">
-                                <span class="chip bg-color">SpringMVC</span>
+                            <a href="/tags/JVM/">
+                                <span class="chip bg-color">JVM</span>
                             </a>
                         
                     </div>
@@ -441,8 +441,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/SSM%E6%A1%86%E6%9E%B6/" class="post-category">
-                                SSM框架
+                            <a href="/categories/JVM/" class="post-category">
+                                JVM
                             </a>
                         
                     </div>
@@ -454,28 +454,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-04
+                    2021-03-04
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-12-28
+                    2021-03-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.4k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    4 分
                 </div>
                 
 				
@@ -491,274 +491,49 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="控制器Controller"><a href="#控制器Controller" class="headerlink" title="控制器Controller"></a>控制器Controller</h1><ul>
-<li>控制器复杂提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现。</li>
-<li>控制器负责解析用户的请求并将其转换为一个模型。</li>
-<li>在Spring MVC中一个控制器类可以包含多个方法</li>
-<li>在Spring MVC中，对于Controller的配置方式有很多种</li>
-</ul>
-<h2 id="实现Controller接口"><a href="#实现Controller接口" class="headerlink" title="实现Controller接口"></a>实现Controller接口</h2><p>Controller是一个接口，在org.springframework.web.servlet.mvc包下，接口中只有一个方法；</p>
-<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//实现该接口的类获得控制器功能</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Controller</span> <span class="token punctuation">{</span>
-   <span class="token comment" spellcheck="true">//处理请求且返回一个模型与视图对象</span>
-   ModelAndView <span class="token function">handleRequest</span><span class="token punctuation">(</span>HttpServletRequest var1<span class="token punctuation">,</span> HttpServletResponsevar2<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p><strong>测试</strong></p>
-<ol>
-<li><p>新建一个Moudle，springmvc-04-controller 。将刚才的03 拷贝一份, 进行操作！</p>
-</li>
-<li><ul>
-<li><p>删掉HelloController</p>
-</li>
-<li><p>mvc的配置文件只留下 视图解析器！</p>
-<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/context<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xmlns:</span>mvc</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/mvc<span class="token punctuation">"</span></span>
-       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/mvc
-        https://www.springframework.org/schema/mvc/spring-mvc.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-
-    <span class="token comment" spellcheck="true">&lt;!--自动扫描包，让指定包下的注解生效，由IOC容器统一管理--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.hct.controller<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">context:</span>component-scan</span><span class="token punctuation">></span></span>
-
-    <span class="token comment" spellcheck="true">&lt;!--让spring MVC不处理静态资源 .html  .js  .css .mp3 .mp4--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>default-servlet-handler</span><span class="token punctuation">/></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--
-        支持mvc注解驱动
-            在spring中一般采用@RequestMapping注解来完成映射关系
-            要想使用@RequestMapping注解生效
-            必须向上下文注册DefaultAnnotationHandlerMapping
-            和一个AnnotationMethodHandlerAdapter实例
-            这两个实例分别在类级别和方法级别处理
-            而annotation-driven配置帮助我们自动完成上述两个实例的注入
-    --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">mvc:</span>annotation-driven</span><span class="token punctuation">/></span></span>
-    <span class="token comment" spellcheck="true">&lt;!--视图解析器--></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.web.servlet.view.InternalResourceViewResolver<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>internalResourceViewResolver<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token comment" spellcheck="true">&lt;!--前缀--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prefix<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/WEB-INF/jsp/<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-        <span class="token comment" spellcheck="true">&lt;!--后缀--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>suffix<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.jsp<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span></code></pre>
-</li>
-</ul>
-</li>
-</ol>
-<ol start="3">
-<li><p>编写一个Controller类，ControllerTest1</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>controller<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>ModelAndView<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>mvc<span class="token punctuation">.</span>Controller<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpServletRequest<span class="token punctuation">;</span>
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpServletResponse<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//定义控制器</span>
-<span class="token comment" spellcheck="true">//注意点：不要导错包 import org.springframework.web.servlet.mvc.Controller;</span>
-<span class="token comment" spellcheck="true">//实现Controller接口，重写方法；</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ControllerTest01</span> <span class="token keyword">implements</span> <span class="token class-name">Controller</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> ModelAndView <span class="token function">handleRequest</span><span class="token punctuation">(</span>HttpServletRequest httpServletRequest<span class="token punctuation">,</span> HttpServletResponse httpServletResponse<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//返回一个模型视图对象</span>
-        ModelAndView mv <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModelAndView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        mv<span class="token punctuation">.</span><span class="token function">addObject</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span><span class="token string">"Test1Controller"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        mv<span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> mv<span class="token punctuation">;</span>
+                <h1 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>JVM中的程序计数寄存器（Program Counter Register）中，Register的命名源于CPU的寄存器，寄存器存储指令相关的现场信息。CPU只有把数据装载到寄存器才能够运行。这里，并非是广义上所指的物理寄存器，或许将其翻译为PC计数器（或指令计数器）会更加贴切（也称为程序钩子），并且也不容易引起一些不必要的误会。JVM中的PC寄存器是对物理PC寄存器的一种抽象模拟。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200705155551919.png" alt="image-20200705155551919"></p>
+<p>它是一块很小的内存空间，几乎可以忽略不记。也是运行速度最快的存储区域。</p>
+<p>在JVM规范中，每个线程都有它自己的程序计数器，是线程私有的，生命周期与线程的生命周期保持一致。</p>
+<p>任何时间一个线程都只有一个方法在执行，也就是所谓的当前方法。程序计数器会存储当前线程正在执行的Java方法的JVM指令地址；或者，如果是在执行native方法，则是未指定值（undefned）。</p>
+<p>它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令。</p>
+<p>它是唯一一个在Java虚拟机规范中没有规定任何outotMemoryError情况的区域。</p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>PC寄存器用来存储指向下一条指令的地址，也即将要执行的指令代码。由执行引擎读取下一条指令。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200705155728557.png" alt="image-20200705155728557"></p>
+<h2 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2><p>我们首先写一个简单的代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**程序计数器
+ * @author: 陌溪
+ * @create: 2020-07-05-16:01
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PCRegisterTest</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> k <span class="token operator">=</span> i <span class="token operator">+</span> j<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-</li>
-<li><p>编写完毕后，去Spring配置文件中注册请求的bean；name对应请求路径，class对应处理请求的类</p>
-</li>
-</ol>
-<pre class=" language-xml"><code class="language-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/t1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.hct.controller.ControllerTest01<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></code></pre>
-<p>​    4.编写前端test.jsp，注意在WEB-INF/jsp目录下编写，对应我们的视图解析器</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>%@</span> <span class="token attr-name">page</span> <span class="token attr-name">contentType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/html;charset<span class="token punctuation">=</span>UTF-8<span class="token punctuation">"</span></span> <span class="token attr-name">language</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>java<span class="token punctuation">"</span></span> <span class="token attr-name">%</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>hct<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-${msg}
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
-<p>5.配置Tomcat运行测试，我这里没有项目发布名配置的就是一个 / ，所以请求不用加项目名，OK！</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springMVC_03_01.png" alt="springMVC_03_01"></p>
-<p><strong>说明：</strong></p>
-<ul>
-<li>实现接口Controller定义控制器是较老的办法</li>
-<li>缺点是：一个控制器中只有一个方法，如果要多个方法则需要定义多个Controller；定义的方式比较麻烦；</li>
-</ul>
-<h1 id="使用注解-Controller"><a href="#使用注解-Controller" class="headerlink" title="使用注解@Controller"></a>使用注解@Controller</h1><ul>
-<li>@Controller注解类型用于声明Spring类的实例是一个控制器（在讲IOC时还提到了另外3个注解）；</li>
-<li>Spring可以使用扫描机制来找到应用程序中所有基于注解的控制器类，为了保证Spring能找到你的控制器，需要在配置文件中声明组件扫描。</li>
-</ul>
-<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 自动扫描指定的包，下面所有注解类交给IOC容器管理 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.hct.controller<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></code></pre>
-<ul>
-<li>增加一个ControllerTest2类，使用注解实现；</li>
-</ul>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>controller<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Controller<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>ui<span class="token punctuation">.</span>Model<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RequestMapping<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//@Controller注解的类会自动添加到Spring上下文中</span>
-<span class="token annotation punctuation">@Controller</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ControllerTest02</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//映射访问路径</span>
-    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/t2"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> String <span class="token function">index</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//Spring MVC会自动实例化一个Model对象用于向视图中传值</span>
-        model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span> <span class="token string">"ControllerTest2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//返回视图位置</span>
-        <span class="token keyword">return</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<ul>
-<li>运行tomcat测试</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springMVC_03_02.png" alt="springMVC_03_02"></p>
-<p><strong>可以发现，我们的两个请求都可以指向一个视图，但是页面结果的结果是不一样的，从这里可以看出视图是被复用的，而控制器与视图之间是弱偶合关系。</strong></p>
-<p><strong>注解方式是平时使用的最多的方式！</strong></p>
-<h1 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="RequestMapping"></a>RequestMapping</h1><h2 id="RequestMapping-1"><a href="#RequestMapping-1" class="headerlink" title="@RequestMapping"></a><strong>@RequestMapping</strong></h2><ul>
-<li>@RequestMapping注解用于映射url到控制器类或一个特定的处理程序方法。可用于类或方法上。用于类上，表示类中的所有响应请求的方法都是以该地址作为父路径。</li>
-<li>为了测试结论更加准确，我们可以加上一个项目名测试 myweb</li>
-<li>只注解在方法上面</li>
-</ul>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">{</span>
-   <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/h1"</span><span class="token punctuation">)</span>
-   <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-       <span class="token keyword">return</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p>访问路径：<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> / 项目名 / h1</p>
-<ul>
-<li>同时注解类与方法</li>
-</ul>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/admin"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">{</span>
-   <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/h1"</span><span class="token punctuation">)</span>
-   <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-       <span class="token keyword">return</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p>访问路径：<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> / 项目名/ admin /h1  , 需要先指定类的路径再指定方法的路径；</p>
-<h2 id="RestFul-风格"><a href="#RestFul-风格" class="headerlink" title="RestFul 风格"></a>RestFul 风格</h2><p><strong>概念</strong></p>
-<p>Restful就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</p>
-<p><strong>功能</strong></p>
-<p>资源：互联网所有的事物都可以被抽象为资源</p>
-<p>资源操作：使用POST、DELETE、PUT、GET，使用不同方法对资源进行操作。</p>
-<p>分别对应 添加、 删除、修改、查询。</p>
-<p><strong>传统方式操作资源</strong>  ：通过不同的参数来实现不同的效果！方法单一，post 和 get</p>
-<p>​    <a href="http://127.0.0.1/item/queryItem.action?id=1" target="_blank" rel="noopener">http://127.0.0.1/item/queryItem.action?id=1</a> 查询,GET</p>
-<p>​    <a href="http://127.0.0.1/item/saveItem.action" target="_blank" rel="noopener">http://127.0.0.1/item/saveItem.action</a> 新增,POST</p>
-<p>​    <a href="http://127.0.0.1/item/updateItem.action" target="_blank" rel="noopener">http://127.0.0.1/item/updateItem.action</a> 更新,POST</p>
-<p>​    <a href="http://127.0.0.1/item/deleteItem.action?id=1" target="_blank" rel="noopener">http://127.0.0.1/item/deleteItem.action?id=1</a> 删除,GET或POST</p>
-<p><strong>使用RESTful操作资源</strong> ：可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！</p>
-<p>​    <a href="http://127.0.0.1/item/1" target="_blank" rel="noopener">http://127.0.0.1/item/1</a> 查询,GET</p>
-<p>​    <a href="http://127.0.0.1/item" target="_blank" rel="noopener">http://127.0.0.1/item</a> 新增,POST</p>
-<p>​    <a href="http://127.0.0.1/item" target="_blank" rel="noopener">http://127.0.0.1/item</a> 更新,PUT</p>
-<p>​    <a href="http://127.0.0.1/item/1" target="_blank" rel="noopener">http://127.0.0.1/item/1</a> 删除,DELETE</p>
-<p><strong>学习测试</strong></p>
-<ol>
-<li><p>在新建一个类 RestFulController</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RestFulController</span> <span class="token punctuation">{</span>
-<span class="token punctuation">}</span></code></pre>
-</li>
-<li><p>在Spring MVC中可以使用  @PathVariable 注解，让方法参数的值对应绑定到一个URI模板变量上。</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Controller</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RestFulController</span> <span class="token punctuation">{</span>
-
-   <span class="token comment" spellcheck="true">//映射访问路径</span>
-   <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/commit/{p1}/{p2}"</span><span class="token punctuation">)</span>
-   <span class="token keyword">public</span> String <span class="token function">index</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span> <span class="token keyword">int</span> p1<span class="token punctuation">,</span> <span class="token annotation punctuation">@PathVariable</span> <span class="token keyword">int</span> p2<span class="token punctuation">,</span> Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
-
-       <span class="token keyword">int</span> result <span class="token operator">=</span> p1<span class="token operator">+</span>p2<span class="token punctuation">;</span>
-       <span class="token comment" spellcheck="true">//Spring MVC会自动实例化一个Model对象用于向视图中传值</span>
-       model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span> <span class="token string">"结果："</span><span class="token operator">+</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token comment" spellcheck="true">//返回视图位置</span>
-       <span class="token keyword">return</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-
-  <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-</li>
-<li><p>我们来测试请求查看下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springMVC_03_03.png" alt="springMVC_03_03"></p>
-</li>
-<li><p>思考：使用路径变量的好处？</p>
-<ul>
-<li>使路径变得更加简洁；</li>
-<li>获得参数更加方便，框架会自动进行类型转换。</li>
-<li>通过路径变量的类型可以约束访问参数，如果类型不一样，则访问不到对应的请求方法，如这里访问是的路径是/commit/1/a，则路径与方法不匹配，而不会是参数转换失败。</li>
-</ul>
-</li>
-<li><p>我们来修改下对应的参数类型，再次测试</p>
-<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//映射访问路径</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/commit/{p1}/{p2}"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">index</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span> <span class="token keyword">int</span> p1<span class="token punctuation">,</span> <span class="token annotation punctuation">@PathVariable</span> String p2<span class="token punctuation">,</span> Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
-
-   String result <span class="token operator">=</span> p1<span class="token operator">+</span>p2<span class="token punctuation">;</span>
-   <span class="token comment" spellcheck="true">//Spring MVC会自动实例化一个Model对象用于向视图中传值</span>
-   model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span> <span class="token string">"结果："</span><span class="token operator">+</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token comment" spellcheck="true">//返回视图位置</span>
-   <span class="token keyword">return</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-
-<span class="token punctuation">}</span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springMVC_03_04.png" alt="springMVC_03_04"></p>
-</li>
-<li></li>
-</ol>
-<p><strong>使用method属性指定请求类型</strong></p>
-<p>用于约束请求的类型，可以收窄请求范围。指定请求谓词的类型如GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE, TRACE等</p>
-<p>我们来测试一下：</p>
-<ul>
-<li>增加一个方法</li>
-</ul>
-<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//映射访问路径,必须是POST请求</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/hello"</span><span class="token punctuation">,</span>method <span class="token operator">=</span> <span class="token punctuation">{</span>RequestMethod<span class="token punctuation">.</span>POST<span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">index2</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
-   model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span> <span class="token string">"hello!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">return</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springMVC_03_05.png" alt="springMVC_03_05"></p>
-<ul>
-<li>如果将POST修改为GET则正常了；</li>
-</ul>
-<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//映射访问路径,必须是Get请求</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/hello"</span><span class="token punctuation">,</span>method <span class="token operator">=</span> <span class="token punctuation">{</span>RequestMethod<span class="token punctuation">.</span>GET<span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">index2</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
-   model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span> <span class="token string">"hello!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token keyword">return</span> <span class="token string">"test"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springMVC_03_06.png" alt="springMVC_03_06"></p>
-<p><strong>小结：</strong></p>
-<p>Spring MVC 的 @RequestMapping 注解能够处理 HTTP 请求的方法, 比如 GET, PUT, POST, DELETE 以及 PATCH。</p>
-<p><strong>所有的地址栏请求默认都会是 HTTP GET 类型的。</strong></p>
-<p>方法级别的注解变体有如下几个：组合注解</p>
-<pre><code>@GetMapping
-@PostMapping
-@PutMapping
-@DeleteMapping
-@PatchMapping</code></pre><p>@GetMapping 是一个组合注解，平时使用的会比较多！</p>
-<p>它所扮演的是 @RequestMapping(method =RequestMethod.GET) 的一个快捷方式。</p>
-<h3 id="扩展：小黄鸭调试法"><a href="#扩展：小黄鸭调试法" class="headerlink" title="扩展：小黄鸭调试法"></a>扩展：小黄鸭调试法</h3><p>场景一：<em>我们都有过向别人（甚至可能向完全不会编程的人）提问及解释编程问题的经历，但是很多时候就在我们解释的过程中自己却想到了问题的解决方案，然后对方却一脸茫然。</em></p>
-<p>场景二：你的同行跑来问你一个问题，但是当他自己把问题说完，或说到一半的时候就想出答案走了，留下一脸茫然的你。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/springMVC_03_07.png" alt="springMVC_03_07"></p>
-<p>其实上面两种场景现象就是所谓的小黄鸭调试法（Rubber Duck Debuging），又称橡皮鸭调试法，它是我们软件工程中最常使用调试方法之一。</p>
-<p>此概念据说来自《程序员修炼之道》书中的一个故事，传说程序大师随身携带一只小黄鸭，在调试代码的时候会在桌上放上这只小黄鸭，然后详细地向鸭子解释每行代码，然后很快就将问题定位修复了。</p>
-<p>注：本文来自狂神的教学和笔记，以供自己以后回顾学习使用，如有侵犯知识产权，请联系删除。</p>
+<p>然后将代码进行编译成字节码文件，我们再次查看 ，发现在字节码的左边有一个行号标识，它其实就是指令地址，用于指向当前执行到哪里。</p>
+<pre class=" language-bash"><code class="language-bash">0: bipush        10
+2: istore_1
+3: bipush        20
+5: istore_2
+6: iload_1
+7: iload_2
+8: iadd
+9: istore_3
+10: <span class="token keyword">return</span></code></pre>
+<p>通过PC寄存器，我们就可以知道当前程序执行到哪一步了 <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200705161007423.png" alt="image-20200705161007423"></p>
+<h2 id="使用PC寄存器存储字节码指令地址有什么用呢？"><a href="#使用PC寄存器存储字节码指令地址有什么用呢？" class="headerlink" title="使用PC寄存器存储字节码指令地址有什么用呢？"></a>使用PC寄存器存储字节码指令地址有什么用呢？</h2><p>因为CPU需要不停的切换各个线程，这时候切换回来以后，就得知道接着从哪开始继续执行。</p>
+<p>JVM的字节码解释器就需要通过改变PC寄存器的值来明确下一条应该执行什么样的字节码指令。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200705161409533.png" alt="image-20200705161409533"></p>
+<h2 id="PC寄存器为什么被设定为私有的？"><a href="#PC寄存器为什么被设定为私有的？" class="headerlink" title="PC寄存器为什么被设定为私有的？"></a>PC寄存器为什么被设定为私有的？</h2><p>我们都知道所谓的多线程在一个特定的时间段内只会执行其中某一个线程的方法，CPU会不停地做任务切换，这样必然导致经常中断或恢复，如何保证分毫无差呢？为了能够准确地记录各个线程正在执行的当前字节码指令地址，最好的办法自然是为每一个线程都分配一个PC寄存器，这样一来各个线程之间便可以进行独立计算，从而不会出现相互干扰的情况。</p>
+<p>由于CPU时间片轮限制，众多线程在并发执行过程中，任何一个确定的时刻，一个处理器或者多核处理器中的一个内核，只会执行某个线程中的一条指令。</p>
+<p>这样必然导致经常中断或恢复，如何保证分毫无差呢？每个线程在创建后，都会产生自己的程序计数器和栈帧，程序计数器在各个线程之间互不影响。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200705161812542.png" alt="image-20200705161812542"></p>
+<h2 id="CPU时间片"><a href="#CPU时间片" class="headerlink" title="CPU时间片"></a>CPU时间片</h2><p>CPU时间片即CPU分配给各个程序的时间，每个线程被分配一个时间段，称作它的时间片。</p>
+<p>在宏观上：俄们可以同时打开多个应用程序，每个程序并行不悖，同时运行。</p>
+<p>但在微观上：由于只有一个CPU，一次只能处理程序要求的一部分，如何处理公平，一种方法就是引入时间片，每个程序轮流执行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/images/image-20200705161849557.png" alt="image-20200705161849557"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -802,7 +577,7 @@ ${msg}
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yuimm.github.io/posts/springmvc-03.html">http://yuimm.github.io/posts/springmvc-03.html</a>
+                    <a href="http://yuimm.github.io/posts/cheng-xu-ji-shu-qi.html">http://yuimm.github.io/posts/cheng-xu-ji-shu-qi.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -840,12 +615,12 @@ ${msg}
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JAVAEE/">
-                                    <span class="chip bg-color">JAVAEE</span>
+                                <a href="/tags/JAVA/">
+                                    <span class="chip bg-color">JAVA</span>
                                 </a>
                             
-                                <a href="/tags/SpringMVC/">
-                                    <span class="chip bg-color">SpringMVC</span>
+                                <a href="/tags/JVM/">
+                                    <span class="chip bg-color">JVM</span>
                                 </a>
                             
                         </div>
@@ -1278,12 +1053,12 @@ ${msg}
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/springmvc-04.html">
+                <a href="/posts/ssm-zheng-he-2.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="SpringMVC_04">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="SSM整合2">
                         
-                        <span class="card-title">SpringMVC_04</span>
+                        <span class="card-title">SSM整合2</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1294,7 +1069,7 @@ ${msg}
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-04
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-08
                         </span>
                         <span class="publish-author">
                             
@@ -1315,8 +1090,8 @@ ${msg}
                         <span class="chip bg-color">JAVAEE</span>
                     </a>
                     
-                    <a href="/tags/SpringMVC/">
-                        <span class="chip bg-color">SpringMVC</span>
+                    <a href="/tags/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/">
+                        <span class="chip bg-color">SSM框架整合</span>
                     </a>
                     
                 </div>
@@ -1330,30 +1105,30 @@ ${msg}
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/springmvc-02.html">
+                <a href="/posts/lei-jia-zai-zi-xi-tong.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/spring.jpg" class="responsive-img" alt="SpringMVC_02">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="类加载子系统">
                         
-                        <span class="card-title">SpringMVC_02</span>
+                        <span class="card-title">类加载子系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spring MVC是Spring Framework的一部分，是基于Java实现MVC的轻量级Web框架。
+                            jVM虚拟机。----------------------------------------------------
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-03
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/SSM%E6%A1%86%E6%9E%B6/" class="post-category">
-                                    SSM框架
+                            <a href="/categories/JVM/" class="post-category">
+                                    JVM
                                 </a>
                             
                             
@@ -1363,12 +1138,12 @@ ${msg}
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JAVAEE/">
-                        <span class="chip bg-color">JAVAEE</span>
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
                     </a>
                     
-                    <a href="/tags/SpringMVC/">
-                        <span class="chip bg-color">SpringMVC</span>
+                    <a href="/tags/JVM/">
+                        <span class="chip bg-color">JVM</span>
                     </a>
                     
                 </div>
