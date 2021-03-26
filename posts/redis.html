@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Redis, Yuimm">
-    <meta name="description" content="NoSQL-Redis。------------------------------------">
+    <meta name="description" content="NoSQL-Redis。---------------------------------------------">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -461,14 +461,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-25
+                    2021-03-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.4k
+                    7.3k
                 </div>
                 
 
@@ -661,123 +661,123 @@
 <p><img src="https://img-blog.csdnimg.cn/20210125120438279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80OTM0MzE5MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/20210125120453147.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80OTM0MzE5MA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <pre class=" language-java"><code class="language-java">#######################################################
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> set key1 v1     #设置key1的值为v1
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> set key1 v1     #设置key1的值为v1
 OK
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get key1         #获得key1的值
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get key1         #获得key1的值
 <span class="token string">"v1"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> keys <span class="token operator">*</span>           #获得所有key
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> keys <span class="token operator">*</span>           #获得所有key
 <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"key1"</span> 
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> exists key1        #判断某个key是否存在
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> exists key1        #判断某个key是否存在
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> append key1 hello  #向key1后面追加字符串hello，如果当前key1不存在，就相当于set <span class="token function">key</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> append key1 hello  #向key1后面追加字符串hello，如果当前key1不存在，就相当于set <span class="token function">key</span>
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">7</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get key1  
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get key1  
 <span class="token string">"v1hello"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> strlen key1        #获得key1的长度
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> strlen key1        #获得key1的长度
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">7</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> append key1 hct<span class="token punctuation">,</span><span class="token function">sdfh</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> append key1 hct<span class="token punctuation">,</span><span class="token function">sdfh</span>
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">15</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get key1
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get key1
 <span class="token string">"v1hellohct,sdfh"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
 #####################################################
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> set views <span class="token number">0</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> set views <span class="token number">0</span>
 OK
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> incr views   #值加<span class="token number">1</span> 自增
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> incr views   #值加<span class="token number">1</span> 自增
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> incr views    #值加<span class="token number">1</span>  自增
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> incr views    #值加<span class="token number">1</span>  自增
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">2</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> incr views   #值加<span class="token number">1</span>  自增
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> incr views   #值加<span class="token number">1</span>  自增
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">3</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> incr views    #值加<span class="token number">1</span>  自增
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> incr views    #值加<span class="token number">1</span>  自增
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">4</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> incr views     #值加<span class="token number">1</span> 自增
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> incr views     #值加<span class="token number">1</span> 自增
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">5</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> decr views     #值减<span class="token number">1</span>  自减
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> decr views     #值减<span class="token number">1</span>  自减
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">4</span> 
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>  decr views      #值减<span class="token number">1</span>   自减
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>  decr views      #值减<span class="token number">1</span>   自减
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">3</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> incrby views <span class="token number">10</span>    #值加<span class="token function">10</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> incrby views <span class="token number">10</span>    #值加<span class="token function">10</span>
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">13</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> decrby voews <span class="token number">5</span>    #值减<span class="token function">5</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> decrby voews <span class="token number">5</span>    #值减<span class="token function">5</span>
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number">5</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> decrby views <span class="token number">5</span>     #值减<span class="token function">5</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> decrby views <span class="token number">5</span>     #值减<span class="token function">5</span>
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">8</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
 ##################################################
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> set k1 <span class="token string">"hello,hctttttt"</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> set k1 <span class="token string">"hello,hctttttt"</span>
 OK
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get k1    
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get k1    
 <span class="token string">"hello,hctttttt"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> getrange k1 <span class="token number">0</span> <span class="token number">3</span>    #获取<span class="token number">0</span><span class="token operator">-</span><span class="token number">3</span>号索引的字符串
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> getrange k1 <span class="token number">0</span> <span class="token number">3</span>    #获取<span class="token number">0</span><span class="token operator">-</span><span class="token number">3</span>号索引的字符串
 <span class="token string">"hell"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> getrange k1 <span class="token number">0</span> <span class="token operator">-</span><span class="token number">1</span>    #获取所有的字符串
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> getrange k1 <span class="token number">0</span> <span class="token operator">-</span><span class="token number">1</span>    #获取所有的字符串
 <span class="token string">"hello,hctttttt"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> setrange k1 <span class="token number">6</span> tl    #替换从索引<span class="token number">6</span>开始的字符串
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> setrange k1 <span class="token number">6</span> tl    #替换从索引<span class="token number">6</span>开始的字符串
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">14</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get k1
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get k1
 <span class="token string">"hello,tltttttt"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
 ################################################# 
     setex <span class="token function">key</span> <span class="token punctuation">(</span>second<span class="token punctuation">)</span> value    #设置key的过期时间
     setnx key value             #不存在key再设置
 ################################################
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> setex k2 <span class="token number">30</span> <span class="token string">"hcttl"</span> #设置hcttl <span class="token number">30</span>秒后过期
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> setex k2 <span class="token number">30</span> <span class="token string">"hcttl"</span> #设置hcttl <span class="token number">30</span>秒后过期
 OK
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> ttl k2    #查看key的生命周期
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> ttl k2    #查看key的生命周期
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">27</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> ttl <span class="token function">k2</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> ttl <span class="token function">k2</span>
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">24</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> setnx k3 <span class="token string">"redis"</span>   
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> setnx k3 <span class="token string">"redis"</span>   
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">1</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> keys <span class="token operator">*</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> keys <span class="token operator">*</span>
 <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"k2"</span>
 <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"k1"</span>
 <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">"k3"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> ttl <span class="token function">k2</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> ttl <span class="token function">k2</span>
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number">2</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> setnx k3 <span class="token string">"MongDB"</span>  #因为k3已经存在，所以设置失败
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> setnx k3 <span class="token string">"MongDB"</span>  #因为k3已经存在，所以设置失败
 <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> <span class="token number">0</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> keys <span class="token operator">*</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> keys <span class="token operator">*</span>
 <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"k1"</span>
 <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"k3"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get k3
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get k3
 <span class="token string">"redis"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
 ##############################################
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> mset k1 v1 k2 v2 k3 c3  #同时设置多个值
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> mset k1 v1 k2 v2 k3 c3  #同时设置多个值
 OK
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> keys <span class="token operator">*</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> keys <span class="token operator">*</span>
 <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"k2"</span>
 <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"k1"</span>
 <span class="token number">3</span><span class="token punctuation">)</span> <span class="token string">"k3"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> mget k1 k2  #同时获得多个值
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> mget k1 k2  #同时获得多个值
 <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"v1"</span>
 <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"v2"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
 ###############################################
     set user<span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">{</span>name<span class="token operator">:</span>hct<span class="token punctuation">,</span>age<span class="token operator">:</span><span class="token number">3</span><span class="token punctuation">}</span> #设置一个user对象<span class="token number">1</span> 值为json字符来保存一个对象
 
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> mset user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>name hct user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>age <span class="token number">3</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> mset user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>name hct user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>age <span class="token number">3</span>
 OK
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> mget user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>name user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>age
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> mget user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>name user<span class="token operator">:</span><span class="token number">1</span><span class="token operator">:</span>age
 <span class="token number">1</span><span class="token punctuation">)</span> <span class="token string">"hct"</span>
 <span class="token number">2</span><span class="token punctuation">)</span> <span class="token string">"3"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>
 #####################################
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> getset db redis  #先get再set，不存在时返回null并且设置
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> getset db redis  #先get再set，不存在时返回null并且设置
 <span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get db
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get db
 <span class="token string">"redis"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> getset db mongdb  #存在值的时候，先获取再重新设置新的值
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> getset db mongdb  #存在值的时候，先获取再重新设置新的值
 <span class="token string">"redis"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> <span class="token function">getdb</span>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> <span class="token function">getdb</span>
 <span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR unknown command <span class="token string">'getdb'</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span> get db
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span> get db
 <span class="token string">"mongdb"</span>
-<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">&gt;</span>    </code></pre>
+<span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span><span class="token operator">></span>    </code></pre>
 <h4 id="3-List-列表"><a href="#3-List-列表" class="headerlink" title="3. List (列表)"></a>3. List (列表)</h4><p>底层是一个字符串链表；可以从头或尾添加元素</p>
 <p>注意：</p>
 <p>(1) 添加元素时：</p>
@@ -929,21 +929,21 @@ OK
 <p>测试</p>
 </blockquote>
 <p>1.导入依赖</p>
-<pre class=" language-xml"><code class="language-xml"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">&gt;</span></span>
-        <span class="token comment" spellcheck="true">&lt;!-- https://mvnrepository.com/artifact/redis.clients/jedis --&gt;</span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>redis.clients<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>jedis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>3.4.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<pre class=" language-xml"><code class="language-xml"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!-- https://mvnrepository.com/artifact/redis.clients/jedis --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>redis.clients<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jedis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.4.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
 
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.alibaba<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>fastjson<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>1.2.62<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>fastjson<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.2.62<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
 
-   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">&gt;</span></span></code></pre>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span></code></pre>
 <p>2.编码测试</p>
 <ul>
 <li>连接数据库</li>
@@ -1017,9 +1017,9 @@ OK
 
     <span class="token comment" spellcheck="true">//自己定义的RedisTemplate  模板</span>
     <span class="token annotation punctuation">@Bean</span>
-    <span class="token keyword">public</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">&gt;</span> <span class="token function">redisTemplate</span><span class="token punctuation">(</span>RedisConnectionFactory redisConnectionFactory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//为了开发方便，一般直接使用&lt;String,Object&gt;</span>
-        RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">&gt;</span> template <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> <span class="token function">redisTemplate</span><span class="token punctuation">(</span>RedisConnectionFactory redisConnectionFactory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//为了开发方便，一般直接使用&lt;String,Object></span>
+        RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> template <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         template<span class="token punctuation">.</span><span class="token function">setConnectionFactory</span><span class="token punctuation">(</span>redisConnectionFactory<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//Json序列化</span>
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Jackson2JsonRedisSerializer</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1732,7 +1732,7 @@ sentinel monitor myredis 127.0.0.1 6379 1</code></pre><p>后面这个数字1，�
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            单例模式。------------------------------------
+                            单例模式。-----------------------------------------------
                         
                     </div>
                     <div class="publish-info">
