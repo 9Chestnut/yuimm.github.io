@@ -468,14 +468,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9.7k
+                    11.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    39 分
+                    46 分
                 </div>
                 
 				
@@ -935,12 +935,12 @@ TRUNCATE TABLE test;
 <span class="token comment" spellcheck="true">-- 查询考试成绩在95-100之间的</span>
 <span class="token keyword">SELECT</span> Studentno<span class="token punctuation">,</span>StudentResult
 <span class="token keyword">FROM</span> result
-<span class="token keyword">WHERE</span> StudentResult<span class="token operator">&gt;=</span><span class="token number">95</span> <span class="token operator">AND</span> StudentResult<span class="token operator">&lt;=</span><span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token keyword">WHERE</span> StudentResult<span class="token operator">>=</span><span class="token number">95</span> <span class="token operator">AND</span> StudentResult<span class="token operator">&lt;=</span><span class="token number">100</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">-- AND也可以写成 &amp;&amp;</span>
 <span class="token keyword">SELECT</span> Studentno<span class="token punctuation">,</span>StudentResult
 <span class="token keyword">FROM</span> result
-<span class="token keyword">WHERE</span> StudentResult<span class="token operator">&gt;=</span><span class="token number">95</span> <span class="token operator">&amp;&amp;</span> StudentResult<span class="token operator">&lt;=</span><span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token keyword">WHERE</span> StudentResult<span class="token operator">>=</span><span class="token number">95</span> <span class="token operator">&amp;&amp;</span> StudentResult<span class="token operator">&lt;=</span><span class="token number">100</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">-- 模糊查询(对应的词:精确查询)</span>
 <span class="token keyword">SELECT</span> Studentno<span class="token punctuation">,</span>StudentResult
@@ -1233,18 +1233,18 @@ TRUNCATE TABLE test;
 <span class="token keyword">ON</span> s<span class="token punctuation">.</span><span class="token punctuation">`</span>StudentNo<span class="token punctuation">`</span> <span class="token operator">=</span> r<span class="token punctuation">.</span><span class="token punctuation">`</span>StudentNo<span class="token punctuation">`</span>
 <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>subject<span class="token punctuation">`</span> sub
 <span class="token keyword">ON</span> sub<span class="token punctuation">.</span><span class="token punctuation">`</span>SubjectNo<span class="token punctuation">`</span> <span class="token operator">=</span> r<span class="token punctuation">.</span><span class="token punctuation">`</span>SubjectNo<span class="token punctuation">`</span>
-<span class="token keyword">WHERE</span> subjectname <span class="token operator">=</span> <span class="token string">'高等数学-2'</span> <span class="token operator">AND</span> StudentResult<span class="token operator">&gt;=</span><span class="token number">80</span>
+<span class="token keyword">WHERE</span> subjectname <span class="token operator">=</span> <span class="token string">'高等数学-2'</span> <span class="token operator">AND</span> StudentResult<span class="token operator">>=</span><span class="token number">80</span>
 
 <span class="token comment" spellcheck="true">-- 方法二:使用连接查询+子查询</span>
 <span class="token comment" spellcheck="true">-- 分数不小于80分的学生的学号和姓名</span>
 <span class="token keyword">SELECT</span> r<span class="token punctuation">.</span>studentno<span class="token punctuation">,</span>studentname <span class="token keyword">FROM</span> student s
 <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> result r <span class="token keyword">ON</span> s<span class="token punctuation">.</span><span class="token punctuation">`</span>StudentNo<span class="token punctuation">`</span><span class="token operator">=</span>r<span class="token punctuation">.</span><span class="token punctuation">`</span>StudentNo<span class="token punctuation">`</span>
-<span class="token keyword">WHERE</span> StudentResult<span class="token operator">&gt;=</span><span class="token number">80</span>
+<span class="token keyword">WHERE</span> StudentResult<span class="token operator">>=</span><span class="token number">80</span>
 
 <span class="token comment" spellcheck="true">-- 在上面SQL基础上,添加需求:课程为 高等数学-2</span>
 <span class="token keyword">SELECT</span> r<span class="token punctuation">.</span>studentno<span class="token punctuation">,</span>studentname <span class="token keyword">FROM</span> student s
 <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> result r <span class="token keyword">ON</span> s<span class="token punctuation">.</span><span class="token punctuation">`</span>StudentNo<span class="token punctuation">`</span><span class="token operator">=</span>r<span class="token punctuation">.</span><span class="token punctuation">`</span>StudentNo<span class="token punctuation">`</span>
-<span class="token keyword">WHERE</span> StudentResult<span class="token operator">&gt;=</span><span class="token number">80</span> <span class="token operator">AND</span> subjectno<span class="token operator">=</span><span class="token punctuation">(</span>
+<span class="token keyword">WHERE</span> StudentResult<span class="token operator">>=</span><span class="token number">80</span> <span class="token operator">AND</span> subjectno<span class="token operator">=</span><span class="token punctuation">(</span>
    <span class="token keyword">SELECT</span> subjectno <span class="token keyword">FROM</span> <span class="token punctuation">`</span>subject<span class="token punctuation">`</span>
    <span class="token keyword">WHERE</span> subjectname <span class="token operator">=</span> <span class="token string">'高等数学-2'</span>
 <span class="token punctuation">)</span>
@@ -1252,7 +1252,7 @@ TRUNCATE TABLE test;
 <span class="token comment" spellcheck="true">-- 方法三:使用子查询</span>
 <span class="token comment" spellcheck="true">-- 分步写简单sql语句,然后将其嵌套起来</span>
 <span class="token keyword">SELECT</span> studentno<span class="token punctuation">,</span>studentname <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> studentno <span class="token operator">IN</span><span class="token punctuation">(</span>
-   <span class="token keyword">SELECT</span> studentno <span class="token keyword">FROM</span> result <span class="token keyword">WHERE</span> StudentResult<span class="token operator">&gt;=</span><span class="token number">80</span> <span class="token operator">AND</span> subjectno<span class="token operator">=</span><span class="token punctuation">(</span>
+   <span class="token keyword">SELECT</span> studentno <span class="token keyword">FROM</span> result <span class="token keyword">WHERE</span> StudentResult<span class="token operator">>=</span><span class="token number">80</span> <span class="token operator">AND</span> subjectno<span class="token operator">=</span><span class="token punctuation">(</span>
        <span class="token keyword">SELECT</span> subjectno <span class="token keyword">FROM</span> <span class="token punctuation">`</span>subject<span class="token punctuation">`</span> <span class="token keyword">WHERE</span> subjectname <span class="token operator">=</span> <span class="token string">'高等数学-2'</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span>
@@ -1358,13 +1358,13 @@ TRUNCATE TABLE test;
  <span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> <span class="token punctuation">`</span>subject<span class="token punctuation">`</span> <span class="token keyword">AS</span> s
  <span class="token keyword">ON</span> r<span class="token punctuation">.</span>subjectno <span class="token operator">=</span> s<span class="token punctuation">.</span>subjectno
  <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> r<span class="token punctuation">.</span>subjectno
- <span class="token keyword">HAVING</span> 平均分<span class="token operator">&gt;</span><span class="token number">80</span><span class="token punctuation">;</span>
+ <span class="token keyword">HAVING</span> 平均分<span class="token operator">></span><span class="token number">80</span><span class="token punctuation">;</span>
 
  <span class="token comment" spellcheck="true">/*
  where写在group by前面.
  要是放在分组后面的筛选
  要使用HAVING..
- 因为having是从前面筛选的字段再筛选，而where是从数据表中的&gt;字段直接进行的筛选的
+ 因为having是从前面筛选的字段再筛选，而where是从数据表中的>字段直接进行的筛选的
  */</span></code></pre>
 <blockquote>
 <p>MD5 加密</p>
@@ -1685,7 +1685,7 @@ MySQL 5.6 及以后的版本，MyISAM 和 InnoDB 存储引擎均支持全文索�
 <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
 <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
 
-mysql<span class="token operator">&gt;</span> <span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span>\G
+mysql<span class="token operator">></span> <span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span>\G
 <span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">.</span> <span class="token keyword">row</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span>
           id: <span class="token number">1</span>
 select_type: <span class="token keyword">SIMPLE</span>
@@ -1703,7 +1703,7 @@ possible_keys: <span class="token boolean">NULL</span>
 <p>创建索引</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_app_user_name <span class="token keyword">ON</span> app_user<span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>测试普通索引</p>
-<pre class=" language-sql"><code class="language-sql">mysql<span class="token operator">&gt;</span> <span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span>\G
+<pre class=" language-sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span>\G
 <span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">.</span> <span class="token keyword">row</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span>
           id: <span class="token number">1</span>
 select_type: <span class="token keyword">SIMPLE</span>
@@ -1719,13 +1719,13 @@ possible_keys: idx_app_user_name
       Extra: <span class="token boolean">NULL</span>
 <span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span><span class="token punctuation">,</span> <span class="token number">1</span> warning <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
 
-mysql<span class="token operator">&gt;</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
+mysql<span class="token operator">></span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
 <span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
 
-mysql<span class="token operator">&gt;</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
+mysql<span class="token operator">></span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
 <span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
 
-mysql<span class="token operator">&gt;</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
+mysql<span class="token operator">></span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> app_user <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'用户9999'</span><span class="token punctuation">;</span>
 <span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span></code></pre>
 <blockquote>
 <p>索引准则</p>
@@ -1749,6 +1749,203 @@ MyISAM 不支持事务，支持表级别锁定，支持 B<span class="token oper
 Memory 不支持事务，支持表级别锁定，支持 B<span class="token operator">-</span>tree、<span class="token keyword">Hash</span> 等索引，不支持 <span class="token keyword">Full</span><span class="token operator">-</span><span class="token keyword">text</span> 索引；
 NDB 支持事务，支持行级别锁定，支持 <span class="token keyword">Hash</span> 索引，不支持 B<span class="token operator">-</span>tree、<span class="token keyword">Full</span><span class="token operator">-</span><span class="token keyword">text</span> 等索引；
 Archive 不支持事务，支持表级别锁定，不支持 B<span class="token operator">-</span>tree、<span class="token keyword">Hash</span>、<span class="token keyword">Full</span><span class="token operator">-</span><span class="token keyword">text</span> 等索引；</code></pre>
+<h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><blockquote>
+<p>基本命令</p>
+</blockquote>
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">/* 用户和权限管理 */</span> <span class="token comment" spellcheck="true">------------------</span>
+用户信息表：mysql<span class="token punctuation">.</span><span class="token keyword">user</span>
+
+<span class="token comment" spellcheck="true">-- 刷新权限</span>
+FLUSH <span class="token keyword">PRIVILEGES</span>
+
+<span class="token comment" spellcheck="true">-- 增加用户 CREATE USER kuangshen IDENTIFIED BY '123456'</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">USER</span> 用户名 IDENTIFIED <span class="token keyword">BY</span> <span class="token punctuation">[</span>PASSWORD<span class="token punctuation">]</span> 密码<span class="token punctuation">(</span>字符串<span class="token punctuation">)</span>
+  <span class="token operator">-</span> 必须拥有mysql数据库的全局<span class="token keyword">CREATE</span> <span class="token keyword">USER</span>权限，或拥有<span class="token keyword">INSERT</span>权限。
+  <span class="token operator">-</span> 只能创建用户，不能赋予权限。
+  <span class="token operator">-</span> 用户名，注意引号：如 <span class="token string">'user_name'</span><span class="token variable">@'192.168.1.1'</span>
+  <span class="token operator">-</span> 密码也需引号，纯数字密码也要加引号
+  <span class="token operator">-</span> 要在纯文本中指定密码，需忽略PASSWORD关键词。要把密码指定为由PASSWORD<span class="token punctuation">(</span><span class="token punctuation">)</span>函数返回的混编值，需包含关键字PASSWORD
+
+<span class="token comment" spellcheck="true">-- 重命名用户 RENAME USER kuangshen TO kuangshen2</span>
+<span class="token keyword">RENAME</span> <span class="token keyword">USER</span> old_user <span class="token keyword">TO</span> new_user
+
+<span class="token comment" spellcheck="true">-- 设置密码</span>
+<span class="token keyword">SET</span> PASSWORD <span class="token operator">=</span> PASSWORD<span class="token punctuation">(</span><span class="token string">'密码'</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">-- 为当前用户设置密码</span>
+<span class="token keyword">SET</span> PASSWORD <span class="token keyword">FOR</span> 用户名 <span class="token operator">=</span> PASSWORD<span class="token punctuation">(</span><span class="token string">'密码'</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">-- 为指定用户设置密码</span>
+
+<span class="token comment" spellcheck="true">-- 删除用户 DROP USER kuangshen2</span>
+<span class="token keyword">DROP</span> <span class="token keyword">USER</span> 用户名
+
+<span class="token comment" spellcheck="true">-- 分配权限/添加用户</span>
+<span class="token keyword">GRANT</span> 权限列表 <span class="token keyword">ON</span> 表名 <span class="token keyword">TO</span> 用户名 <span class="token punctuation">[</span>IDENTIFIED <span class="token keyword">BY</span> <span class="token punctuation">[</span>PASSWORD<span class="token punctuation">]</span> <span class="token string">'password'</span><span class="token punctuation">]</span>
+  <span class="token operator">-</span> <span class="token keyword">all</span> <span class="token keyword">privileges</span> 表示所有权限
+  <span class="token operator">-</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> 表示所有库的所有表
+  <span class="token operator">-</span> 库名<span class="token punctuation">.</span>表名 表示某库下面的某表
+
+<span class="token comment" spellcheck="true">-- 查看权限   SHOW GRANTS FOR root@localhost;</span>
+<span class="token keyword">SHOW</span> GRANTS <span class="token keyword">FOR</span> 用户名
+   <span class="token comment" spellcheck="true">-- 查看当前用户权限</span>
+  <span class="token keyword">SHOW</span> GRANTS<span class="token punctuation">;</span> 或 <span class="token keyword">SHOW</span> GRANTS <span class="token keyword">FOR</span> <span class="token keyword">CURRENT_USER</span><span class="token punctuation">;</span> 或 <span class="token keyword">SHOW</span> GRANTS <span class="token keyword">FOR</span> <span class="token keyword">CURRENT_USER</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">-- 撤消权限</span>
+<span class="token keyword">REVOKE</span> 权限列表 <span class="token keyword">ON</span> 表名 <span class="token keyword">FROM</span> 用户名
+<span class="token keyword">REVOKE</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span><span class="token punctuation">,</span> <span class="token keyword">GRANT</span> <span class="token keyword">OPTION</span> <span class="token keyword">FROM</span> 用户名    <span class="token comment" spellcheck="true">-- 撤销所有权限</span></code></pre>
+<blockquote>
+<p>权限解释</p>
+</blockquote>
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">-- 权限列表</span>
+<span class="token keyword">ALL</span> <span class="token punctuation">[</span><span class="token keyword">PRIVILEGES</span><span class="token punctuation">]</span>    <span class="token comment" spellcheck="true">-- 设置除GRANT OPTION之外的所有简单权限</span>
+<span class="token keyword">ALTER</span>    <span class="token comment" spellcheck="true">-- 允许使用ALTER TABLE</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">ROUTINE</span>    <span class="token comment" spellcheck="true">-- 更改或取消已存储的子程序</span>
+<span class="token keyword">CREATE</span>    <span class="token comment" spellcheck="true">-- 允许使用CREATE TABLE</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">ROUTINE</span>    <span class="token comment" spellcheck="true">-- 创建已存储的子程序</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TEMPORARY</span> <span class="token keyword">TABLES</span>        <span class="token comment" spellcheck="true">-- 允许使用CREATE TEMPORARY TABLE</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">USER</span>        <span class="token comment" spellcheck="true">-- 允许使用CREATE USER, DROP USER, RENAME USER和REVOKE ALL PRIVILEGES。</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">VIEW</span>        <span class="token comment" spellcheck="true">-- 允许使用CREATE VIEW</span>
+<span class="token keyword">DELETE</span>    <span class="token comment" spellcheck="true">-- 允许使用DELETE</span>
+<span class="token keyword">DROP</span>    <span class="token comment" spellcheck="true">-- 允许使用DROP TABLE</span>
+<span class="token keyword">EXECUTE</span>        <span class="token comment" spellcheck="true">-- 允许用户运行已存储的子程序</span>
+<span class="token keyword">FILE</span>    <span class="token comment" spellcheck="true">-- 允许使用SELECT...INTO OUTFILE和LOAD DATA INFILE</span>
+<span class="token keyword">INDEX</span>     <span class="token comment" spellcheck="true">-- 允许使用CREATE INDEX和DROP INDEX</span>
+<span class="token keyword">INSERT</span>    <span class="token comment" spellcheck="true">-- 允许使用INSERT</span>
+<span class="token keyword">LOCK</span> <span class="token keyword">TABLES</span>        <span class="token comment" spellcheck="true">-- 允许对您拥有SELECT权限的表使用LOCK TABLES</span>
+PROCESS     <span class="token comment" spellcheck="true">-- 允许使用SHOW FULL PROCESSLIST</span>
+<span class="token keyword">REFERENCES</span>    <span class="token comment" spellcheck="true">-- 未被实施</span>
+RELOAD    <span class="token comment" spellcheck="true">-- 允许使用FLUSH</span>
+<span class="token keyword">REPLICATION</span> CLIENT    <span class="token comment" spellcheck="true">-- 允许用户询问从属服务器或主服务器的地址</span>
+<span class="token keyword">REPLICATION</span> SLAVE    <span class="token comment" spellcheck="true">-- 用于复制型从属服务器（从主服务器中读取二进制日志事件）</span>
+<span class="token keyword">SELECT</span>    <span class="token comment" spellcheck="true">-- 允许使用SELECT</span>
+<span class="token keyword">SHOW</span> <span class="token keyword">DATABASES</span>    <span class="token comment" spellcheck="true">-- 显示所有数据库</span>
+<span class="token keyword">SHOW</span> <span class="token keyword">VIEW</span>    <span class="token comment" spellcheck="true">-- 允许使用SHOW CREATE VIEW</span>
+<span class="token keyword">SHUTDOWN</span>    <span class="token comment" spellcheck="true">-- 允许使用mysqladmin shutdown</span>
+SUPER    <span class="token comment" spellcheck="true">-- 允许使用CHANGE MASTER, KILL, PURGE MASTER LOGS和SET GLOBAL语句，mysqladmin debug命令；允许您连接（一次），即使已达到max_connections。</span>
+<span class="token keyword">UPDATE</span>    <span class="token comment" spellcheck="true">-- 允许使用UPDATE</span>
+<span class="token keyword">USAGE</span>    <span class="token comment" spellcheck="true">-- “无权限”的同义词</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">OPTION</span>    <span class="token comment" spellcheck="true">-- 允许授予权限</span>
+
+
+<span class="token comment" spellcheck="true">/* 表维护 */</span>
+
+<span class="token comment" spellcheck="true">-- 分析和存储表的关键字分布</span>
+<span class="token keyword">ANALYZE</span> <span class="token punctuation">[</span><span class="token keyword">LOCAL</span> <span class="token operator">|</span> NO_WRITE_TO_BINLOG<span class="token punctuation">]</span> <span class="token keyword">TABLE</span> 表名 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token comment" spellcheck="true">-- 检查一个或多个表是否有错误</span>
+<span class="token keyword">CHECK</span> <span class="token keyword">TABLE</span> tbl_name <span class="token punctuation">[</span><span class="token punctuation">,</span> tbl_name<span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">[</span><span class="token keyword">option</span><span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">option</span> <span class="token operator">=</span> {<span class="token keyword">QUICK</span> <span class="token operator">|</span> FAST <span class="token operator">|</span> MEDIUM <span class="token operator">|</span> <span class="token keyword">EXTENDED</span> <span class="token operator">|</span> CHANGED}
+<span class="token comment" spellcheck="true">-- 整理数据文件的碎片</span>
+<span class="token keyword">OPTIMIZE</span> <span class="token punctuation">[</span><span class="token keyword">LOCAL</span> <span class="token operator">|</span> NO_WRITE_TO_BINLOG<span class="token punctuation">]</span> <span class="token keyword">TABLE</span> tbl_name <span class="token punctuation">[</span><span class="token punctuation">,</span> tbl_name<span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<h3 id="MySQL备份"><a href="#MySQL备份" class="headerlink" title="MySQL备份"></a>MySQL备份</h3><p>数据库备份必要性</p>
+<ul>
+<li>保证重要数据不丢失</li>
+<li>数据转移</li>
+</ul>
+<p>MySQL数据库备份方法</p>
+<ul>
+<li>mysqldump备份工具</li>
+<li>数据库管理工具,如SQLyog</li>
+<li>直接拷贝数据库文件和相关配置文件</li>
+</ul>
+<p><strong>mysqldump客户端</strong></p>
+<p>作用 :</p>
+<ul>
+<li>转储数据库</li>
+<li>搜集数据库进行备份</li>
+<li>将数据转移到另一个SQL服务器,不一定是MySQL服务器</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7Jf7deolwQa44rXvicIhXZ0NzgWJWeyYYcf1Dy3ibfN66SiaZQmqTF3Hv8HBjr1zIowXh201pEjUzyJw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">-- 导出</span>
+<span class="token number">1</span><span class="token punctuation">.</span> 导出一张表 <span class="token comment" spellcheck="true">-- mysqldump -uroot -p123456 school student >D:/a.sql</span>
+　　mysqldump <span class="token operator">-</span>u用户名 <span class="token operator">-</span>p密码 库名 表名 <span class="token operator">></span> 文件名<span class="token punctuation">(</span>D:<span class="token operator">/</span><span class="token number">a</span><span class="token punctuation">.</span>sql<span class="token punctuation">)</span>
+<span class="token number">2</span><span class="token punctuation">.</span> 导出多张表 <span class="token comment" spellcheck="true">-- mysqldump -uroot -p123456 school student result >D:/a.sql</span>
+　　mysqldump <span class="token operator">-</span>u用户名 <span class="token operator">-</span>p密码 库名 表<span class="token number">1</span> 表<span class="token number">2</span> 表<span class="token number">3</span> <span class="token operator">></span> 文件名<span class="token punctuation">(</span>D:<span class="token operator">/</span><span class="token number">a</span><span class="token punctuation">.</span>sql<span class="token punctuation">)</span>
+<span class="token number">3</span><span class="token punctuation">.</span> 导出所有表 <span class="token comment" spellcheck="true">-- mysqldump -uroot -p123456 school >D:/a.sql</span>
+　　mysqldump <span class="token operator">-</span>u用户名 <span class="token operator">-</span>p密码 库名 <span class="token operator">></span> 文件名<span class="token punctuation">(</span>D:<span class="token operator">/</span><span class="token number">a</span><span class="token punctuation">.</span>sql<span class="token punctuation">)</span>
+<span class="token number">4</span><span class="token punctuation">.</span> 导出一个库 <span class="token comment" spellcheck="true">-- mysqldump -uroot -p123456 -B school >D:/a.sql</span>
+　　mysqldump <span class="token operator">-</span>u用户名 <span class="token operator">-</span>p密码 <span class="token operator">-</span>B 库名 <span class="token operator">></span> 文件名<span class="token punctuation">(</span>D:<span class="token operator">/</span><span class="token number">a</span><span class="token punctuation">.</span>sql<span class="token punctuation">)</span>
+
+可以<span class="token operator">-</span>w携带备份条件
+
+<span class="token comment" spellcheck="true">-- 导入</span>
+<span class="token number">1</span><span class="token punctuation">.</span> 在登录mysql的情况下：<span class="token comment" spellcheck="true">-- source D:/a.sql</span>
+　　source 备份文件
+<span class="token number">2</span><span class="token punctuation">.</span> 在不登录的情况下
+　　mysql <span class="token operator">-</span>u用户名 <span class="token operator">-</span>p密码 库名 <span class="token operator">&lt;</span> 备份文件</code></pre>
+<h3 id="规范化数据库设计"><a href="#规范化数据库设计" class="headerlink" title="规范化数据库设计"></a>规范化数据库设计</h3><h4 id="为什么需要数据库设计"><a href="#为什么需要数据库设计" class="headerlink" title="为什么需要数据库设计"></a>为什么需要数据库设计</h4><p><strong>当数据库比较复杂时我们需要设计数据库</strong></p>
+<p><strong>糟糕的数据库设计 :</strong> </p>
+<ul>
+<li>数据冗余,存储空间浪费</li>
+<li>数据更新和插入的异常</li>
+<li>程序性能差</li>
+</ul>
+<p><strong>良好的数据库设计 :</strong> </p>
+<ul>
+<li><p>节省数据的存储空间</p>
+</li>
+<li><p>能够保证数据的完整性</p>
+</li>
+<li><p>方便进行数据库应用系统的开发</p>
+<p><strong>软件项目开发周期中数据库设计 :</strong></p>
+</li>
+<li><p>需求分析阶段: 分析客户的业务和数据处理需求</p>
+</li>
+<li><p>概要设计阶段:设计数据库的E-R模型图 , 确认需求信息的正确和完整.</p>
+</li>
+</ul>
+<p><strong>设计数据库步骤</strong></p>
+<ul>
+<li><p>收集信息</p>
+</li>
+<li><ul>
+<li>与该系统有关人员进行交流 , 座谈 , 充分了解用户需求 , 理解数据库需要完成的任务.</li>
+</ul>
+</li>
+<li><p>标识实体[Entity]</p>
+</li>
+<li></li>
+<li><ul>
+<li>标识数据库要管理的关键对象或实体,实体一般是名词</li>
+</ul>
+</li>
+<li><p>标识每个实体需要存储的详细信息[Attribute]</p>
+</li>
+<li><p>标识实体之间的关系[Relationship]</p>
+</li>
+</ul>
+<h4 id="三大范式"><a href="#三大范式" class="headerlink" title="三大范式"></a>三大范式</h4><p><strong>问题 : 为什么需要数据规范化?</strong></p>
+<p>不合规范的表设计会导致的问题：</p>
+<ul>
+<li><p>信息重复</p>
+</li>
+<li><p>更新异常</p>
+</li>
+<li><p>插入异常</p>
+</li>
+<li><ul>
+<li>无法正确表示信息</li>
+</ul>
+</li>
+<li><p>删除异常</p>
+</li>
+<li><ul>
+<li>丢失有效信息</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>三大范式</p>
+</blockquote>
+<p><strong>第一范式 (1st NF)</strong></p>
+<p>第一范式的目标是确保每列的原子性,如果每列都是不可再分的最小数据单元,则满足第一范式</p>
+<p><strong>第二范式(2nd NF)</strong></p>
+<p>第二范式（2NF）是在第一范式（1NF）的基础上建立起来的，即满足第二范式（2NF）必须先满足第一范式（1NF）。</p>
+<p>第二范式要求每个表只描述一件事情</p>
+<p><strong>第三范式(3rd NF)</strong></p>
+<p>如果一个关系满足第二范式,并且除了主键以外的其他列都不传递依赖于主键列,则满足第三范式.</p>
+<p>第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。</p>
+<p><strong>规范化和性能的关系</strong></p>
+<p>为满足某种商业目标 , 数据库性能比规范化数据库更重要</p>
+<p>在数据规范化的同时 , 要综合考虑数据库的性能</p>
+<p>通过在给定的表中添加额外的字段,以大量减少需要从中搜索信息所需的时间</p>
+<p>通过在给定的表中插入计算列,以方便查询</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2264,17 +2461,16 @@ Archive 不支持事务，支持表级别锁定，不支持 B<span class="token 
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/mysql.html">
+                <a href="/posts/mysql-you-hua.html">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="MySQL">
+                        <img src="https://cdn.jsdelivr.net/gh/Yuimm/yuimm_blog_picture/posts/java.jpg" class="responsive-img" alt="MySQL优化">
                         
-                        <span class="card-title">MySQL</span>
+                        <span class="card-title">MySQL优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -2284,9 +2480,9 @@ Archive 不支持事务，支持表级别锁定，不支持 B<span class="token 
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-27
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-30
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -2299,16 +2495,15 @@ Archive 不支持事务，支持表级别锁定，不支持 B<span class="token 
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                        <span class="chip bg-color">数据库</span>
-                    </a>
-                    
                     <a href="/tags/MySQL/">
                         <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">关系型数据库</span>
                     </a>
                     
                 </div>
@@ -2543,7 +2738,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">189.6k</span>&nbsp;字
+                class="white-color">222.4k</span>&nbsp;字
             
             
             
