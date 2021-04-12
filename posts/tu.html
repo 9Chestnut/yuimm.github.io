@@ -457,7 +457,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-08
+                    2021-04-12
                 </div>
                 
 
@@ -487,7 +487,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="第-13-章-图"><a href="#第-13-章-图" class="headerlink" title="第 13 章 图"></a>第 13 章 图</h1><h2 id="1、图基本介绍"><a href="#1、图基本介绍" class="headerlink" title="1、图基本介绍"></a>1、图基本介绍</h2><h3 id="1-1、为什么要有图"><a href="#1-1、为什么要有图" class="headerlink" title="1.1、为什么要有图"></a>1.1、为什么要有图</h3><ul>
+                <h1 id="第-13-章-图-测试"><a href="#第-13-章-图-测试" class="headerlink" title="第 13 章 图-测试"></a>第 13 章 图-测试</h1><h2 id="1、图基本介绍"><a href="#1、图基本介绍" class="headerlink" title="1、图基本介绍"></a>1、图基本介绍</h2><h3 id="1-1、为什么要有图"><a href="#1-1、为什么要有图" class="headerlink" title="1.1、为什么要有图"></a>1.1、为什么要有图</h3><ul>
 <li>前面我们学了线性表和树</li>
 <li>线性表局限于一个直接前驱和一个直接后继的关系</li>
 <li>树也只能有一个直接前驱也就是父节点</li>
@@ -560,7 +560,7 @@
 </li>
 </ul>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Graph</span><span class="token punctuation">{</span>
-    <span class="token keyword">private</span> ArrayList<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span> vertexList<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存储顶点集合</span>
+    <span class="token keyword">private</span> ArrayList<span class="token operator">&lt;</span>String<span class="token operator">></span> vertexList<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存储顶点集合</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> edges<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存储图对应的邻接矩阵</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span> numOfEdges<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//表示边的数目</span>
 
@@ -568,7 +568,7 @@
     <span class="token keyword">public</span> <span class="token function">Graph</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//初始化矩阵和vertexList</span>
         edges <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        vertexList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        vertexList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
         numOfEdges <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
@@ -605,7 +605,7 @@
     <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">/**
      * 图中常用的方法
-     * @return 返回结点i（下标）对应的数据 0-&gt;"A,1-&gt;"B,2-&gt;"C"
+     * @return 返回结点i（下标）对应的数据 0->"A,1->"B,2->"C"
      */</span>
     <span class="token keyword">public</span> String <span class="token function">getValueByIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token keyword">return</span> vertexList<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -734,7 +734,7 @@
     <span class="token keyword">public</span> <span class="token function">Graph</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//初始化矩阵和vertexList</span>
         edges <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        vertexList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        vertexList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
         numOfEdges <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
         isVisited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">boolean</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -747,7 +747,7 @@
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getFirstNeighbor</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> vertexList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">return</span> j<span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
@@ -763,7 +763,7 @@
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getNextNeighbor</span><span class="token punctuation">(</span><span class="token keyword">int</span> v1<span class="token punctuation">,</span> <span class="token keyword">int</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> v2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> vertexList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>v1<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>v1<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">return</span> j<span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
@@ -777,7 +777,7 @@
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> isVisited<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//首先访问该节点，并输出</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//将该节点设置为已经访问</span>
         isVisited<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//查找结点i的第一个邻接结点 w</span>
@@ -854,9 +854,9 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
         <span class="token keyword">int</span> u<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//表示队列的头节点对应的下标</span>
         <span class="token keyword">int</span> w<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//邻接结点 w</span>
         <span class="token comment" spellcheck="true">//队列：记录结点访问的顺序</span>
-        LinkedList<span class="token operator">&lt;</span>Object<span class="token operator">&gt;</span> queue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LinkedList<span class="token operator">&lt;</span>Object<span class="token operator">></span> queue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//访问结点并输出结点信息</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//标记为已访问</span>
         isVisited<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//将结点加入队列</span>
@@ -869,7 +869,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
             <span class="token keyword">while</span> <span class="token punctuation">(</span>w <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//找到结点</span>
                 <span class="token comment" spellcheck="true">//是否被访问过</span>
                 <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>isVisited<span class="token punctuation">[</span>w<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//未被访问过</span>
-                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>w<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>w<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                     <span class="token comment" spellcheck="true">//标记为已访问</span>
                     isVisited<span class="token punctuation">[</span>w<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
                     <span class="token comment" spellcheck="true">//入队列</span>
@@ -955,7 +955,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
 
 <span class="token keyword">class</span> <span class="token class-name">Graph</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">private</span> ArrayList<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span> vertexList<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存储顶点集合</span>
+    <span class="token keyword">private</span> ArrayList<span class="token operator">&lt;</span>String<span class="token operator">></span> vertexList<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存储顶点集合</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> edges<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//存储图对应的邻接矩阵</span>
     <span class="token keyword">private</span> <span class="token keyword">int</span> numOfEdges<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//表示边的数目</span>
     <span class="token keyword">private</span> <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> isVisited<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//定义数组，记录某个结点是否被访问</span>
@@ -964,7 +964,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
     <span class="token keyword">public</span> <span class="token function">Graph</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//初始化矩阵和vertexList</span>
         edges <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        vertexList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        vertexList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
         numOfEdges <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
     <span class="token punctuation">}</span>
@@ -1011,7 +1011,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
     <span class="token comment" spellcheck="true">/**
      * 图中常用的方法
      *
-     * @return 返回结点i（下标）对应的数据 0-&gt;"A,1-&gt;"B,2-&gt;"C"
+     * @return 返回结点i（下标）对应的数据 0->"A,1->"B,2->"C"
      */</span>
     <span class="token keyword">public</span> String <span class="token function">getValueByIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> vertexList<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1045,7 +1045,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getFirstNeighbor</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> vertexList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">return</span> j<span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
@@ -1061,7 +1061,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getNextNeighbor</span><span class="token punctuation">(</span><span class="token keyword">int</span> v1<span class="token punctuation">,</span> <span class="token keyword">int</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> v2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> vertexList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>v1<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>edges<span class="token punctuation">[</span>v1<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">return</span> j<span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
@@ -1075,7 +1075,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> isVisited<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//首先访问该节点，并输出</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//将该节点设置为已经访问</span>
         isVisited<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//查找结点i的第一个邻接结点 w</span>
@@ -1111,9 +1111,9 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
         <span class="token keyword">int</span> u<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//表示队列的头节点对应的下标</span>
         <span class="token keyword">int</span> w<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//邻接结点 w</span>
         <span class="token comment" spellcheck="true">//队列：记录结点访问的顺序</span>
-        LinkedList<span class="token operator">&lt;</span>Object<span class="token operator">&gt;</span> queue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LinkedList<span class="token operator">&lt;</span>Object<span class="token operator">></span> queue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//访问结点并输出结点信息</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//标记为已访问</span>
         isVisited<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//将结点加入队列</span>
@@ -1126,7 +1126,7 @@ graph<span class="token punctuation">.</span><span class="token function">dfs</s
             <span class="token keyword">while</span> <span class="token punctuation">(</span>w <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//找到结点</span>
                 <span class="token comment" spellcheck="true">//是否被访问过</span>
                 <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>isVisited<span class="token punctuation">[</span>w<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//未被访问过</span>
-                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>w<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-&gt;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token function">getValueByIndex</span><span class="token punctuation">(</span>w<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
                     <span class="token comment" spellcheck="true">//标记为已访问</span>
                     isVisited<span class="token punctuation">[</span>w<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
                     <span class="token comment" spellcheck="true">//入队列</span>
