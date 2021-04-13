@@ -1556,19 +1556,19 @@ channel<span class="token punctuation">.</span><span class="token function">basi
 <p><img src="https://img-blog.csdnimg.cn/20210316230045347.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU4MjMw,size_16,color_FFFFFF,t_70" alt=""></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//异步</span>
-    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">&gt;</span><span class="token punctuation">{</span>
+    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//1.发送短信服务</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true">//异步</span>
-    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">&gt;</span><span class="token punctuation">{</span>
+    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//2.</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true">//异步</span>
-    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">&gt;</span><span class="token punctuation">{</span>
+    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//3.</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true">//异步</span>
-    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">&gt;</span><span class="token punctuation">{</span>
+    theadpool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Callable</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//4.</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
@@ -1724,7 +1724,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
 
     <span class="token annotation punctuation">@RabbitHandler</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reviceMessage</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SMS——fanout---接收到的订单消息是-&gt;"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SMS——fanout---接收到的订单消息是->"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p><strong>FanoutDuanxinConsumer.java</strong></p>
@@ -1734,7 +1734,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
 
     <span class="token annotation punctuation">@RabbitHandler</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reviceMessage</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"短信fanout---接收到的订单消息是-&gt;"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"短信fanout---接收到的订单消息是->"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p><strong>FanoutEmailConsumer.java</strong></p>
@@ -1744,7 +1744,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
 
     <span class="token annotation punctuation">@RabbitHandler</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reviceMessage</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"邮件fanout---接收到的订单消息是-&gt;"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"邮件fanout---接收到的订单消息是->"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <h2 id="Direct-模式"><a href="#Direct-模式" class="headerlink" title="Direct 模式"></a>Direct 模式</h2><blockquote>
@@ -1864,7 +1864,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
 
     <span class="token annotation punctuation">@RabbitHandler</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reviceMessage</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SMS——topic---接收到的订单消息是-&gt;"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SMS——topic---接收到的订单消息是->"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p><strong>TopicEmailConsumer</strong></p>
@@ -1883,7 +1883,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
 
     <span class="token annotation punctuation">@RabbitHandler</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reviceMessage</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"邮件topic---接收到的订单消息是-&gt;"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"邮件topic---接收到的订单消息是->"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p><strong>TopicSMSConsumer</strong></p>
@@ -1902,7 +1902,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
 
     <span class="token annotation punctuation">@RabbitHandler</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reviceMessage</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SMS——topic---接收到的订单消息是-&gt;"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"SMS——topic---接收到的订单消息是->"</span> <span class="token operator">+</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -1926,7 +1926,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
     <span class="token annotation punctuation">@Bean</span>
     <span class="token keyword">public</span> Queue <span class="token function">directttlQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//设置过期时间</span>
-        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;</span> args <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> args <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         args<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"x-message-ttl"</span><span class="token punctuation">,</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这里一定是int类型</span>
         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span><span class="token string">"ttl.direct.queue"</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
 
@@ -1975,7 +1975,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
     <span class="token annotation punctuation">@Bean</span>
     <span class="token keyword">public</span> Queue <span class="token function">directttlQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//设置过期时间</span>
-        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;</span> args <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> args <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         args<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"x-message-ttl"</span><span class="token punctuation">,</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这里一定是int类型</span>
         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span><span class="token string">"ttl.direct.queue"</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
     <span class="token annotation punctuation">@Bean</span>
@@ -2027,7 +2027,7 @@ channel<span class="token punctuation">.</span><span class="token function">basi
     <span class="token annotation punctuation">@Bean</span>
     <span class="token keyword">public</span> Queue <span class="token function">directttlQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//设置过期时间</span>
-        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;</span> args <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">></span> args <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//args.put("x-max-length",5);</span>
         args<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"x-message-ttl"</span><span class="token punctuation">,</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这里一定是int类型</span>
         args<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"x-dead-letter-exchange"</span><span class="token punctuation">,</span><span class="token string">"dead_direct_exchange"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2885,7 +2885,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">331.3k</span>&nbsp;字
+                class="white-color">330k</span>&nbsp;字
             
             
             

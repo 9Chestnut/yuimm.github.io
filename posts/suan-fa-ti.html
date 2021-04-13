@@ -513,7 +513,7 @@
 </blockquote>
 <p>利用栈，先入栈再出栈</p>
 <pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">reversePrint</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-         Stack<span class="token operator">&lt;</span>ListNode<span class="token operator">&gt;</span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span>ListNode<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         Stack<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span>ListNode<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         ListNode temp <span class="token operator">=</span> head<span class="token punctuation">;</span>
         <span class="token keyword">while</span> <span class="token punctuation">(</span>temp <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -547,12 +547,12 @@
 <p>如果 stack2 为空，则将 stack1 里的所有元素弹出插入到 stack2 里<br>如果 stack2 仍为空，则返回 -1，否则从 stack2 弹出一个元素并返回</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">CQueue</span> <span class="token punctuation">{</span>
 
-    Deque<span class="token operator">&lt;</span>Integer<span class="token operator">&gt;</span> stack1<span class="token punctuation">;</span>
-    Deque<span class="token operator">&lt;</span>Integer<span class="token operator">&gt;</span> stack2<span class="token punctuation">;</span>
+    Deque<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stack1<span class="token punctuation">;</span>
+    Deque<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stack2<span class="token punctuation">;</span>
 
     <span class="token keyword">public</span> <span class="token function">CQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        stack1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span>Integer<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        stack2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span>Integer<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        stack1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        stack2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">appendTail</span><span class="token punctuation">(</span><span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1433,7 +1433,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">331.3k</span>&nbsp;字
+                class="white-color">330k</span>&nbsp;字
             
             
             

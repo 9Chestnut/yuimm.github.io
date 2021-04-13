@@ -471,7 +471,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    15 分
+                    14 分
                 </div>
                 
 				
@@ -720,10 +720,10 @@
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">insertValueSearch</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">,</span> <span class="token keyword">int</span> findVal<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        <span class="token comment" spellcheck="true">//注意：findVal &lt; arr[left]  和  findVal &gt; arr[right] 必须需要，否则我们得到的 mid 可能越界</span>
+        <span class="token comment" spellcheck="true">//注意：findVal &lt; arr[left]  和  findVal > arr[right] 必须需要，否则我们得到的 mid 可能越界</span>
         <span class="token comment" spellcheck="true">// findVal &lt; arr[left] ：说明待查找的值比数组中最小的元素都小</span>
-        <span class="token comment" spellcheck="true">// findVal &gt; arr[right] ：说明待查找的值比数组中最大的元素都大</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">&gt;</span> right <span class="token operator">||</span> findVal <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">||</span> findVal <span class="token operator">&gt;</span> arr<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// findVal > arr[right] ：说明待查找的值比数组中最大的元素都大</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">></span> right <span class="token operator">||</span> findVal <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">||</span> findVal <span class="token operator">></span> arr<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
         <span class="token comment" spellcheck="true">// 求出mid, 自适应，就是一次函数</span>
@@ -731,7 +731,7 @@
         <span class="token comment" spellcheck="true">// findVal = arr[right] 时，mid = right</span>
         <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>findVal <span class="token operator">-</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>arr<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">-</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">int</span> midVal <span class="token operator">=</span> arr<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>findVal <span class="token operator">&gt;</span> midVal<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 说明应该向右边递归</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>findVal <span class="token operator">></span> midVal<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 说明应该向右边递归</span>
             <span class="token keyword">return</span> <span class="token function">insertValueSearch</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">,</span> findVal<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>findVal <span class="token operator">&lt;</span> midVal<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 说明向左递归查找</span>
             <span class="token keyword">return</span> <span class="token function">insertValueSearch</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> findVal<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -836,7 +836,7 @@
         <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 存放mid值</span>
         <span class="token keyword">int</span> f<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">fib</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 获取到斐波那契数列</span>
         <span class="token comment" spellcheck="true">// 获取到斐波那契分割数值的下标</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>high <span class="token operator">&gt;</span> f<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>high <span class="token operator">></span> f<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             k<span class="token operator">++</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
         <span class="token comment" spellcheck="true">// 因为 f[k] 值 可能大于 a 的 长度，因此我们需要使用Arrays类，构造一个新的数组，并指向temp[]</span>
@@ -844,7 +844,7 @@
         <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> f<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">// 实际上需求使用a数组最后的数填充 temp</span>
         <span class="token comment" spellcheck="true">// 举例:</span>
-        <span class="token comment" spellcheck="true">// temp = {1,8, 10, 89, 1000, 1234, 0, 0} =&gt; {1,8, 10, 89, 1000, 1234, 1234,</span>
+        <span class="token comment" spellcheck="true">// temp = {1,8, 10, 89, 1000, 1234, 0, 0} => {1,8, 10, 89, 1000, 1234, 1234,</span>
         <span class="token comment" spellcheck="true">// 1234,}</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> high <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> temp<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -863,7 +863,7 @@
                 <span class="token comment" spellcheck="true">// 即 在 f[k-1] 的前面继续查找 k--</span>
                 <span class="token comment" spellcheck="true">// 即下次循环 mid = f[k-1-1]-1</span>
                 k<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">&gt;</span> temp<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 我们应该继续向数组的后面查找(右边)</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">></span> temp<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 我们应该继续向数组的后面查找(右边)</span>
                 low <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
                 <span class="token comment" spellcheck="true">// 为什么是k -=2</span>
                 <span class="token comment" spellcheck="true">// 说明</span>
@@ -1676,7 +1676,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">331.3k</span>&nbsp;字
+                class="white-color">330k</span>&nbsp;字
             
             
             
