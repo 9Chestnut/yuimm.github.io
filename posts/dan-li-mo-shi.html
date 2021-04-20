@@ -457,21 +457,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-26
+                    2021-04-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    25 分
                 </div>
                 
 				
@@ -487,7 +487,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="玩转单例模式"><a href="#玩转单例模式" class="headerlink" title="玩转单例模式"></a>玩转单例模式</h2><p>饿汉式、DCL懒汉式</p>
+                <h1 id="一、创建者模式"><a href="#一、创建者模式" class="headerlink" title="一、创建者模式"></a>一、创建者模式</h1><h2 id="1-玩转单例模式"><a href="#1-玩转单例模式" class="headerlink" title="1.玩转单例模式"></a>1.玩转单例模式</h2><p>饿汉式、DCL懒汉式</p>
 <h3 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h3><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 饿汉式单例
  *
@@ -795,6 +795,825 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h2 id="2、工厂模式"><a href="#2、工厂模式" class="headerlink" title="2、工厂模式"></a>2、工厂模式</h2><p>详细分类：</p>
+<ul>
+<li><strong>简单工厂模式</strong>：用来生产同一等级结构中的任意产品(对于增加新的产品，需要修改已有代码)</li>
+<li><strong>工厂方法模式</strong>：用来生产同一等级结构中的固定产品(支持增加任意产品)</li>
+<li><strong>抽象工厂模式</strong>：围绕一个超级工厂创建其他工厂。该超级工厂又称为其他工厂的工厂。</li>
+</ul>
+<p>满足OOP七大原则中的三个：</p>
+<ul>
+<li><strong>开闭原则</strong>: 一个软件的实体应当对扩展开放，对修改关闭</li>
+<li><strong>依赖倒转原则</strong>: 要针对接口编程，不要针对实现编程</li>
+<li><strong>迪米特法则</strong>: 只与你直接的朋友通信，而避免和陌生人通信</li>
+</ul>
+<h3 id="2-1、简单工厂模式"><a href="#2-1、简单工厂模式" class="headerlink" title="2.1、简单工厂模式"></a>2.1、简单工厂模式</h3><p>举一个客户买车的示例（客户自己不去new车（不用关心车怎么实现的细节），而是通过工厂生产车，减少硬编码）：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Car</span><span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bench</span> <span class="token keyword">implements</span> <span class="token class-name">Car</span><span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"奔驰车"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Baoma</span> <span class="token keyword">implements</span> <span class="token class-name">Car</span><span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"宝马车"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>  
+<span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>静态（简单）工厂模式</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CarFactory</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Car <span class="token function">getCar</span><span class="token punctuation">(</span>String car<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>car<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"奔驰"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bench</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>car<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"宝马"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Baoma</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Customer</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Car car <span class="token operator">=</span> CarFactory<span class="token punctuation">.</span><span class="token function">getCar</span><span class="token punctuation">(</span><span class="token string">"奔驰"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        car<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>注</strong>：大多数情况下用的都是简单工厂模式，这种模式仍有不足，如果再增加一辆车，则会修改<code>CarFactory.java</code>的getCar方法，违反了开闭原则，我们应该扩展，不应该修改。</p>
+<h3 id="2-2、工厂方法模型"><a href="#2-2、工厂方法模型" class="headerlink" title="2.2、工厂方法模型"></a>2.2、工厂方法模型</h3><p>我们新建一个CarFactory的接口，然后为每种Car都建一个Factory类。这样就可以使得每次新加入一种车时，只为这种车建立一个对应的工厂就行，不会影响到原来的代码。</p>
+<p><img src="https://img-blog.csdnimg.cn/2021030513372722.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMTkxOTgw,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CarFactory</span> <span class="token punctuation">{</span>
+    Car <span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BenchFactory</span> <span class="token keyword">implements</span> <span class="token class-name">CarFactory</span><span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Car <span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bench</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Customer</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Car car <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BenchFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        car<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>优点：</strong>下次加入一种大众车，只需要新建一个 DazhongFactory 就行，不会影响到别的工厂。</p>
+<p><strong>缺点：</strong>代码量加大，管理复杂，结构复杂，实际业务一般使用简单工厂模式</p>
+<p><strong>总结：</strong>不一定要符合设计原则，要根据实际情况加以分析取舍</p>
+<h3 id="2-3、抽象工厂模型"><a href="#2-3、抽象工厂模型" class="headerlink" title="2.3、抽象工厂模型"></a>2.3、抽象工厂模型</h3><p><img src="C:%5CUsers%5CHCT%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210330225835756.png" alt="image-20210330225835756"></p>
+<p><img src="C:%5CUsers%5CHCT%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210330230000339.png" alt="image-20210330230000339"></p>
+<h2 id="3、代理模式"><a href="#3、代理模式" class="headerlink" title="3、代理模式"></a>3、代理模式</h2><h3 id="3-1、静态代理"><a href="#3-1、静态代理" class="headerlink" title="3.1、静态代理"></a>3.1、静态代理</h3><p><img src="https://img-blog.csdnimg.cn/20200905164937672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDQ0OTgzOA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h5 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h5><ul>
+<li>抽象角色 : 一般使用接口或者抽象类来实现</li>
+<li>真实角色 : 被代理的角色</li>
+<li>代理角色 : 代理真实角色 ; 代理真实角色后 , 一般会做一些附属的操作</li>
+<li>客户 : 使用代理角色来进行一些操作 .</li>
+</ul>
+<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><ul>
+<li>Rent . java 即抽象角色</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//抽象角色：租房</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Rent</span> <span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Host . java 即真实角色</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//真实角色: 房东，房东要出租房子</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Host</span> <span class="token keyword">implements</span> <span class="token class-name">Rent</span><span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"房屋出租"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Proxy . java 即代理角色</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//代理角色：中介</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Proxy</span> <span class="token keyword">implements</span> <span class="token class-name">Rent</span> <span class="token punctuation">{</span>
+
+   <span class="token keyword">private</span> Host host<span class="token punctuation">;</span>
+   <span class="token keyword">public</span> <span class="token function">Proxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+   <span class="token keyword">public</span> <span class="token function">Proxy</span><span class="token punctuation">(</span>Host host<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>host <span class="token operator">=</span> host<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+   <span class="token comment" spellcheck="true">//租房</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token function">seeHouse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       host<span class="token punctuation">.</span><span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token function">fare</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+   <span class="token comment" spellcheck="true">//看房</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">seeHouse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"带房客看房"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+   <span class="token comment" spellcheck="true">//收中介费</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fare</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"收中介费"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Client . java 即客户<br>客户 访问 代理对象<br>代理角色 帮助 真实角色 做事</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//客户类，一般客户都会去找代理！</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 真实对象，房东</span>
+      Host host <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Host</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 代理，中介</span>
+      <span class="token comment" spellcheck="true">// 把 真实对象 给 代理角色</span>
+      Proxy proxy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Proxy</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// 替 host 这个真实对象 出租</span>
+      proxy<span class="token punctuation">.</span><span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
+<li>在这个过程中，你直接接触的就是中介，就如同现实生活中的样子，你看不到房东，但是你依旧租到了房东的房子通过代理， 这就是所谓的代理模式</li>
+</ul>
+<h5 id="静态代理的优劣"><a href="#静态代理的优劣" class="headerlink" title="静态代理的优劣"></a>静态代理的优劣</h5><p><strong>优点</strong></p>
+<ul>
+<li>可以使得我们的真实角色更加纯粹 . 不再去关注一些公共的事情 .</li>
+<li>公共的业务由代理来完成 . 实现了业务的分工 ,</li>
+<li>公共业务发生扩展时变得更加集中和方便 .</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>一个真实角色，就会产生一个代理角色</li>
+<li>这样工作量会翻倍， 开发效率降低</li>
+</ul>
+<blockquote>
+<p>我们想要静态代理的好处，又不想要静态代理的缺点，所以 , 就有了动态代理</p>
+</blockquote>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><ul>
+<li>其中的思想：我们在不改变原来的代码的情况下，实现了对原有功能的增强</li>
+<li>这是AOP中最核心的思想</li>
+<li>AOP：纵向开发，横向开发</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200906205945451.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDQ0OTgzOA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="3-2、动态代理"><a href="#3-2、动态代理" class="headerlink" title="3.2、动态代理"></a>3.2、动态代理</h3><h4 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h4><ul>
+<li>动态代理的角色和静态代理的一样 .</li>
+<li>动态代理的代理类是动态生成的 . 静态代理的代理类是我们提前写好的</li>
+<li>动态代理分为两类<ul>
+<li>一类是基于接口动态代理 —— JDK 动态代理</li>
+<li>一类是基于类的动态代理 —— cglib 动态代理</li>
+</ul>
+</li>
+<li><strong>现在用的比较多的是 java字节码 —— javasist 来生成动态代理</strong></li>
+<li>这里使用JDK的原生代码来实现，其余的道理都是一样的</li>
+</ul>
+<h4 id="2、了解-InvocationHandler-和-Proxy"><a href="#2、了解-InvocationHandler-和-Proxy" class="headerlink" title="2、了解 InvocationHandler 和 Proxy"></a>2、了解 InvocationHandler 和 Proxy</h4><h5 id="1、InvocationHandler：调用处理程序"><a href="#1、InvocationHandler：调用处理程序" class="headerlink" title="1、InvocationHandler：调用处理程序"></a>1、<strong>InvocationHandler：调用处理程序</strong></h5><p><img src="https://img-blog.csdnimg.cn/20200905165755119.png#pic_center" alt="在这里插入图片描述"></p>
+<pre class=" language-java"><code class="language-java">Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> 方法 method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span>；
+<span class="token comment" spellcheck="true">//参数</span>
+<span class="token comment" spellcheck="true">//proxy - 调用该方法的代理实例</span>
+<span class="token comment" spellcheck="true">//method -所述方法对应于调用代理实例上的接口方法的实例。方法对象的声明类将是该方法声明的接口，它可以是代理类继承该方法的代理接口的超级接口。</span>
+<span class="token comment" spellcheck="true">//args -包含的方法调用传递代理实例的参数值的对象的阵列，或null如果接口方法没有参数。原始类型的参数包含在适当的原始包装器类的实例中，例如java.lang.Integer或java.lang.Boolean 。</span>
+</code></pre>
+<blockquote>
+<p>参数</p>
+</blockquote>
+<ul>
+<li>proxy - 调用该方法的代理实例 —— <strong>你要调用谁</strong></li>
+<li>method -所述方法对应于调用代理实例上的接口方法的实例。方法对象的声明类将是该方法声明的接口，它可以是代理类继承该方法的代理接口的超级接口 —— <strong>要代理这个类中的那个方法</strong></li>
+<li>args -包含的方法调用传递代理实例的参数值的对象的阵列，或null如果接口方法没有参数。原始类型的参数包含在适当的原始包装器类的实例中，例如java.lang.Integer或java.lang.Boolean —— <strong>给这个方法种传什么参数</strong></li>
+</ul>
+<h5 id="2、Proxy-代理"><a href="#2、Proxy-代理" class="headerlink" title="2、Proxy : 代理"></a>2、<strong>Proxy : 代理</strong></h5><p><img src="https://img-blog.csdnimg.cn/2020090516592897.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200905165935815.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200905165950104.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDQ0OTgzOA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//生成代理类</span>
+<span class="token keyword">public</span> Object <span class="token function">getProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token function">ass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h4 id="3、代码实现"><a href="#3、代码实现" class="headerlink" title="3、代码实现"></a>3、代码实现</h4><ul>
+<li>抽象角色和真实角色和之前的一样</li>
+<li>Rent . java 即抽象角色</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//抽象角色：租房</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Rent</span> <span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Host . java 即真实角色</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//真实角色: 房东，房东要出租房子</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Host</span> <span class="token keyword">implements</span> <span class="token class-name">Rent</span><span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"房屋出租"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>ProxyInvocationHandler. java 即代理角色</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 使用这给类，自动生成代理类</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProxyInvocationHandler</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
+   <span class="token keyword">private</span> Rent rent<span class="token punctuation">;</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setRent</span><span class="token punctuation">(</span>Rent rent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>rent <span class="token operator">=</span> rent<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+   <span class="token comment" spellcheck="true">//生成代理类，重点是第二个参数，获取要代理的抽象角色！之前都是一个角色，现在可以代理一类角色</span>
+   <span class="token keyword">public</span> Object <span class="token function">getProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token keyword">return</span> Proxy<span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+               rent<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+   <span class="token comment" spellcheck="true">// proxy : 代理类 method : 代理类的调用处理程序的方法对象.</span>
+   <span class="token comment" spellcheck="true">// 处理代理实例上的方法调用并返回结果</span>
+   <span class="token annotation punctuation">@Override</span>
+   <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+       <span class="token function">seeHouse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token comment" spellcheck="true">//核心：本质利用反射实现！</span>
+       Object result <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>rent<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token function">fare</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+   <span class="token comment" spellcheck="true">//看房</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">seeHouse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"带房客看房"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+   <span class="token comment" spellcheck="true">//收中介费</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fare</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"收中介费"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Client . java</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//租客</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token comment" spellcheck="true">//真实角色</span>
+       Host host <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Host</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token comment" spellcheck="true">//代理实例的调用处理程序</span>
+       ProxyInvocationHandler pih <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ProxyInvocationHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       pih<span class="token punctuation">.</span><span class="token function">setRent</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//将真实角色放置进去！</span>
+       Rent proxy <span class="token operator">=</span> <span class="token punctuation">(</span>Rent<span class="token punctuation">)</span>pih<span class="token punctuation">.</span><span class="token function">getProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//动态生成对应的代理类！</span>
+       proxy<span class="token punctuation">.</span><span class="token function">rent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<p>核心：<strong>一个动态代理 , 一般代理某一类业务 , 一个动态代理可以代理多个类，代理的是接口</strong></p>
+<h4 id="4-深化理解"><a href="#4-深化理解" class="headerlink" title="4. 深化理解"></a>4. 深化理解</h4><p>我们来使用动态代理实现代理我们后面写的UserService</p>
+<p>我们也可以编写一个通用的动态代理实现的类，所有的代理对象设置为Object即可</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProxyInvocationHandler</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">{</span>
+   <span class="token keyword">private</span> Object target<span class="token punctuation">;</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTarget</span><span class="token punctuation">(</span>Object target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>target <span class="token operator">=</span> target<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+   <span class="token comment" spellcheck="true">//生成代理类</span>
+   <span class="token keyword">public</span> Object <span class="token function">getProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token keyword">return</span> Proxy<span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+               target<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+   <span class="token comment" spellcheck="true">// proxy : 代理类</span>
+   <span class="token comment" spellcheck="true">// method : 代理类的调用处理程序的方法对象.</span>
+   <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+       <span class="token function">log</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       Object result <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">{</span>
+       System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了"</span><span class="token operator">+</span>methodName<span class="token operator">+</span><span class="token string">"方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li><strong>测试</strong></li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">{</span>
+   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token comment" spellcheck="true">//真实对象</span>
+       UserServiceImpl userService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserServiceImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token comment" spellcheck="true">//代理对象的调用处理程序</span>
+       ProxyInvocationHandler pih <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ProxyInvocationHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       pih<span class="token punctuation">.</span><span class="token function">setTarget</span><span class="token punctuation">(</span>userService<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//设置要代理的对象</span>
+       UserService proxy <span class="token operator">=</span> <span class="token punctuation">(</span>UserService<span class="token punctuation">)</span>pih<span class="token punctuation">.</span><span class="token function">getProxy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//动态生成代理类！</span>
+       proxy<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h4 id="5-动态代理的好处"><a href="#5-动态代理的好处" class="headerlink" title="5. 动态代理的好处"></a>5. 动态代理的好处</h4><ul>
+<li>拥有静态代理的优点</li>
+<li>可以使得我们的真实角色更加纯粹 . 不再去关注一些公共的事情 .</li>
+<li>公共的业务由代理来完成 . 实现了业务的分工 </li>
+<li>公共业务发生扩展时变得更加集中和方便 .</li>
+<li>一个动态代理 , 一般代理某一类业务</li>
+<li>一个动态代理可以代理多个类，代理的是接口</li>
+</ul>
+<h2 id="4、建造者模式"><a href="#4、建造者模式" class="headerlink" title="4、建造者模式"></a>4、建造者模式</h2><h3 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h3><p>将一个复杂对象的构建与它对的表示进行分离，使得同样的构建过程可以创建不同的表示</p>
+<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用"></a>主要作用</h3><p>在用户不知道对象的建造过程和细节的情况下就可以创建复杂的对象。（说白了就是把内部的建造过程和细节隐藏起来）</p>
+<h3 id="例如："><a href="#例如：" class="headerlink" title="例如："></a><strong>例如：</strong></h3><ol>
+<li>工厂（建造者模式）：负责制造汽车（组装过程和细节在工厂内）</li>
+<li>汽车购买者（用户）：你只需要说出你需要的型号（就是对象的类型和内容），然后付钱直接购买即可使用（不需要知道汽车是怎么组装的）</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20200611092647885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjc1NzUw,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>那我们用建房子在说：假设造房简化为如下步骤：<br>1.打基地 2.钢筋工程 3.铺电线 4.粉刷 等；“如果”要盖一个房子，首先要找一个建筑公司或工程承包商（指挥者）。承包商指挥工人（具体建筑者）过来造房子（产品），最后验收。</p>
+<p><strong>具体代码实现</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * 抽象的建造者
+ * @Author HCT
+ * @Date 2021/3/31 19:37
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Builder</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">buildA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//地基</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">buildB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//钢筋工程</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">buildC</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//铺电线</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">buildD</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//粉刷</span>
+
+
+    <span class="token comment" spellcheck="true">//完工：得到产品</span>
+    <span class="token keyword">abstract</span> Product <span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>builder<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/3/31 19:38
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Product</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String buildA<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String buildB<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String buildC<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String buildD<span class="token punctuation">;</span>
+
+
+    <span class="token keyword">public</span> <span class="token function">Product</span><span class="token punctuation">(</span>String buildA<span class="token punctuation">,</span> String buildB<span class="token punctuation">,</span> String buildC<span class="token punctuation">,</span> String buildD<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildA <span class="token operator">=</span> buildA<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildB <span class="token operator">=</span> buildB<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildC <span class="token operator">=</span> buildC<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildD <span class="token operator">=</span> buildD<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">Product</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuildA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> buildA<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuildA</span><span class="token punctuation">(</span>String buildA<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildA <span class="token operator">=</span> buildA<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuildB</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> buildB<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuildB</span><span class="token punctuation">(</span>String buildB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildB <span class="token operator">=</span> buildB<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuildC</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> buildC<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuildC</span><span class="token punctuation">(</span>String buildC<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildC <span class="token operator">=</span> buildC<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuildD</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> buildD<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuildD</span><span class="token punctuation">(</span>String buildD<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>buildD <span class="token operator">=</span> buildD<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Product{"</span> <span class="token operator">+</span>
+                <span class="token string">"buildA='"</span> <span class="token operator">+</span> buildA <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", buildB='"</span> <span class="token operator">+</span> buildB <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", buildC='"</span> <span class="token operator">+</span> buildC <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", buildD='"</span> <span class="token operator">+</span> buildD <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>builder<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/3/31 19:40
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token keyword">extends</span> <span class="token class-name">Builder</span><span class="token punctuation">{</span>
+    <span class="token keyword">private</span> Product product<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Worker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        product <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Product</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">void</span> <span class="token function">buildA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuildA</span><span class="token punctuation">(</span><span class="token string">"地基"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"地基"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">void</span> <span class="token function">buildB</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuildB</span><span class="token punctuation">(</span><span class="token string">"钢筋工程"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"钢筋工程"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">void</span> <span class="token function">buildC</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuildC</span><span class="token punctuation">(</span><span class="token string">"铺电线"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"铺电线"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">void</span> <span class="token function">buildD</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuildD</span><span class="token punctuation">(</span><span class="token string">"粉刷"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"粉刷"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    Product <span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> product<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>builder<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/3/31 19:41
+ * @Version 1.0
+ */</span>
+
+<span class="token comment" spellcheck="true">//指挥：核心，负责指挥构建一个工程，工程如何构建，由它决定</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Director</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> Product <span class="token function">build</span><span class="token punctuation">(</span>Builder builder<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        builder<span class="token punctuation">.</span><span class="token function">buildA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        builder<span class="token punctuation">.</span><span class="token function">buildB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        builder<span class="token punctuation">.</span><span class="token function">buildC</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        builder<span class="token punctuation">.</span><span class="token function">buildD</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>builder<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/3/31 19:42
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//指挥</span>
+        Director director<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Director</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//指挥 具体的工人完成 产品</span>
+        Product builder<span class="token operator">=</span>director<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Worker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>builder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li><p>上面是Builder模式的常规写法，导演类Director在Builder模式中具有很重要的作用，它用于指导具体构建者如何构建产品，控制调用先后次序，并向调用者返回完整的产品类，但是有些情况下需要简化系统结构，可以把Director和抽象建造者进行结合</p>
+</li>
+<li><p>通过静态内部类方式实现零件无序装配构建，这种方式使用更加灵活，更符合定义。内部有复杂对象的默认实现，使用时可以根据用户需求自由定义更改内容，并且无需改变具体的构造方式。就可以生产出不同复杂产品</p>
+</li>
+<li><p>通过静态内部类方式实现零件无序装配构建，这种方式使用更加灵活，更符合定义。内部有复杂对象的默认实现，使用时可以根据用户需求自由定义更改内容，并且无需改变具体的构造方式。就可以生产出不同复杂产品</p>
+</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/3/31 19:47
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Builder</span> <span class="token punctuation">{</span>
+    <span class="token keyword">abstract</span> Builder <span class="token function">builderA</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//汉堡</span>
+    <span class="token keyword">abstract</span> Builder <span class="token function">builderB</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//可乐</span>
+    <span class="token keyword">abstract</span> Builder <span class="token function">builderC</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//薯条</span>
+    <span class="token keyword">abstract</span> Builder <span class="token function">builderD</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//甜点</span>
+
+    <span class="token keyword">abstract</span> Product <span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//产品：套餐</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Product</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span>  String BuilderA<span class="token operator">=</span><span class="token string">"汉堡"</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span>  String BuilderB<span class="token operator">=</span><span class="token string">"可乐"</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span>  String BuilderC<span class="token operator">=</span><span class="token string">"薯条"</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span>  String BuilderD<span class="token operator">=</span><span class="token string">"甜点"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuilderA</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> BuilderA<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuilderA</span><span class="token punctuation">(</span>String builderA<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BuilderA <span class="token operator">=</span> builderA<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuilderB</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> BuilderB<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuilderB</span><span class="token punctuation">(</span>String builderB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BuilderB <span class="token operator">=</span> builderB<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuilderC</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> BuilderC<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuilderC</span><span class="token punctuation">(</span>String builderC<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BuilderC <span class="token operator">=</span> builderC<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getBuilderD</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> BuilderD<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setBuilderD</span><span class="token punctuation">(</span>String builderD<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        BuilderD <span class="token operator">=</span> builderD<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Product{"</span> <span class="token operator">+</span>
+                <span class="token string">"BuilderA='"</span> <span class="token operator">+</span> BuilderA <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", BuilderB='"</span> <span class="token operator">+</span> BuilderB <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", BuilderC='"</span> <span class="token operator">+</span> BuilderC <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", BuilderD='"</span> <span class="token operator">+</span> BuilderD <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//具体的构建者</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token keyword">extends</span> <span class="token class-name">Builder</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> Product product<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Worker</span><span class="token punctuation">(</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Product</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token annotation punctuation">@Override</span>
+    Builder <span class="token function">builderA</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuilderA</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    Builder <span class="token function">builderB</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuilderB</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    Builder <span class="token function">builderC</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuilderC</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    Builder <span class="token function">builderD</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        product<span class="token punctuation">.</span><span class="token function">setBuilderD</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    Product <span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> product<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/3/31 19:53
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token comment" spellcheck="true">//服务员</span>
+        Worker worker<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Worker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//链式编程</span>
+        Product product<span class="token operator">=</span>worker<span class="token punctuation">.</span><span class="token function">builderA</span><span class="token punctuation">(</span><span class="token string">"鸡腿"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>product<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>产品的构建和<strong>表示分离</strong>，<strong>实现了解耦</strong>。使用建造者模式可以使客户端不必知道产品内部组成的细节。</li>
+<li>将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰</li>
+<li>具体的构建者类之间是相互独立的，这有利于系统的扩展。增加新的具体构建者无需修改原有类库的代码，符合开闭原则。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似；如果产品之间的差异性很大，则不适合使用建造者模式，因此其使用范围受到一定的限制。</li>
+<li>如果产品的内部变化复杂，可能会导致需要定义很多具体的构造者来实现这种变化，导致系统变得很庞大。</li>
+</ol>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ol>
+<li>需要生产的产品对象有复杂的内部结构，这些产品对象具备共性；</li>
+<li>隔离复杂对象的创建和使用，并使得使用的创建过程可以创建不同的产品。</li>
+<li>适合于一个具有较多的零件（属性）的产品（对象）的创建过程。</li>
+</ol>
+<h2 id="5、原型模式"><a href="#5、原型模式" class="headerlink" title="5、原型模式"></a>5、原型模式</h2><h3 id="原型模式是干嘛的"><a href="#原型模式是干嘛的" class="headerlink" title="原型模式是干嘛的"></a><strong>原型模式是干嘛的</strong></h3><ol>
+<li>克隆对象</li>
+<li>为了简化new对象的过程，有时候需要许多操作才能new</li>
+</ol>
+<h3 id="两种克隆方式"><a href="#两种克隆方式" class="headerlink" title="两种克隆方式"></a>两种克隆方式</h3><blockquote>
+<p> 浅克隆</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>builder<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 1.实现一个接口 cloneable
+ * 2.重写一个方法
+ *
+ * @Author HCT
+ * @Date 2021/3/31 20:11
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Video</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> String namq<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Date createTime<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> Object <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> CloneNotSupportedException <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">Video</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">Video</span><span class="token punctuation">(</span>String namq<span class="token punctuation">,</span> Date createTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>namq <span class="token operator">=</span> namq<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>createTime <span class="token operator">=</span> createTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getNamq</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> namq<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setNamq</span><span class="token punctuation">(</span>String namq<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>namq <span class="token operator">=</span> namq<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Date <span class="token function">getCreateTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> createTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCreateTime</span><span class="token punctuation">(</span>Date createTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>createTime <span class="token operator">=</span> createTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Video{"</span> <span class="token operator">+</span>
+                <span class="token string">"namq='"</span> <span class="token operator">+</span> namq <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", createTime="</span> <span class="token operator">+</span> createTime <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>builder<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @Author HCT
+ * @Date 2021/3/31 20:15
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bilibili</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> CloneNotSupportedException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//原型对象</span>
+        Date date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Video v1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Video</span><span class="token punctuation">(</span><span class="token string">"hct"</span><span class="token punctuation">,</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v1=>"</span> <span class="token operator">+</span> v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v1=>ashcode=>"</span> <span class="token operator">+</span> v1<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        <span class="token comment" spellcheck="true">//v1 克隆 v2</span>
+        Video v2 <span class="token operator">=</span> <span class="token punctuation">(</span>Video<span class="token punctuation">)</span> v1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v2=>"</span> <span class="token operator">+</span> v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v2=>ashcode=>"</span> <span class="token operator">+</span> v2<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>测试浅克隆：</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bilibili</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> CloneNotSupportedException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//原型对象</span>
+        Date date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Video v1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Video</span><span class="token punctuation">(</span><span class="token string">"hct"</span><span class="token punctuation">,</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//v1 克隆 v2</span>
+        Video v2 <span class="token operator">=</span> <span class="token punctuation">(</span>Video<span class="token punctuation">)</span> v1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v1=>"</span> <span class="token operator">+</span> v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v2=>"</span> <span class="token operator">+</span> v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"=========================="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        date<span class="token punctuation">.</span><span class="token function">setTime</span><span class="token punctuation">(</span><span class="token number">21311212</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v1=>"</span> <span class="token operator">+</span> v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"v2=>"</span> <span class="token operator">+</span> v2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java">v1<span class="token operator">=</span><span class="token operator">></span>Video<span class="token punctuation">{</span>namq<span class="token operator">=</span><span class="token string">'hct'</span><span class="token punctuation">,</span> createTime<span class="token operator">=</span>Wed Mar <span class="token number">31</span> <span class="token number">20</span><span class="token operator">:</span><span class="token number">24</span><span class="token operator">:</span><span class="token number">32</span> CST <span class="token number">2021</span><span class="token punctuation">}</span>
+v2<span class="token operator">=</span><span class="token operator">></span>Video<span class="token punctuation">{</span>namq<span class="token operator">=</span><span class="token string">'hct'</span><span class="token punctuation">,</span> createTime<span class="token operator">=</span>Wed Mar <span class="token number">31</span> <span class="token number">20</span><span class="token operator">:</span><span class="token number">24</span><span class="token operator">:</span><span class="token number">32</span> CST <span class="token number">2021</span><span class="token punctuation">}</span>
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+v1<span class="token operator">=</span><span class="token operator">></span>Video<span class="token punctuation">{</span>namq<span class="token operator">=</span><span class="token string">'hct'</span><span class="token punctuation">,</span> createTime<span class="token operator">=</span>Thu Jan <span class="token number">01</span> <span class="token number">13</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">11</span> CST <span class="token number">1970</span><span class="token punctuation">}</span>
+v2<span class="token operator">=</span><span class="token operator">></span>Video<span class="token punctuation">{</span>namq<span class="token operator">=</span><span class="token string">'hct'</span><span class="token punctuation">,</span> createTime<span class="token operator">=</span>Thu Jan <span class="token number">01</span> <span class="token number">13</span><span class="token operator">:</span><span class="token number">55</span><span class="token operator">:</span><span class="token number">11</span> CST <span class="token number">1970</span><span class="token punctuation">}</span></code></pre>
+<p>当<strong>v1</strong>设置的时间改变之后，克隆出来的<strong>v2</strong>也随着<strong>v1</strong>改变了，这表示<strong>v1</strong>和<strong>v2</strong>同时指向了同一个date，只是克隆了引用。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200219112446652.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ppb2hmZ2o=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>深克隆</p>
+</blockquote>
+<h4 id="Video-java"><a href="#Video-java" class="headerlink" title="Video.java"></a>Video.java</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>builder<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>demo2<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 1.实现一个接口 cloneable
+ * 2.重写一个方法
+ *
+ * @Author HCT
+ * @Date 2021/3/31 20:11
+ * @Version 1.0
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Video</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Date createTime<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> Object <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> CloneNotSupportedException <span class="token punctuation">{</span>
+
+
+        Object obj <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//实现深克隆</span>
+        Video v <span class="token operator">=</span> <span class="token punctuation">(</span>Video<span class="token punctuation">)</span> obj<span class="token punctuation">;</span>
+        v<span class="token punctuation">.</span>createTime <span class="token operator">=</span> <span class="token punctuation">(</span>Date<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>createTime<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//将这个对象的属性也进行克隆</span>
+
+        <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+
+
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">Video</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">Video</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Date createTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>createTime <span class="token operator">=</span> createTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> Date <span class="token function">getCreateTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> createTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCreateTime</span><span class="token punctuation">(</span>Date createTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>createTime <span class="token operator">=</span> createTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Video{"</span> <span class="token operator">+</span>
+                <span class="token string">"namq='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", createTime="</span> <span class="token operator">+</span> createTime <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>改变的代码</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> Object <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> CloneNotSupportedException <span class="token punctuation">{</span>
+        Object obj <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//实现深克隆</span>
+        Video v <span class="token operator">=</span> <span class="token punctuation">(</span>Video<span class="token punctuation">)</span> obj<span class="token punctuation">;</span>
+        v<span class="token punctuation">.</span>createTime <span class="token operator">=</span> <span class="token punctuation">(</span>Date<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>createTime<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//将这个对象的属性也进行克隆</span>
+
+        <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h1 id="二、结构性模式"><a href="#二、结构性模式" class="headerlink" title="二、结构性模式"></a>二、结构性模式</h1><blockquote>
+<p>从程序的结构上实现松耦合，从而可以扩大整体的类结构</p>
+</blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1583,7 +2402,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">360.1k</span>&nbsp;字
+                class="white-color">363.2k</span>&nbsp;字
             
             
             
