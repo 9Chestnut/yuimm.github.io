@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="23种设计模式, Yuimm">
-    <meta name="description" content="单例模式。-----------------------------------------------">
+    <meta name="description" content="设计模式。-----------------------------------------------">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -457,7 +457,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-21
+                    2021-04-22
                 </div>
                 
 
@@ -1073,7 +1073,8 @@ product <span class="token operator">=</span> factory<span class="token punctuat
 <h3 id="2-3、抽象工厂模型"><a href="#2-3、抽象工厂模型" class="headerlink" title="2.3、抽象工厂模型"></a>2.3、抽象工厂模型</h3><p>【学习难度：★★★★☆，使用频率：★★★★★】</p>
 <p>工厂方法模式通过引入工厂等级结构，解决了简单工厂模式中工厂类职责太重的问题，但由于工厂方法模式中的每个工厂只生产一类产品，可能会导致系统中存在大量的工厂类，势必会增加系统的开销。此时，我们可以考虑<strong>将一些相关的产品组成一个“产品族”，由同一个工厂来统一生产。</strong></p>
 <blockquote>
-<h3 id="1-皮肤库的初始设计"><a href="#1-皮肤库的初始设计" class="headerlink" title="1.皮肤库的初始设计"></a>1.皮肤库的初始设计</h3></blockquote>
+<p>1.皮肤库的初始设计</p>
+</blockquote>
 <p><img src="https://img-blog.csdn.net/20130713161528750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTG92ZUxpb24=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></p>
 <p>该皮肤库需要具备良好的灵活性和可扩展性，用户可以自由选择不同的皮肤，开发人员可以在不修改既有代码的基础上增加新的皮肤。</p>
 <blockquote>
@@ -1087,13 +1088,15 @@ product <span class="token operator">=</span> factory<span class="token punctuat
 <p> (1) 当需要增加新的皮肤时，虽然不要修改现有代码，但是需要增加大量类，针对每一个新增具体组件都需要增加一个具体工厂，类的个数成对增加，这无疑会导致系统越来越庞大，增加系统的维护成本和运行开销；</p>
 <p>  (2) 由于同一种风格的具体界面组件通常要一起显示，因此需要为每个组件都选择一个具体工厂，用户在使用时必须逐个进行设置，如果某个具体工厂选择失误将会导致界面显示混乱，虽然我们可以适当增加一些约束语句，但客户端代码和配置文件都较为复杂。</p>
 <blockquote>
-<h2 id="2-等级结构与产品族"><a href="#2-等级结构与产品族" class="headerlink" title="2.等级结构与产品族"></a>2.等级结构与产品族</h2></blockquote>
+<p>2.等级结构与产品族</p>
+</blockquote>
 <p> (1) <strong>产品等级结构</strong>：<strong>产品等级结构即产品的继承结构</strong>，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类。</p>
 <p> (2) <strong>产品族</strong>：在抽象工厂模式中，<strong>产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品</strong>，如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中，海尔电视机、海尔电冰箱构成了一个产品族。</p>
 <p><img src="https://img-blog.csdn.net/20130713162941328?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTG92ZUxpb24=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="产品族与产品等级结构示意图"></p>
 <p>当系统所提供的工厂生产的具体产品并不是一个简单的对象，而是多个位于不同产品等级结构、属于不同类型的具体产品时就可以使用抽象工厂模式。<strong>抽象工厂模式是所有形式的工厂模式中最为抽象和最具一般性的一种形式。</strong>抽象工厂模式与工厂方法模式最大的区别在于，工厂方法模式针对的是一个产品等级结构，而抽象工厂模式需要面对多个产品等级结构，一个工厂等级结构可以负责多个不同产品等级结构中的产品对象的创建。<strong>当一个工厂等级结构可以创建出分属于不同产品等级结构的一个产品族中的所有对象时，抽象工厂模式比工厂方法模式更为简单、更有效率。</strong><br><img src="https://img-blog.csdn.net/20130713163008609?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTG92ZUxpb24=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="抽象工厂模式示意图"></p>
 <blockquote>
-<h2 id="3-抽象工厂模式概述"><a href="#3-抽象工厂模式概述" class="headerlink" title="3 抽象工厂模式概述"></a>3 抽象工厂模式概述</h2></blockquote>
+<p>3 抽象工厂模式概述</p>
+</blockquote>
 <p>  <strong>抽象工厂模式(Abstract Factory Pattern)：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。抽象工厂模式又称为Kit模式，它是一种对象创建型模式。</strong></p>
 <p> 在抽象工厂模式中，每一个具体工厂都提供了多个工厂方法用于产生多种不同类型的产品，这些产品构成了一个产品族，抽象工厂模式结构如图所示：</p>
 <p><img src="https://img-blog.csdn.net/20130713163800203?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTG92ZUxpb24=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="抽象工厂模式结构图"></p>
