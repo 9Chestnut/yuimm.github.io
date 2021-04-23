@@ -461,21 +461,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-30
+                    2021-04-23
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    31.2k
+                    43.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    138 分
+                    181 分
                 </div>
                 
 				
@@ -948,7 +948,110 @@ select * from user;</code></pre><ul>
 <li>该公司新建了一款存储引擎叫xtradb完全可以替代innodb，并且在性能和并发上做得更好，阿里巴巴大部分mysql数据库其实使用的percona的原型加以修改。</li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/da04cfac6493cec6f502acd817b968f6.png" alt="image-20200803211429418"></p>
-<h1 id="第-2-章-索引优化分析"><a href="#第-2-章-索引优化分析" class="headerlink" title="第 2 章 索引优化分析"></a>第 2 章 索引优化分析</h1><h2 id="1、慢-SQL"><a href="#1、慢-SQL" class="headerlink" title="1、慢 SQL"></a>1、慢 SQL</h2><blockquote>
+<h1 id="第-2-章-SQL语句的执行过程"><a href="#第-2-章-SQL语句的执行过程" class="headerlink" title="第 2 章 SQL语句的执行过程"></a>第 2 章 SQL语句的执行过程</h1><h2 id="1、客户端的MySQL驱动："><a href="#1、客户端的MySQL驱动：" class="headerlink" title="1、客户端的MySQL驱动："></a>1、客户端的MySQL驱动：</h2><p>系统在和 MySQL 数据库进行通信前，需要先和数据库建立连接，而这个功能就是由MySQL驱动底层帮我们完成的，建立完连接之后，我们只需要发送 SQL 语句就可以执行 CRUD 了。如下图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/68dce6f6c9d9e998fe3b10751d278f83.png" alt="img"></p>
+<p>一次 SQL 请求就会建立一个连接，多个请求就会建立多个连接。假设我们的系统是部署在 tomcat 容器中的， tomcat 是可以并发处理多个请求的，这就会导致多个请求会去建立多个连接，然后使用完再都去关闭，这样会有什么问题呢？Java系统在通过 MySQL 驱动 和 MySQL 数据库连接的时候是基于 TCP/IP 协议的，所以如果每个请求都是新建连接和销毁连接，这样频繁的创建和销毁连接势必会大大降低我们系统的性能。</p>
+<p>为了解决上面的问题，采用了“池化”的思想，通过连接池维护一定数量的连接线程，当需要使用连接时，就直接从线程池中获取，使用完毕之后，再归还给线程池。通过线程池大大减少了不断创建与销毁线程的开销，也不需要我们去关心连接的创建与销毁，以及线程池是怎么去维护这些连接的。常见的数据库连接池有 Druid、C3P0、DBCP。<br><img src="https://img-blog.csdnimg.cn/img_convert/53f7a5fedffa3ebcea78188aeb3d926b.png" alt="img"></p>
+<h2 id="2、MySql架构的Server层："><a href="#2、MySql架构的Server层：" class="headerlink" title="2、MySql架构的Server层："></a>2、MySql架构的Server层：</h2><p>在介绍MySQL数据库中SQL语句在Server的执行步骤前，我们先了解下MySQL的整体架构：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5b2c927e341c730c33a3ed41eb353691.png" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3ca1c9259d8a63cc1b8563e8207b1cef.png" alt="img"></p>
+<p>通过上面的架构图可以得知，Server层中主要由 连接器、查询缓存、解析器/分析器、优化器、执行器 几部分组成的，下面将主要描述下这几部分。</p>
+<h3 id="1、连接器："><a href="#1、连接器：" class="headerlink" title="1、连接器："></a><strong>1、连接器：</strong></h3><p>客户端想要对数据库进行操作时，前提是与数据库建立好连接；而连接器就是用来负责跟客户端建立连接、获取权限、维持和管理连接的。</p>
+<p>（1）连接方式：</p>
+<p>MySQL既支持短连接，也支持长连接。短连接就是操作完毕后，马上close关掉。长连接可以保持打开，减少服务端创建和释放连接的消耗，后续程序访问的时候还可以使用这个连接。</p>
+<p>（2）连接池：</p>
+<p>与客户端的连接池一样，为了减少频繁创建和销毁连接造成的不必要的性能损失，这里也采用了“池化”的思想，通过数据库连接池去管理连接。<strong>一般我们会在连接池中使用长连接，</strong>例如：druid、c3p0、dbcp等</p>
+<h3 id="2、查询缓存："><a href="#2、查询缓存：" class="headerlink" title="2、查询缓存："></a><strong>2、查询缓存：</strong></h3><p>MySQL缓存是默认关闭的，也就是说不推荐使用缓存，并且在 <strong>MySQL 8.0</strong> 版本直接将查询缓存的整块功能删掉了</p>
+<p><strong>（1）MySql为什么默认不开启缓存呢？</strong></p>
+<p>主要是由于它的使用场景限制的：</p>
+<p>① 先说下缓存中数据存储格式：key（sql语句）- value（数据值），所以如果SQL语句（key）只要存在一点不同之处就会直接进行数据库查询了；</p>
+<p>② 由于表中的数据不是一成不变的，大多数是经常变化的，而当数据库中的数据变化了，那么相应的与此表相关的缓存数据就需要移除掉；</p>
+<h3 id="3、分析-解析器："><a href="#3、分析-解析器：" class="headerlink" title="3、分析/解析器："></a><strong>3、分析/解析器：</strong></h3><p>分析器的工作主要是对要执行的SQL语句进行解析，最终得到抽象语法树，然后再使用预处理器判断抽象语法树中的表是否存在，如果存在的话，在接着判断select投影列字段是否在表中存在等。</p>
+<p>（1）词法分析：</p>
+<p>词法分析用于将SQL拆解为不可再分的原子符号，称为Token。并根据不同数据库方言所提供的字典，将其归类为关键字，表达式，字面量和操作符。</p>
+<p>（2）语法分析：</p>
+<p>语法分析就是根据词法分析拆解出来的Token（原子符号）将SQL语句转换为抽象语法树。</p>
+<p>下面就直接举例说明，看一个SQL它的抽象语法书到底长什么样：</p>
+<p><code>SELECT id, name FROM t_user WHERE status = 'ACTIVE' AND age &gt; 18</code></p>
+<p>然后上面的SQL语句经过词法分析、语法分析后得到的抽象语法书如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/9d18025532f81b98a2096e22c85f8592.png" alt="img"></p>
+<blockquote>
+<p>注意，为了便于理解，抽象语法树中的关键字的Token用绿色表示，变量的Token用红色表示，灰色表示需要进一步拆分&gt;</p>
+</blockquote>
+<p>（3）预处理器：</p>
+<p>预处理是用来对生成的 <strong>抽象语法树</strong> 进行语义校验，语义校验就是对查询的表、select投影列字段进行校验，判断表、字段是否存在等；</p>
+<h3 id="4、优化器："><a href="#4、优化器：" class="headerlink" title="4、优化器："></a><strong>4、优化器：</strong></h3><p>优化器的作用主要是将SQL经过词法解析/语法解析后得到的语法树，通过MySQL的数据字典和统计信息的内容，经过<strong>一系列运算</strong> ，最终得出一个<strong>执行计划</strong>，包括选择使用哪个索引。</p>
+<p>在优化过程中，经过的一系列运算是什么呢？</p>
+<p>（1）逻辑变换：例如SQL的where条件中存在 8&gt;9，那逻辑转换就是将语法树中存在的这种常量表达式直接进行化简，化简为 false；除了化简还有常量表达式计算等。</p>
+<p>（2）代价优化：就是通过付出一些数据统计分析的代价，来得到这个SQL执行是否可以走索引，以及走哪些索引；除此之外，在多表关联查询中，确定最终表join的顺序等；</p>
+<blockquote>
+<p>在分析是否走索引查询时，是通过进行<strong>动态数据采样统计分析</strong>出来；只要是统计分析出来的，那就可能会存在分析错误的情况，所以在SQL执行不走索引时，也要考虑到这方面的因素</p>
+</blockquote>
+<h3 id="5、执行器："><a href="#5、执行器：" class="headerlink" title="5、执行器："></a><strong>5、执行器：</strong></h3><p><code>MySQL 通过分析器知道了你要做什么，通过优化器知道了该怎么做</code>，于是就进入了执行器阶段，开始执行语句。执行器最终就是根据一系列的执行计划去调用存储引擎提供的API接口去调用操作数据，完成SQL的执行。</p>
+<blockquote>
+<p>开始执行的时候，要先判断一下建立连接的对象对这个表有没有执行操作的权限，如果没有，就会返回没有权限的错误；如果有，就按照生成的执行计划进行执行。</p>
+</blockquote>
+<h2 id="3、InnoDB存储引擎："><a href="#3、InnoDB存储引擎：" class="headerlink" title="3、InnoDB存储引擎："></a>3、InnoDB存储引擎：</h2><p>存储引擎是对底层物理数据执行实际操作的组件，为Server服务器层提供各种操作数据的 API，数据是被存放在内存或者是磁盘中的。MySQL 支持插件式的存储引擎，包括 InnoDB 、MyISAM、Memory 等。一般情况下，MySQL默认使用的存储引擎是 InnoDB。如下图所示，InnoDB存储引擎整体分为内存架构（Memory Structures）和磁盘架构（Disk Structures）<br><img src="https://img-blog.csdnimg.cn/img_convert/aaeb5d2832328ca62846c8b60fc5518c.png" alt="img"></p>
+<h3 id="1、Buffer-Pool："><a href="#1、Buffer-Pool：" class="headerlink" title="1、Buffer Pool："></a>1、Buffer Pool：</h3><p>Buffer Pool （缓冲池）是 InnoDB 存储引擎中非常重要的内存结构，类似 Redis 一样的作用，起到一个缓存的作用。MySQL 的数据最终是存储在磁盘中的，如果没有 Buffer Pool，那么每次的数据库请求都会磁盘中查找，这样必然会存在 IO 操作。但是有了 Buffer Pool，只有第一次在查询的时候会将查询的结果存到 Buffer Pool 中，这样后面再有请求的时候就会先从缓冲池中去查询，如果没有再去磁盘中查找，然后在放到 Buffer Pool 中，如下图</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/0459d3fa2f68b760bbea6bba052dabc9.png" alt="image-20210105101150038"></p>
+<p><code>UPDATE students SET stuName = '小强' WHERE id = 1</code></p>
+<p>比如这条SQL，按照上面的那幅图，SQL 语句的执行步骤大致是这样子的：</p>
+<ul>
+<li>（1）innodb 存储引擎先在缓冲池中查找 id=1 的这条数据是否存在</li>
+<li>（2）如果缓存不存在，那么就去磁盘中加载，并将其存放在缓冲池中</li>
+<li>（3）该条记录会被加上一个独占锁</li>
+</ul>
+<blockquote>
+<p><strong>buffer pool 和 查询缓存的区别：</strong></p>
+</blockquote>
+<p>（1）查询缓存：查询缓存位于Server层，MySQL Server首选会从查询缓存中查看是否曾经执行过这个SQL，如果曾经执行过的话，之前执行的查询结果会以Key-Value的形式保存在查询缓存中。key是SQL语句，value是查询结果。我们将这个过程称为查询缓存！</p>
+<p>（2）Buffer Pool位于存储引擎层。Buffer Pool就是MySQL存储引擎为了加速数据的读取速度而设计的缓冲机制</p>
+<h3 id="2、undo日志文件：记录数据被修改前的样子"><a href="#2、undo日志文件：记录数据被修改前的样子" class="headerlink" title="2、undo日志文件：记录数据被修改前的样子"></a>2、undo日志文件：记录数据被修改前的样子</h3><p>Innodb 存储引擎的最大特点就是支持事务，如果事务提交失败，那么该事务中所有的操作都必须回滚到执行前的样子，而这个回滚的操作，就是利用undo log文件完成的。</p>
+<p>undo 顾名思义，就是没有做，没发生的意思。undo log 就是没有发生事情（原本事情是什么）的一些日志</p>
+<p>刚才我们介绍过了，在准备更新一条SQL语句的时候，该条语句对应的数据已经被加载到 Buffer pool 中了，实际上这里还有这样的操作，就是在将该条语句加载到 Buffer Pool 中的时候同时会往 undo 日志文件中插入一条日志，也就是将 id=1 的这条记录的原来的值记录下来，便于事务失败后进行回滚<br><img src="https://img-blog.csdnimg.cn/img_convert/e088e86d843c6da12e8fee301dadbfba.png" alt="img"></p>
+<p>到这一步，我们执行的 SQL 语句对应的数据已经被加载到 Buffer Pool 中了，然后开始更新这条语句，更新的操作实际是在Buffer Pool中执行的。那问题来了，更新完数据之后，Buffer Pool缓冲池中的中的数据就会和数据库中的数据库不一致，那就是说Buffer Pool 中的数据成了脏数据？没错，目前这条数据就是脏数据，Buffer Pool 中的记录是“小强”数据库中的记录是“旺财” ，这种情况 MySQL是怎么处理的呢？我们接着往下看</p>
+<h3 id="3、redo日志文件：记录数据被修改后的样子"><a href="#3、redo日志文件：记录数据被修改后的样子" class="headerlink" title="3、redo日志文件：记录数据被修改后的样子"></a>3、redo日志文件：记录数据被修改后的样子</h3><blockquote>
+<p>前言：redo 日志文件是 InnoDB 特有的，他是存储引擎级别的，不是 MySQL 级别的</p>
+</blockquote>
+<p>除了从磁盘中加载文件和将操作前的记录保存到 undo 日志文件中之外，其他的操作是在内存中完成的，内存中的数据的特点就是：断电丢失。如果此时 MySQL 所在的服务器宕机了，那么 Buffer Pool 中的数据会全部丢失的。这个时候 redo 日志文件就需要来大显神通了</p>
+<p>redo 就是准备去做、将要去做的意思，redo log 记录的是将要做的一些操作。例如，此时将要做的是update students set stuName=’小强’ where id=1; 那么这条操作就会被记录到 redo log buffer 中，redo log buffer是MySQL 为了提高效率，所以将这些操作都先放在内存中去完成</p>
+<blockquote>
+<p>这时候假设服务器宕机了，那么缓存中的数据还是丢失了。那能不能不要放在内存中，直接保存到磁盘呢？很显然不行，因为在上面也已经介绍了，在内存中的操作目的是为了提高效率。此时，如果 MySQL 真的宕机了，那么没关系的，因为 MySQL 会认为本次事务是失败的，所以数据依旧是更新前的样子，并不会有任何的影响。</p>
+</blockquote>
+<p>到了这里，SQL语句也更新好了，那么需要将更新的值提交了，也就是需要提交本次的事务，只要事务成功提交了，才会将最后的变更保存到数据库，在提交事务前会将 redo Log Buffer 中的数据持久化到磁盘中，就是将 redo log buffer 中的数据写入到 redo log 磁盘文件中。</p>
+<blockquote>
+<p>如果 redo log Buffer 刷入磁盘后，数据库服务器宕机了，那我们更新的数据怎么办？此时数据是在内存中，数据岂不是丢失了？不，这次数据就不会丢失了，因为 redo log buffer 中的数据已经被写入到磁盘了，已经被持久化了，就算数据库宕机了，在下次重启的时候 MySQL 也会将 redo 日志文件内容恢复到 Buffer Pool 中</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/838d99b56623e9c42bf928c3392fa687.png" alt="img"></p>
+<p>（1）准备更新一条 SQL 语句</p>
+<p>（2）MySQL（innodb）会先去缓冲池（Buffer Pool）中去查找这条数据，没找到就会去磁盘中查找，如果查找到就会将这条数据加载 到缓冲池（Buffer Pool）中</p>
+<p>（3）在加载到 Buffer Pool 的同时，会将这条数据的原始记录保存到 undo 日志文件中</p>
+<p>（4）innodb 会在 Buffer Pool 中执行更新操作</p>
+<p>（5）更新后的数据会记录在 redo log buffer 中</p>
+<p>（6）MySQL 提交事务的时候，会将 redo log buffer 中的数据写入到 redo 日志文件中，刷磁盘可以通过 innodb_flush_log_at_trx_commit 参数来设置：</p>
+<ul>
+<li>0：每秒将 redo log buffer 中的数据将以写入到日志文件中，同时flush到磁盘。在机器crash并重启后，会丢失一秒的事务日志数据</li>
+<li>1：每次事务提交时，将 redo log buffer 中的数据写入日志文件，并同时flush到磁盘。在机器crash并重启后，不会丢失事务日志</li>
+<li>2：每次事务提交时，将 redo log buffer 中的数据写入日志文件，并每秒flush一次到磁盘。在机器crash并重启后，有可能丢失数据</li>
+</ul>
+<p>（7）myslq 重启的时候会将 redo 日志恢复到缓冲池中</p>
+<h3 id="4、bin-log日志文件：记录整个操作过程"><a href="#4、bin-log日志文件：记录整个操作过程" class="headerlink" title="4、bin log日志文件：记录整个操作过程"></a>4、bin log日志文件：记录整个操作过程</h3><blockquote>
+<p>前言：bin log和 redo log有些相似，两者的主要区别有：</p>
+<p>（1）redo log是 InnoDB 存储引擎特有的日志文件，而bin log属于是 MySQL 级别的日志</p>
+<p>（2）redo log适用于崩溃恢复，bin log适用于主从复制和数据恢复</p>
+</blockquote>
+<p>redo log记录的东西是偏向于物理性质的，如：“对什么数据，做了什么修改”。bin log是偏向于逻辑性质的，类似于：“对 students 表中的 id 为 1 的记录租了更新操作” 。</p>
+<p>bin log文件是如何刷入磁盘的? bin log的刷盘策略可以通过sync_bin log来修改，默认为0，表示先写入 os cache，也就是说在提交事务的时候，数据不会直接到磁盘中，这样如果宕机bin log数据仍然会丢失。所以建议将sync_bin log设置为 1 表示直接将数据写入到磁盘文件中。<br>既然bin log也是日志文件，那它是在什么记录数据的呢？其实 MySQL 在提交事务的时候，不仅仅会将 redo log buffer 中的数据写入到redo log 文件中，同时也会将本次修改的数据记录到 bin log文件中，同时会将本次修改的bin log文件名和修改的内容在bin log中的位置记录到redo log中，最后还会在redo log最后写入 commit 标记，这样就表示本次事务被成功的提交了。</p>
+<blockquote>
+<p>如果在数据被写入到bin log文件的时候，刚写完，数据库宕机了，数据会丢失吗？</p>
+<p>首先可以确定的是，只要redo log最后没有 commit 标记，说明本次的事务一定是失败的。但是数据是没有丢失了，因为已经被记录到redo log的磁盘文件中了。在 MySQL 重启的时候，就会将 redo log 中的数据恢复（加载）到Buffer Pool中。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b00fed56cdec55b7b4a0070b6feb4aef.png" alt="img"></p>
+<p>到目前为止，一个更新操作我们基本介绍得差不多，但是你有没有感觉少了哪件事情还没有做？是不是你也发现这个时候被更新记录仅仅是在内存中执行的，哪怕是宕机又恢复了也仅仅是将更新后的记录加载到Buffer Pool中，这个时候 MySQL 数据库中的这条记录依旧是旧值，也就是说内存中的数据在我们看来依旧是脏数据，那这个时候怎么办呢？</p>
+<p>其实 MySQL 会有一个后台线程，它会在某个时机将我们Buffer Pool中的脏数据刷到 MySQL 数据库中，这样就将内存和数据库的数据保持统一了。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/08379beec752e3a8f37e808a7368479e.png" alt="img"></p>
+<h3 id="5、小结："><a href="#5、小结：" class="headerlink" title="5、小结："></a>5、小结：</h3><p>（1）首先MySQL执行器根据 执行计划 调用存储引擎的API查询数据<br>（2）存储引擎先从缓存池buffer pool中查询数据，如果没有就会去磁盘中查询，如果查询到了就将其放到缓存池中<br>（3）在数据加载到 Buffer Pool 的同时，会将这条数据的原始记录保存到 undo 日志文件中<br>（4）innodb 会在 Buffer Pool 中执行更新操作<br>（5）更新后的数据会记录在 redo log buffer 中<br>（6）提交事务在提交的同时会做以下三件事<br>（7）（第一件事）将redo log buffer中的数据刷入到redo log文件中<br>（8）（第二件事）将本次操作记录写入到 bin log文件中<br>（9）（第三件事）将bin log文件名字和更新内容在 bin log 中的位置记录到redo log中，同时在 redo log 最后添加 commit 标记<br>（10）使用一个后台线程，它会在某个时机将我们Buffer Pool中的更新后的数据刷到 MySQL 数据库中，这样就将内存和数据库的数据保</p>
+<h1 id="第-3-章-索引优化分析"><a href="#第-3-章-索引优化分析" class="headerlink" title="第 3 章 索引优化分析"></a>第 3 章 索引优化分析</h1><h2 id="1、慢-SQL"><a href="#1、慢-SQL" class="headerlink" title="1、慢 SQL"></a>1、慢 SQL</h2><blockquote>
 <p><strong>性能下降、 SQL 慢、执行时间长、等待时间长的原因分析</strong></p>
 </blockquote>
 <ol>
@@ -1172,6 +1275,29 @@ select * from user;</code></pre><ul>
 </li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/b258fbc51e43460fc2bfaaa1d31fe426.png" alt="image-20200803222848380"></p>
+<blockquote>
+<p>MyISAM索引的实现：</p>
+</blockquote>
+<p>（1）主键索引：MyISAM引擎使用B+Tree作为索引结构，叶子节点的data域存放的是数据记录的地址。下图是MyISAM索引的原理图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20181123230136209.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>这里设表一共有三列，假设我们以Col1为主键，则上图是一个MyISAM表的主键索引（Primary key）示意。<code>可以看出MyISAM的索引文件仅仅保存数据记录的地址。</code></p>
+<p>（2）辅助索引：</p>
+<p>在MyISAM中，主键索引和辅助索引在结构上没有任何区别，只是主索引要求key是唯一的，而辅助索引的key可以重复。如果我们在Col2上建立一个辅助索引，则此索引的结构如下图所示： </p>
+<p><img src="https://img-blog.csdnimg.cn/2018112323034827.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>同样也是一棵B+Tree，data域保存数据记录的地址。</p>
+<p>因此，MyISAM中索引检索的算法为首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录。</p>
+<p><code>MyISAM的索引方式也叫做“非聚集”的，之所以这么称呼是为了与InnoDB的聚集索引区分。</code></p>
+<blockquote>
+<p><strong>InnoDB索引的实现：</strong></p>
+</blockquote>
+<p>虽然InnoDB也使用B+Tree作为索引结构，但具体实现方式与MyISAM却不相同。</p>
+<p>（1）主键索引：</p>
+<p>与MyISAM第一个重大区别是InnoDB的数据文件本身就是索引文件。从上文知道，MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而<code>在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录</code>。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。</p>
+<p><img src="https://img-blog.csdnimg.cn/20181123231121997.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>上图是InnoDB主索引（同时也是数据文件）的示意图，可以看到叶节点包含了完整的数据记录。这种索引叫做聚集索引，<code>因为InnoDB的数据文件本身要按主键聚集，所以InnoDB要求表必须有主键（MyISAM可以没有）</code>，如果没有显式指定，则MySQL系统会自动选择一个可以唯一标识数据记录的列作为主键，如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整形。）辅助索引：</p>
+<p>第二个与MyISAM索引的不同是InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引：</p>
+<p>这里以英文字符的ASCII码作为比较准则。聚集索引这种实现方式使得按主键的搜索十分高效，<code>但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录</code>。不过由于辅助索引会包含主键列，所以，如果主键使用过长的字段，将会导致其他辅助索变得更大。所以争取尽量把主键定义得小一些。</p>
+<p><code>InnoDB 表是基于聚簇索引建立的。</code></p>
 <h3 id="3-3、索引优劣势"><a href="#3-3、索引优劣势" class="headerlink" title="3.3、索引优劣势"></a>3.3、索引优劣势</h3><blockquote>
 <p><strong>索引的优势</strong></p>
 </blockquote>
@@ -1192,11 +1318,33 @@ select * from user;</code></pre><ul>
 </blockquote>
 <p>参考资料：<a href="https://www.cnblogs.com/luyucheng/p/6289714.html" target="_blank" rel="noopener">https://www.cnblogs.com/luyucheng/p/6289714.html</a></p>
 <ol>
-<li>普通索引：是最基本的索引，它没有任何限制，即一个索引只包含单个列，一个表可以有多个单列索引；建议一张表索引不要超过5个，优先考虑复合索引</li>
-<li>唯一索引：与前面的普通索引类似，不同的就是：索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一</li>
-<li>主键索引：是一种特殊的唯一索引，一个表只能有一个主键，不允许有空值。一般是在建表的时候同时创建主键索引：</li>
-<li>复合索引：指多个字段上创建的索引，只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。使用组合索引时遵循最左前缀集合</li>
-<li>全文索引：主要用来查找文本中的关键字，而不是直接与索引中的值相比较。fulltext索引跟其它索引大不相同，它更像是一个搜索引擎，而不是简单的where语句的参数匹配</li>
+<li><p><strong>普通索引：</strong>是最基本的索引，它没有任何限制，即一个索引只包含单个列，一个表可以有多个单列索引；建议一张表索引不要超过5个，优先考虑复合索引</p>
+</li>
+<li><p><strong>唯一索引：</strong>与前面的普通索引类似，不同的就是：索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一</p>
+</li>
+<li><p><strong>主键索引：</strong>是一种特殊的唯一索引，一个表只能有一个主键，不允许有空值。一般是在建表的时候同时创建主键索引：</p>
+</li>
+<li><p><strong>复合索引：</strong>指多个字段上创建的索引，只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。<code>使用组合索引时遵循最左前缀集合</code></p>
+</li>
+<li><p><strong>全文索引：</strong>主要用来查找文本中的关键字，而不是直接与索引中的值相比较。fulltext索引跟其它索引大不相同，它更像是一个搜索引擎，而不是简单的where语句的参数匹配</p>
+<p>全文索引仅可用于 MyISAM 表，并只支持从CHAR、VARCHAR或TEXT类型，用于替代效率较低的like 模糊匹配操作，而且可以通过多字段组合的全文索引一次性全模糊匹配多个字段。对于大容量的数据表，生成全文索引是一个非常消耗时间和硬盘空间的做法。对于较大的数据集，将你的数据输入一个没有FULLTEXT索引的表中，然后创建索引，其速度比把数据输入现有FULLTEXT索引的速度更为快。</p>
+<blockquote>
+<p>聚簇索引与非聚簇索引</p>
+</blockquote>
+<p>如果按照表中 数据存储的物理顺序与索引值的顺序分类，可以将索引分为聚簇索引与非聚簇索引两类。</p>
+<p><strong>1、聚簇索引（cluster）：</strong></p>
+<p>聚簇索引要求表中数据存储的物理顺序与索引值的顺序一致，一个基本表最多只能有一个聚簇索引，更新聚簇索引列上的数据时，往往导致表中记录的物理顺序的变更，代价较大，因此对于经常更新的列不宜建立聚簇索引</p>
+<pre><code>聚簇索引一般在下面场景使用：
+
+（1）主键列，InnoDB存储引擎中，默认为表的主键建立一个聚簇索引。
+
+（2）按范围存取的列或者在group by或order by中使用的列。在聚簇索引下，因为表中数据存储的物理顺序与索引的逻辑顺序一致，所以在包含范围检查(between、&lt;、&lt;=、&gt;、&gt;=)或使用group by或order by的查询时，一旦找到具有范围中第一个键值的行，具有后续索引值的行保证物理上毗连在一起而不必进一步搜索，避免了大范围扫描，可以大大提高查询速度。
+
+（3）在连接操作中使用的列。
+
+（4）不经常修改的列。因为码值修改后，数据行必须移动到新的位置。</code></pre><p><strong>2、非聚簇索引：</strong></p>
+<p>表中记录的物理顺序与索引值的顺序不一致的索引组织，一个基本表可以有多个聚簇索引。</p>
+</li>
 </ol>
 <h3 id="3-5、MySQL-索引语法"><a href="#3-5、MySQL-索引语法" class="headerlink" title="3.5、MySQL 索引语法"></a>3.5、MySQL 索引语法</h3><blockquote>
 <p><strong>建立索引的 SQL 语句</strong></p>
@@ -1227,10 +1375,11 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 | tbl_emp |          0 | PRIMARY    |            1 | id          | A         |           8 |     NULL | NULL   |      | BTREE      |         |               |
 | tbl_emp |          1 | fk_dept_Id |            1 | deptId      | A         |           8 |     NULL | NULL   | YES  | BTREE      |         |               |
 +---------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-2 rows in set (0.00 sec)
-————————————————
-版权声明：本文为CSDN博主「OnebyWang」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/oneby1314/article/details/107938325</code></pre><h3 id="3-6、MySQL-索引结构"><a href="#3-6、MySQL-索引结构" class="headerlink" title="3.6、MySQL 索引结构"></a>3.6、MySQL 索引结构</h3><h4 id="3-6-1、Btree-索引"><a href="#3-6-1、Btree-索引" class="headerlink" title="3.6.1、Btree 索引"></a>3.6.1、Btree 索引</h4><blockquote>
+2 rows in set (0.00 sec)</code></pre><h3 id="3-6、MySQL-索引结构"><a href="#3-6、MySQL-索引结构" class="headerlink" title="3.6、MySQL 索引结构"></a>3.6、MySQL 索引结构</h3><p>般来说，索引本身也很大，不可能全部存储在内存中，<strong>因此索引往往以索引文件的形式存储在磁盘上</strong>。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，索引的数据结构要尽量减少查找过程中磁盘I/O的存取次数。</p>
+<p><strong>局部性原理与磁盘预读：</strong></p>
+<p>由于存储介质的特性，磁盘本身存取就比主存慢很多，再加上机械运动耗费，磁盘的存取速度往往是主存的几百分之一，因此为了提高效率，要尽量减少磁盘I/O。为了达到这个目的，磁盘往往不是严格按需读取，而是每次都会预读，即使只需要一个字节，磁盘也会从这个位置开始，顺序向后读取一定长度的数据放入内存。这样做的理论依据是计算机科学中著名的局部性原理：当一个数据被用到时，其附近的数据也通常会马上被使用。程序运行期间所需要的数据通常比较集中。</p>
+<p>由于磁盘顺序读取的效率很高（不需要寻道时间，只需很少的旋转时间），因此对于具有局部性的程序来说，预读可以提高I/O效率。预读的长度一般为页的整倍数。当程序要读取的数据不在主存中时，会触发一个缺页异常，此时系统会向磁盘发出读盘信号，磁盘会找到数据的起始位置并向后连续读取一页或几页载入内存中，然后异常返回，程序继续运行。</p>
+<h4 id="3-6-1、Btree-索引"><a href="#3-6-1、Btree-索引" class="headerlink" title="3.6.1、Btree 索引"></a>3.6.1、Btree 索引</h4><blockquote>
 <p><strong>Btree 索引搜索过程</strong></p>
 </blockquote>
 <p>【初始化介绍】</p>
@@ -1264,9 +1413,17 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 <ol>
 <li>B+树的磁盘读写代价更低：B+树的内部结点并没有指向关键字具体信息的指针。 因此其内部结点相对 B 树更小。 如果把所有同一内部结点的关键字存放在同一盘块中， 那么盘块所能容纳的关键字数量也越多。 一次性读入内存中的需要查找的关键字也就越多。 相对来说 IO 读写次数也就降低了。</li>
 <li>B+树的查询效率更加稳定：由于非终结点并不是最终指向文件内容的结点， 而只是叶子结点中关键字的索引。 所以任何关键字的查找必须走一条从根结点到叶子结点的路。 所有关键字查询的路径长度相同， 导致每一个数据的查询效率相当。</li>
+<li>B+树有利于对数据库的扫描：B树在提高了磁盘IO性能的同时并没有解决元素遍历的效率低下的问题，而B+树只需要遍历叶子节点就可以解决对全部关键字信息的扫描，所以范围查询、排序等操作，B+树有着更高的性能。</li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/7f5ea19eb42404dd4437667bfc29dd84.png" alt="image-20200811145838930"></p>
-<h3 id="3-7、何时需要建索引"><a href="#3-7、何时需要建索引" class="headerlink" title="3.7、何时需要建索引"></a>3.7、何时需要建索引</h3><blockquote>
+<h4 id="3-6-3、Hash索引："><a href="#3-6-3、Hash索引：" class="headerlink" title="3.6.3、Hash索引："></a>3.6.3、<strong>Hash索引：</strong></h4><p>MySQL中，只有Memory存储引擎支持hash索引，是Memory表的默认索引类型。hash索引把数据以hash值形式组织起来，因此检索效率非常高，可以一次定位。</p>
+<pre><code>hash索引的缺点：
+
+（1）Hash索引仅能满足等值的查询，不能满足范围查询、排序。因为数据在经过Hash算法后，其大小关系就可能发生变化。
+
+（2）当创建组合索引时，不能只适用组合索引的部分列进行查询。因为hash索引是把多个列数据合并后再计算Hash值，所以对单独列数据计算Hash值是没有意义的。
+
+（3）当发生Hash碰撞时，Hash索引不能避免表数据的扫描。因为仅仅比较Hash值是不够的，需要比较实际的值以判定是否符合要求。</code></pre><h3 id="3-7、何时需要建索引"><a href="#3-7、何时需要建索引" class="headerlink" title="3.7、何时需要建索引"></a>3.7、何时需要建索引</h3><blockquote>
 <p><strong>哪些情况下适合建立索引</strong></p>
 </blockquote>
 <ol>
@@ -1357,9 +1514,9 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 </blockquote>
 <ol>
 <li><strong>SIMPLE：</strong>简单的select查询，查询中不包含子查询或者UNION</li>
-<li>PRIMARY：查询中若包含任何复杂的子部分，最外层查询则被标记为PRIMARY</li>
+<li><strong>PRIMARY</strong>：查询中若包含任何复杂的子部分，最外层查询则被标记为PRIMARY</li>
 <li><strong>SUBQUERY：</strong>在SELECT或者WHERE列表中包含了子查询</li>
-<li>DERIVED：在FROM列表中包含的子查询被标记为DERIVED（衍生）MySQL会递归执行这些子查询，把结果放在临时表里</li>
+<li><strong>DERIVED：</strong>在FROM列表中包含的子查询被标记为DERIVED（衍生）MySQL会递归执行这些子查询，把结果放在临时表里</li>
 <li><strong>UNION：</strong>若第二个SELECT出现在UNION之后，则被标记为UNION；若UNION包含在FROM子句的子查询中，外层SELECT将被标记为：DERIVED</li>
 <li><strong>UNION RESULT：</strong>从UNION表获取结果的SELECT</li>
 </ol>
@@ -1379,7 +1536,7 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 +----+--------------+------------+------+---------------+------------+---------+-----------+------+----------------------------------------------------+
 5 rows in set (0.00 sec)
 </code></pre><blockquote>
-<p><strong>able：显示这一行的数据是关于哪张表的</strong></p>
+<p>t<strong>able：显示这一行的数据是关于哪张表的</strong></p>
 </blockquote>
 <blockquote>
 <p><strong>type：访问类型排列，显示查询使用了何种类型</strong></p>
@@ -1454,17 +1611,14 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 </blockquote>
 <ul>
 <li><p><strong>Using filesort（文件排序）：</strong></p>
-<ul>
+</li>
 <li><p>MySQL中无法利用索引完成排序操作成为“文件排序”</p>
 </li>
 <li><p>说明mysql会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取</p>
-</li>
-<li><p><strong>出现 Using filesort 不好（九死一生），需要尽快优化 SQL</strong></p>
-</li>
-<li><p>示例中第一个查询只使用了 col1 和 col3，原有索引派不上用场，所以进行了外部文件排序</p>
-</li>
-<li><p>示例中第二个查询使用了 col1、col2 和 col3，原有索引派上用场，无需进行文件排序</p>
-</li>
+<ul>
+<li><strong>出现 Using filesort 不好（九死一生），需要尽快优化 SQL</strong></li>
+<li>示例中第一个查询只使用了 col1 和 col3，原有索引派不上用场，所以进行了外部文件排序</li>
+<li>示例中第二个查询使用了 col1、col2 和 col3，原有索引派上用场，无需进行文件排序</li>
 </ul>
 </li>
 </ul>
@@ -1586,8 +1740,7 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 <li>创建索引的 SQL 命令</li>
 </ul>
 <pre><code># ALTER TABLE article ADD INDEX idx_article_ccv('category_id', 'comments', 'views'); 
-create index idx_article_ccv on article(category_id, comments, views);
-</code></pre><ul>
+create index idx_article_ccv on article(category_id, comments, views);</code></pre><ul>
 <li>在 category_id 列、comments 列和 views 列上建立联合索引</li>
 </ul>
 <pre><code>mysql&gt; create index idx_article_ccv on article(category_id, comments, views);
@@ -1928,11 +2081,12 @@ mysql&gt; SHOW INDEX FROM book;
 2 rows in set (0.00 sec)
 </code></pre><p>分析：</p>
 <ul>
-<li>这是因为RIGHT JOIN条件用于确定如何从左表搜索行，右边一定都有，所以左边是我们的关键点，一定需要建立索引。</li>
-<li>class RIGHT JOIN book ：book 里面的数据一定存在于结果集中，我们需要拿着 book 表中的数据，去 class 表中搜索，所以索引需要建立在 class 表中</li>
-</ul>
-<ul>
-<li>为了不影响之后的测试，删除该表的索引</li>
+<li><p>这是因为RIGHT JOIN条件用于确定如何从左表搜索行，右边一定都有，所以左边是我们的关键点，一定需要建立索引。</p>
+</li>
+<li><p>class RIGHT JOIN book ：book 里面的数据一定存在于结果集中，我们需要拿着 book 表中的数据，去 class 表中搜索，所以索引需要建立在 class 表中</p>
+</li>
+<li><p>为了不影响之后的测试，删除该表的索引</p>
+</li>
 </ul>
 <pre><code>mysql&gt; DROP INDEX X ON class;
 Query OK, 0 rows affected (0.04 sec)
@@ -2808,7 +2962,7 @@ mysql&gt; EXPLAIN SELECT * FROM test03 WHERE c1='a1' AND c2 like '%kk%' AND c3='
 <p>LIKE 百分写最右， 覆盖索引不写 *；</p>
 <p>不等空值还有 OR， 索引影响要注意；</p>
 <p>VAR 引号不可丢， SQL 优化有诀窍。</p>
-<h1 id="第-3-章-查询截取分析"><a href="#第-3-章-查询截取分析" class="headerlink" title="第 3 章 查询截取分析"></a>第 3 章 查询截取分析</h1><h2 id="1、查询优化"><a href="#1、查询优化" class="headerlink" title="1、查询优化"></a>1、查询优化</h2><h3 id="1-1、MySQL-优化原则"><a href="#1-1、MySQL-优化原则" class="headerlink" title="1.1、MySQL 优化原则"></a>1.1、MySQL 优化原则</h3><blockquote>
+<h1 id="第-4-章-查询截取分析"><a href="#第-4-章-查询截取分析" class="headerlink" title="第 4 章 查询截取分析"></a>第 4 章 查询截取分析</h1><h2 id="1、查询优化"><a href="#1、查询优化" class="headerlink" title="1、查询优化"></a>1、查询优化</h2><h3 id="1-1、MySQL-优化原则"><a href="#1-1、MySQL-优化原则" class="headerlink" title="1.1、MySQL 优化原则"></a>1.1、MySQL 优化原则</h3><blockquote>
 <p><strong>mysql 的调优大纲</strong></p>
 </blockquote>
 <ol>
@@ -3481,7 +3635,7 @@ set global log_output='TABLE';</code></pre>
 | 2020-08-05 14:41:12 | root[root] @ localhost [] |        14 |         0 | Query        | select COUNT(*) from emp                      |
 | 2020-08-05 14:41:30 | root[root] @ localhost [] |        14 |         0 | Query        | select * from mysql.general_log               |
 +---------------------+---------------------------+-----------+-----------+--------------+-----------------------------------------------+
-3 rows in set (0.00 sec)</code></pre><h1 id="第-4-章-MySQL-锁机制"><a href="#第-4-章-MySQL-锁机制" class="headerlink" title="第 4 章 MySQL 锁机制"></a>第 4 章 MySQL 锁机制</h1><h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><h3 id="1-1、锁的定义"><a href="#1-1、锁的定义" class="headerlink" title="1.1、锁的定义"></a>1.1、锁的定义</h3><blockquote>
+3 rows in set (0.00 sec)</code></pre><h1 id="第-5-章-MySQL-锁机制"><a href="#第-5-章-MySQL-锁机制" class="headerlink" title="第 5 章 MySQL 锁机制"></a>第 5 章 MySQL 锁机制</h1><h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><h3 id="1-1、锁的定义"><a href="#1-1、锁的定义" class="headerlink" title="1.1、锁的定义"></a>1.1、锁的定义</h3><blockquote>
 <p><strong>锁的定义</strong></p>
 </blockquote>
 <ol>
@@ -3880,7 +4034,7 @@ mysql&gt; update test_innodb_lock set b='XXX' where a=8;
 <li>锁定粒度界于表锁和行锁之间，并发度一般。</li>
 <li>了解即可</li>
 </ol>
-<h1 id="第-5-章-主从复制"><a href="#第-5-章-主从复制" class="headerlink" title="第 5 章 主从复制"></a>第 5 章 主从复制</h1><h2 id="1、复制的基本原理"><a href="#1、复制的基本原理" class="headerlink" title="1、复制的基本原理"></a>1、复制的基本原理</h2><blockquote>
+<h1 id="第-6-章-主从复制"><a href="#第-6-章-主从复制" class="headerlink" title="第 6 章 主从复制"></a>第 6 章 主从复制</h1><h2 id="1、复制的基本原理"><a href="#1、复制的基本原理" class="headerlink" title="1、复制的基本原理"></a>1、复制的基本原理</h2><blockquote>
 <p><strong>复制的基本原理</strong></p>
 </blockquote>
 <p><strong>slave会从master读取binlog来进行数据同步，主从复制的三步骤</strong></p>
@@ -4205,6 +4359,462 @@ Master_SSL_Verify_Server_Cert: No
 <li>如何停止从服务复制功能</li>
 </ul>
 <pre class=" language-bash"><code class="language-bash">stop slave<span class="token punctuation">;</span></code></pre>
+<h1 id="第-7-章-事务和ACID实现原理"><a href="#第-7-章-事务和ACID实现原理" class="headerlink" title="第 7 章 事务和ACID实现原理"></a>第 7 章 事务和ACID实现原理</h1><h2 id="1、什么是事务："><a href="#1、什么是事务：" class="headerlink" title="1、什么是事务："></a>1、什么是事务：</h2><p>数据库的事务是并发控制的基本单位，是指逻辑上的一组操作，要么全部执行，要么全部不执行。</p>
+<h3 id="1、事务的特性："><a href="#1、事务的特性：" class="headerlink" title="1、事务的特性："></a>1、事务的特性：</h3><p>（1）原子性：事务是一个不可分割的工作单元，事务里的操作要么都成功，要么都失败，如果事务执行失败，则需要进行回滚。</p>
+<p>（2）隔离性：事务的所操作的数据在提交之前，对其他事务的可见程度。</p>
+<p>（3）持久性：一旦事务提交，它对数据库中数据的改变就是永久的。</p>
+<p>（4）一致性：事务不能破坏数据的完整性和业务的一致性。例如在转账时，不管事务成功还是失败，双方钱的总额不变。</p>
+<h2 id="2、事务ACID特性的实现原理："><a href="#2、事务ACID特性的实现原理：" class="headerlink" title="2、事务ACID特性的实现原理："></a>2、事务ACID特性的实现原理：</h2><h3 id="1、原子性："><a href="#1、原子性：" class="headerlink" title="1、原子性："></a><strong>1、原子性：</strong></h3><p>原子性是通过MySQL的回滚日志<code>undo log来</code>实现的：当事务对数据库进行修改时，InnoDB会生成对应的<code>undo log；</code>如果事务执行失败或调用了<code>rollback</code>，导致事务需要回滚，便可以利用<code>undo log</code>中的信息将数据回滚到修改之前的样子。</p>
+<blockquote>
+<p>undo log (回滚日志)：是采用段(segment)的方式来记录的，每个undo操作在记录的时候占用一个undo log segment。在数据更改操作时，记录了相对应的undo log的目的在于：</p>
+<ul>
+<li>保证数据的原子性，记录事务发生之前的一个版本，用于回滚；</li>
+<li>通过mvcc + undo log实现Innodb事务可重复读和读已提交隔离级别。</li>
+</ul>
+</blockquote>
+<h3 id="2、隔离性："><a href="#2、隔离性：" class="headerlink" title="2、隔离性："></a><strong>2、隔离性：</strong></h3><p>隔离性是事务所操作的数据在提交之前，对其他事务的可见程度。</p>
+<p><strong>2.1、事务隔离级别：</strong></p>
+<p>为保证在并发环境下读取数据的完整性和一致性，数据库提供了四种事务隔离级别，隔离级别越高，越能保证数据的完整性和一致性，但对高并发性能影响也越大，执行效率越低。（四种隔离级别从上往下依次升高）</p>
+<blockquote>
+<p>读未提交：允许事务在执行过程中，读取其他事务尚未提交的数据；</p>
+<p>读已提交：允许事务在执行过程中读取其他事务已经提交的数据；</p>
+<p>可重复读（默认级别）：在同一个事务内，任意时刻的查询结果都是一致的；</p>
+<p>读序列化：所有事务逐个依次执行，每次读都需要获取表级共享锁，读写会相互阻塞。</p>
+</blockquote>
+<p><strong>2.2、如果不考虑事务的隔离性，在事务并发的环境下，可能存在问题有：</strong></p>
+<p>（1）更新丢失：两个或多个事务操作相同的数据，然后基于选定的值更新该行时，由于每个事务都不知道其他事务的存在，就会发生丢失更新问题：最后的更新覆盖了其他事务所做的更新。</p>
+<p>（2）脏读：指事务A正在访问数据，并且对数据进行了修改（事务未提交），这时，事务B也使用这个数据，后来事务A撤销回滚，并把修改后的数据恢复原值，B读到的数据就与数据库中的数据不一致，即B读到的数据是脏数据。</p>
+<p>（3）不可重复读：在一个事务内，多次读取同一个数据，但是由于另一个事务在此期间对这个数据做了修改并提交，导致前后读取到的数据不一致；</p>
+<p>（4）幻读：在一个事务中，先后两次进行读取相同的数据（一般是范围查询），但由于另一个事务新增或者删除了数据，导致前后两次结果不一致。</p>
+<blockquote>
+<p>① 不可重复读和幻读的区别：</p>
+<p>不可重复读侧重于读取到其他事务修改的数据，幻读侧重于读取到其他事务新增或者删除的数据。</p>
+<p>② 可以采用锁机制来解决不可重复读和幻读：</p>
+<p>对于不可重复读，只需对操作的数据添加行级锁，防止操作的数据发生变化；而对于幻读，需要添加表级锁，将整张表锁定，防止新增或者删除数据。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>√：可能出现的情况 ×：不会出现该情况</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>读序列化</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>读已提交</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>读未提交</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>2.3、事务隔离性的实现原理：</strong></p>
+<p>为了实现事务隔离，数据库延伸出了数据库锁，其中Innodb事务的隔离级别是由锁机制和MVVC(多版本并发控制)实现的：</p>
+<p><strong>2.3.1、Mysql锁机制：</strong></p>
+<p>MySQL锁机制的基本工作原理就是：事务在修改数据库之前，需要先获得相应的锁，获得锁的事务才可以修改数据；在该事务操作期间，这部分的数据是锁定，其他事务如果需要修改数据，需要等待当前事务提交或回滚后释放锁。</p>
+<p>通过对InnoDB不同锁类型的特性分析，可以利用锁解决脏读、不可重复读、幻读：</p>
+<blockquote>
+<ul>
+<li>排它锁解决脏读</li>
+<li>共享锁解决不可重复读</li>
+<li>临键锁解决幻读</li>
+</ul>
+</blockquote>
+<p><strong>2.3.2、Multiversion concurrency control（MVCC 多版本并发控制）：</strong></p>
+<p>InnoDB的MVCC是通过在每行记录后面保存两个隐藏的列来实现的，一个保存了行的事务ID（每次提交事务，事务ID会自增），一个保存了行的回滚段指针</p>
+<p><img src="https://img-blog.csdnimg.cn/20201129161956864.png" alt="img"></p>
+<p>每开始一个新的事务，都会自动递增产生一个新的事务ID。事务开始时刻会把该事务ID放到当前事务影响的行事务ID字段中，而 DB_ROLL_PTR 指向该行回滚段的指针，该行记录上的所有版本数据，都在undo log回滚日志中通过链表形式组织，所以该值实际指向undo log中该行的历史记录链表。</p>
+<p>在并发访问数据库时，对正在事务中的数据做MVCC多版本的管理，以避免写操作阻塞读操作，并且可以通过比较版本解决幻读。</p>
+<p>MVCC只在 可重复度 和 读已提交 两个隔离级别下才会工作，其中，MVCC实质就是通过保存数据在某个时间点的快照来实现的。 </p>
+<blockquote>
+<p><strong>快照读：</strong>Innodb快照读，数据的读取将由 cache(原本数据) + undo(事务修改前的数据) 两部分组成</p>
+<p><strong>当前读：</strong>SQL读取的数据是最新版本。通过锁机制来保证读取的数据无法通过其他事务进行修改</p>
+</blockquote>
+<p>在可重复读的隔离级别下，MVCC具体操作：</p>
+<blockquote>
+<p>1）SELECT操作：InnoDB遵循以下两个规则：</p>
+<p>只查找数据行的事务ID小于或等于当前事务ID的版本，这样可以确保事务读取的行，要么是在事务开始前已经存在的，要么是事务自身插入或者修改过的记录。<br>行的删除版本要未被定义，读取到事务开始之前状态的版本，这可以确保事务读取到的行，在事务开始之前未被删除。只有同时满足的两者的记录，才能返回作为查询结果。<br>（2）INSERT：InnoDB为新插入的每一行保存当前事务编号作为行版本号。</p>
+<p>（3）DELETE：InnoDB为删除的每一行保存当前事务编号作为行删除标识。</p>
+<p>（4）UPDATE：InnoDB为插入一行新记录，保存当前事务编号作为行版本号，同时保存当前事务编号到原来的行作为行删除标识。</p>
+<p>保存这两个额外系统版本号，使大多数读操作都可以不用加锁。这样设计使得读数据操作很简单，性能很好，并且也能保证只会读取到符合标准的行，不足之处是每行记录都需要额外的存储空间，需要做更多的行检查工作，以及一些额外的维护工作。</p>
+</blockquote>
+<h3 id="3、持久性："><a href="#3、持久性：" class="headerlink" title="3、持久性："></a><strong>3、持久性：</strong></h3><p>持久性的实现关键在于redo log日志<code>，</code>在执行SQL时会保存已执行的SQL语句到一个指定的Log文件，当执行<code>recovery</code>时重新执行<code>redo log</code>记录的SQL操作。</p>
+<p><strong>3.1、redo log日志：</strong></p>
+<p>当向数据库写入数据时，执行过程会首先写入Buffer Pool，Buffer Pool中修改的数据会定期刷新到磁盘中（这一过程叫做刷盘），这整一过程称为redo log。redo log 分为：</p>
+<p>Buffer Pool内存中的日志缓冲(redo log buffer)，该部分日志是易失性的；<br>磁盘上的重做日志文件(redo log file)，该部分日志是持久的。</p>
+<h3 id="4、一致性："><a href="#4、一致性：" class="headerlink" title="4、一致性："></a><strong>4、一致性：</strong></h3><p>一致性指的是事务不能破坏数据的完整性和业务的一致性 ：</p>
+<blockquote>
+<ul>
+<li>数据的完整性： 实体完整性、列完整性（如字段的类型、大小、长度要符合要求）、外键约束等</li>
+<li>业务的一致性：例如在银行转账时，不管事务成功还是失败，双方钱的总额不变。</li>
+</ul>
+</blockquote>
+<p>那是如何保证数据一致性的？其实数据一致性是通过事务的原子性、持久性和隔离性来保证的：</p>
+<blockquote>
+<p>原子性：语句要么全执行，要么全不执行，是事务最核心的特性，事务本身就是以原子性来定义的；主要基于undo log实现<br>持久性：保证事务提交后不会因为宕机等原因导致数据丢失；主要基于redo log实现<br>隔离性：保证事务执行尽可能不受其他事务影响；InnoDB默认的隔离级别是RR，RR的实现主要基于锁机制（包含next-key lock）、MVCC（包括数据的隐藏列、基于undo log的版本链、ReadView）</p>
+</blockquote>
+<h1 id="第-8-章-分区Partition"><a href="#第-8-章-分区Partition" class="headerlink" title="第 8 章 分区Partition"></a>第 8 章 分区Partition</h1><h3 id="一、分区："><a href="#一、分区：" class="headerlink" title="一、分区："></a>一、分区：</h3><p>分区就是将表的数据按照特定规则存放在不同的区域，也就是将表的数据文件分割成多个小块，在查询数据的时候，只要知道数据数据存储在哪些区域，然后直接在对应的区域进行查询，不需要对表数据进行全部的查询，提高查询的性能。同时，如果表数据特别大，一个磁盘磁盘放不下时，我们也可以将数据分配到不同的磁盘去，解决存储瓶颈的问题，利用多个磁盘，也能够提高磁盘的IO效率，提高数据库的性能。常见的分区类型有：Range分区、List分区、Hash分区、Key分区：</p>
+<blockquote>
+<p>（1）Range分区：按照连续的区间范围进行分区<br>（2）List分区：按照给定的集合中的值进行选择分区。<br>（3）Hash分区：基于用户定义的表达式的返回值进行分区，该表达式使用将要插入到表中的这些行的列值进行计算。这个函数可以包含MySQL中有效的、产生非负整数值的任何表达式。<br>（4）Key分区：类似于按照HASH分区，区别在于Key分区只支持计算一列或多列，且key分区的哈希函数是由 MySQL 服务器提供。</p>
+</blockquote>
+<p><strong>1、表分区的优点：</strong></p>
+<p>（1）可伸缩性：</p>
+<blockquote>
+<ul>
+<li>将分区分在不同磁盘，可以解决单磁盘容量瓶颈问题，存储更多的数据，也能解决单磁盘的IO瓶颈问题。</li>
+</ul>
+</blockquote>
+<p>（2）提升数据库的性能：</p>
+<blockquote>
+<ul>
+<li>减少数据库检索时需要遍历的数据量，在查询时只需要在数据对应的分区进行查询。</li>
+<li>避免Innodb的单个索引的互斥访问限制</li>
+<li>对于聚合函数，例如sum()和count()，可以在每个分区进行并行处理，最终只需要统计所有分区得到的结果</li>
+</ul>
+</blockquote>
+<p>（3）方便对数据进行运维管理：</p>
+<blockquote>
+<ul>
+<li>方便管理，对于失去保存意义的数据，通过删除对应的分区，达到快速删除的作用。比如删除某一时间的历史数据，直接执行truncate，或者直接drop整个分区，这比detele删除效率更高；</li>
+<li>在某些场景下，单个分区表的备份很恢复会更有效率。</li>
+</ul>
+</blockquote>
+<p><strong>2、表分区的缺陷：</strong></p>
+<p>（1）分区字段必须放主键或者唯一索引中；</p>
+<p>（2）每个表最大分区数为1024；</p>
+<p><strong>3、业务场景举例：</strong></p>
+<p>（1）项目需要动态新建、删除分区。比如新闻表，按照时月份进行分区，同时为了防止新闻表过大，只保留最近6个月的分区，同时预建后面3个月的分区，这个删除、预建分区的过程就是分区表的动态管理。</p>
+<p>（2）历史数据或不常访问的数据占很大部分，最新或热点数据占的比例不是很大，这时也可以进行表分区。</p>
+<p><strong>4、MySQL分区类型：</strong></p>
+<p>根据所使用的不同分区规则，可以分成几大分区类型： </p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>分区类型</th>
+<th>说明</th>
+<th>使用频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>RANGE 分区</td>
+<td>按照连续的区间范围进行分区</td>
+<td>较多</td>
+</tr>
+<tr>
+<td>2</td>
+<td>LIST 分区</td>
+<td>按照给定的集合中的值进行选择分区</td>
+<td>一般</td>
+</tr>
+<tr>
+<td>3</td>
+<td>HASH 分区</td>
+<td>基于用户定义的表达式的返回值来进行选择的分区，该表达式使用将要插入到表中的这些行的列值进行计算。这个函数可以包含MySQL中有效的、产生非负整数值的任何表达式。</td>
+<td>较多</td>
+</tr>
+<tr>
+<td>4</td>
+<td>KEY 分区</td>
+<td>类似于按照HASH分区，除了区别在于KEY分区只支持计算一列或多列，且KEY分区的哈希函数是由MySQL 服务器提供。</td>
+<td>一般</td>
+</tr>
+</tbody></table>
+<p><strong>（1）range分区：</strong></p>
+<p>每个分区的值位于一个给定的连续区间内之内。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> RANGE <span class="token punctuation">(</span>id<span class="token punctuation">)</span> <span class="token punctuation">(</span>  
+
+         <span class="token keyword">PARTITION</span> p0 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  
+
+         <span class="token keyword">PARTITION</span> p1 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  
+
+         <span class="token keyword">PARTITION</span> p2 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  
+
+         <span class="token keyword">PARTITION</span> p3 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  
+
+         <span class="token keyword">PARTITION</span> p4 <span class="token keyword">VALUES</span> LESS THAN MAXVALUE  
+
+<span class="token punctuation">)</span><span class="token punctuation">;</span>  </code></pre>
+<p><strong>（2）List分区：</strong></p>
+<p>类似于按RANGE分区，区别在于LIST分区是基于列值匹配一个离散值集合中的某个值来进行选择。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> LIST <span class="token punctuation">(</span>province_id<span class="token punctuation">)</span> <span class="token punctuation">(</span>  
+
+         <span class="token keyword">PARTITION</span> p0 <span class="token keyword">VALUES</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  
+
+         <span class="token keyword">PARTITION</span> p1 <span class="token keyword">VALUES</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">,</span><span class="token number">21</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  
+
+         <span class="token keyword">PARTITION</span> p2 <span class="token keyword">VALUES</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token number">13</span><span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">19</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  
+
+         <span class="token keyword">PARTITION</span> p3 <span class="token keyword">VALUES</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token number">17</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">,</span><span class="token number">24</span><span class="token punctuation">)</span>  
+
+ <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>（3）Hash分区：</p>
+<p>基于用户定义的表达式的返回值来进行选择的分区，该表达式使用将要插入到表中的这些行的列值进行计算。这个函数可以包含MySQL中有效的、产生非负整数值的任何表达式。<br>HASH分区主要用来确保数据在预先确定数目的分区中平均分布。在RANGE和LIST分区中，必须明确指定一个给定的列值或列值集合应该保存在哪个分区中。 </p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> foo_hash
+<span class="token punctuation">(</span>empno <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token punctuation">,</span>
+empname <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+deptno <span class="token keyword">int</span><span class="token punctuation">,</span>
+birthdate <span class="token keyword">date</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+salary <span class="token keyword">int</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">partition</span> <span class="token keyword">by</span> <span class="token keyword">hash</span><span class="token punctuation">(</span>year<span class="token punctuation">(</span>birthdate<span class="token punctuation">)</span><span class="token punctuation">)</span>
+partitions <span class="token number">4</span><span class="token punctuation">;</span></code></pre>
+<p>以上创建了4个分区。</p>
+<p><strong>（4）Key分区：</strong></p>
+<p>类似于按HASH分区，区别在于KEY分区只支持计算一列或多列，且MySQL服务器提供其自身的哈希函数。必须有一列或多列包含整数值。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> foo_key
+
+<span class="token punctuation">(</span>empno <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token punctuation">,</span>
+
+empname <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+deptno <span class="token keyword">int</span><span class="token punctuation">,</span>
+
+birthdate <span class="token keyword">date</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+
+salary <span class="token keyword">int</span>
+
+<span class="token punctuation">)</span>
+
+<span class="token keyword">partition</span> <span class="token keyword">by</span> <span class="token keyword">key</span><span class="token punctuation">(</span>birthdate<span class="token punctuation">)</span>
+
+partitions <span class="token number">4</span><span class="token punctuation">;</span></code></pre>
+<p><strong>（5）复合分区：</strong></p>
+<p>子分区是针对 RANGE/LIST 类型的分区表中每个分区的再次分割。子分区可以是 HASH/KEY 等类型。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> RANGE <span class="token punctuation">(</span>uid<span class="token punctuation">)</span> SUBPARTITION <span class="token keyword">BY</span> <span class="token keyword">HASH</span> <span class="token punctuation">(</span>uid <span class="token operator">%</span> <span class="token number">4</span><span class="token punctuation">)</span> SUBPARTITIONS <span class="token number">2</span><span class="token punctuation">(</span>
+
+     <span class="token keyword">PARTITION</span> p0 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span><span class="token number">3000000</span><span class="token punctuation">)</span>
+
+     <span class="token keyword">DATA</span> DIRECTORY <span class="token operator">=</span> <span class="token string">'/data0/data'</span>
+
+     <span class="token keyword">INDEX</span> DIRECTORY <span class="token operator">=</span> <span class="token string">'/data1/idx'</span><span class="token punctuation">,</span>
+
+     <span class="token keyword">PARTITION</span> p1 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span><span class="token number">6000000</span><span class="token punctuation">)</span>
+
+     <span class="token keyword">DATA</span> DIRECTORY <span class="token operator">=</span> <span class="token string">'/data2/data'</span>
+
+     <span class="token keyword">INDEX</span> DIRECTORY <span class="token operator">=</span> <span class="token string">'/data3/idx'</span>
+
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>以上例子，对 RANGE 分区再次进行子分区划分，子分区采用 HASH 类型。</p>
+<h2 id="二、常见分区操作："><a href="#二、常见分区操作：" class="headerlink" title="二、常见分区操作："></a>二、常见分区操作：</h2><p><img src="https://img-blog.csdn.net/20161021204232167" alt="这里写图片描述"></p>
+<h1 id="第-9-章-范式"><a href="#第-9-章-范式" class="headerlink" title="第 9 章 范式"></a>第 9 章 范式</h1><h3 id="1、1NF-第一范式-："><a href="#1、1NF-第一范式-：" class="headerlink" title="1、1NF(第一范式)："></a>1、1NF(第一范式)：</h3><p><code>第一范式，就是数据表的列不可再分</code>，数据库表中的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不能有重复的属性。</p>
+<p>看下面数据表，对于选课列明显是可以再分的，所以它是违反第一范式的。</p>
+<table>
+<thead>
+<tr>
+<th align="left">学号</th>
+<th align="left">姓名</th>
+<th align="left">选课</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10001</td>
+<td align="left">张三</td>
+<td align="left">数学，语文，英语</td>
+</tr>
+<tr>
+<td align="left">10002</td>
+<td align="left">李四</td>
+<td align="left">语文，英语</td>
+</tr>
+<tr>
+<td align="left">10003</td>
+<td align="left">王五</td>
+<td align="left">语文，英语，历史</td>
+</tr>
+</tbody></table>
+<h3 id="2、2NF-第二范式-："><a href="#2、2NF-第二范式-：" class="headerlink" title="2、2NF(第二范式)："></a>2、2NF(第二范式)：</h3><p>第二范式必须先满足第一范式。另外包含两部分的内容：一是表必须有一个主键；二是表中非主键列必须完全依赖于主键，而不能只依赖于主键的一部分。</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>课程</th>
+<th>成绩</th>
+<th>课程学分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10001</td>
+<td>数学</td>
+<td>100</td>
+<td>6</td>
+</tr>
+<tr>
+<td>10001</td>
+<td>语文</td>
+<td>90</td>
+<td>2</td>
+</tr>
+<tr>
+<td>10001</td>
+<td>英语</td>
+<td>85</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p>表中主键为 （学号，课程），我们可以表示为 (学号，课程) -&gt; (成绩，课程学分)， 表示所有非主键列 (成绩，课程学分)都依赖于主键 (学号，课程)。 但是，表中还存在另外一个依赖：（课程）-&gt;(课程学分）。这样非主键列 ‘课程学分‘ 依赖于部分主键列 ’课程‘， 所以上表是不满足第二范式的。</p>
+<p>我们把它拆成如下2张表：</p>
+<p>学生选课表：</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>课程</th>
+<th>成绩</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10001</td>
+<td>数学</td>
+<td>100</td>
+</tr>
+<tr>
+<td>10001</td>
+<td>语文</td>
+<td>90</td>
+</tr>
+<tr>
+<td>10001</td>
+<td>英语</td>
+<td>85</td>
+</tr>
+</tbody></table>
+<p>课程信息表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">课程</th>
+<th align="left">课程学分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">数学</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">语文</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">英语</td>
+<td align="left">2</td>
+</tr>
+</tbody></table>
+<p>那么上面2个表，学生选课表主键为（学号，课程），课程信息表主键为（课程），表中所有非主键列都完全依赖主键。不仅符合第二范式，还符合第三范式。 </p>
+<h3 id="3、3NF-第三范式-："><a href="#3、3NF-第三范式-：" class="headerlink" title="3、3NF(第三范式)："></a>3、3NF(第三范式)：</h3><p>定义：首先是满足 2NF，另外非主键列必须直接依赖于主键，表中的列不存在对非主键列的传递依赖。即不能存在：非主键列 A 依赖于非主键列 B，非主键列 B 依赖于主键的情况。</p>
+<p>再看这样一个学生信息表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">学号</th>
+<th align="left">姓名</th>
+<th align="left">性别</th>
+<th align="left">班级</th>
+<th align="left">班主任</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10001</td>
+<td align="left">张三</td>
+<td align="left">男</td>
+<td align="left">一班</td>
+<td align="left">小王</td>
+</tr>
+<tr>
+<td align="left">10002</td>
+<td align="left">李四</td>
+<td align="left">男</td>
+<td align="left">一班</td>
+<td align="left">小王</td>
+</tr>
+<tr>
+<td align="left">10003</td>
+<td align="left">王五</td>
+<td align="left">男</td>
+<td align="left">二班</td>
+<td align="left">小李</td>
+</tr>
+</tbody></table>
+<p>上表中，主键为：（学号），所有字段 （姓名，性别，班级，班主任）都依赖与主键（学号），不存在对主键的部分依赖。所以是满足第二范式。但是，表中存在一个传递依赖，(学号）-&gt;(班级）-&gt;（班主任）。也就是说，（班主任）这个非主键列依赖与另外一个非主键列 （班级）。所以不符号第三范式。</p>
+<p>把这个表拆分成如下2个表：</p>
+<p>学生信息表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">学号</th>
+<th align="left">姓名</th>
+<th align="left">性别</th>
+<th align="left">班级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10001</td>
+<td align="left">张三</td>
+<td align="left">男</td>
+<td align="left">一班</td>
+</tr>
+<tr>
+<td align="left">10002</td>
+<td align="left">李四</td>
+<td align="left">男</td>
+<td align="left">一班</td>
+</tr>
+<tr>
+<td align="left">10003</td>
+<td align="left">王五</td>
+<td align="left">男</td>
+<td align="left">二班</td>
+</tr>
+</tbody></table>
+<p>班级信息表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">班级</th>
+<th align="left">班主任</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">一班</td>
+<td align="left">小王</td>
+</tr>
+<tr>
+<td align="left">二班</td>
+<td align="left">小李</td>
+</tr>
+</tbody></table>
+<p>这样，对主键的传递依赖就消失了。上面的2个表都符合第3范式。</p>
+<p>第二范式（2NF）和第三范式（3NF）的概念很容易混淆，区分它们的关键点在于，2NF：非主键列是否完全依赖于主键，还是依赖于主键的一部分；3NF：非主键列是直接依赖于主键，还是直接依赖于非主键列。</p>
+<h3 id="4、BCNF-BC范式-："><a href="#4、BCNF-BC范式-：" class="headerlink" title="4、BCNF(BC范式)："></a>4、BCNF(BC范式)：</h3><p>定义：在第三范式的基础上，消除主属性对于码部分的传递依赖。</p>
+<p>假设仓库管理关系表(仓库号，存储物品号，管理员号，数量)，满足一个管理员只在一个仓库工作；一个仓库可以存储多种物品，则存在如下关系：</p>
+<p>(仓库号，存储物品号)——&gt;(管理员号，数量)</p>
+<p>(管理员号，存储物品号)——&gt;(仓库号，数量)</p>
+<p>所以，(仓库号，存储物品号)和(管理员号，存储物品号)都是仓库管理关系表的候选码，表中唯一非关键字段为数量，它是符合第三范式的。但是，由于存在如下决定关系：</p>
+<p>(仓库号)——&gt;(管理员号)</p>
+<p>(管理员号)——&gt;(仓库号)</p>
+<p>即存在关键字段决定关键字段的情况，因此其不符合BCNF。把仓库管理关系表分解为两个关系表 仓库管理表(仓库号，管理员号) 和 仓库表(仓库号，存储物品号，数量)，这样这个数据库表是符合BCNF的，并消除了删除异常、插入异常和更新异常。</p>
+<h3 id="5、4NF-第四范式-："><a href="#5、4NF-第四范式-：" class="headerlink" title="5、4NF(第四范式)："></a>5、4NF(第四范式)：</h3><p>设R是一个关系模型，D是R上的多值依赖集合。如果D中存在多值依赖X-&gt;Y时，X必是R的超键，那么称R是第四范式的模式。</p>
+<p>例如，职工表(职工编号，职工孩子姓名，职工选修课程)，在这个表中，同一个职工可能会有多个职工孩子姓名，同样，同一个职工也可能会有多个职工选修课程，即这里存在着多值事实，不符合第四范式。如果要符合第四范式，只需要将上表分为两个表，使它们只有一个多值事实，例如职工表一(职工编号，职工孩子姓名)，职工表二(职工编号，职工选修课程)，两个表都只有一个多值事实，所以符合第四范式。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -4997,7 +5607,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">380.8k</span>&nbsp;字
+                class="white-color">392.8k</span>&nbsp;字
             
             
             
