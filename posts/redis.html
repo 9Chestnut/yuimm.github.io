@@ -461,21 +461,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-02
+                    2021-04-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.3k
+                    15.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    29 分
+                    61 分
                 </div>
                 
 				
@@ -1160,10 +1160,13 @@ sentinel monitor myredis 127.0.0.1 6379 1</code></pre><p>后面这个数字1，�
 <li>Redis较难支持在线扩容，在集群容量达到上限时在线扩容会变得很复杂。</li>
 <li>实现哨兵模式的配置也不简单，甚至可以说有些繁琐。</li>
 </ol>
-<h2 id="七、Redis缓存穿透和雪崩"><a href="#七、Redis缓存穿透和雪崩" class="headerlink" title="七、Redis缓存穿透和雪崩"></a>七、Redis缓存穿透和雪崩</h2><h3 id="什么是缓存穿透"><a href="#什么是缓存穿透" class="headerlink" title="什么是缓存穿透"></a>什么是缓存穿透</h3><p>如果每次都去查一个“缓存和数据库中都必不存在的数据（如id=-1的数据）”，因为缓存中不存在，那么每次请求都会打到DB上，从而导致缓存失去意义，在高并发的情况下就可能导致数据库崩溃，这就是缓存穿透。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<h2 id="七、Redis缓存穿透和雪崩"><a href="#七、Redis缓存穿透和雪崩" class="headerlink" title="七、Redis缓存穿透和雪崩"></a>七、Redis缓存穿透和雪崩</h2><h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>缓存穿透是指用户请求的数据在缓存中不存在即没有命中，同时在数据库中也不存在，导致用户每次请求该数据都要去数据库中查询一遍。如果有恶意攻击者不断请求系统中不存在的数据，会导致短时间大量请求落在数据库上，造成数据库压力过大，甚至导致数据库承受不住而宕机崩溃。</p>
+<h4 id="问题分析："><a href="#问题分析：" class="headerlink" title="问题分析："></a><strong>问题分析：</strong></h4><p>缓存穿透的关键在于在Redis中查不到key值，它和缓存击穿的根本区别在于传进来的key在Redis中是不存在的。假如有黑客传进大量的不存在的key，那么大量的请求打在数据库上是很致命的问题，所以在日常开发中要对参数做好校验，一些非法的参数，不可能存在的key就直接返回错误提示。</p>
+<p><img src="https://img-blog.csdnimg.cn/2021013117512340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><ul>
 <li><strong>布隆过滤器</strong></li>
 </ul>
+<p>如果布隆过滤器判定某个 key 不存在布隆过滤器中，那么就一定不存在，如果判定某个 key 存在，那么很大可能是存在(存在一定的误判率)。于是我们可以在缓存之前再加一个布隆过滤器，将数据库中的所有key都存储在布隆过滤器中，在查询Redis前先去布隆过滤器查询 key 是否存在，如果不存在就直接返回，不让其访问数据库，从而避免了对底层存储系统的查询压力。</p>
 <p>我们想这样一个问题，如果想判断某个元素是不是在一个集合里，一般做法是将集合中所有的元素保存起来，然后通过比较确定，比如HashMap。但是随着集合中元素的增加，数据量超大时，我们需要的存储空间也越来越大，甚至超过服务器内存，这时我们就不能再用HashMap等数据结构了。</p>
 <p> 这时布隆过滤器就出场了，它的空间效率非常好，它是一个二进制向量，每一位存放的是0或1，<strong>初始时默认为0</strong>，长下面这样：</p>
 <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy80aWNWdnd0d1ZleUhrV1RmdVFWcDJkNTJSZkk3c1dpYWNLTTNpYWdzYk81MGF2SDFPUGJjQWljUGNkRVlteFgxU1NFTndUbnI1RWtsalozZklWVEJKNlRSVUEvNjQw?x-oss-process=image/format,png" alt="img"></p>
@@ -1185,23 +1188,538 @@ sentinel monitor myredis 127.0.0.1 6379 1</code></pre><p>后面这个数字1，�
 
 &gt; 如果存在，则去查缓存，但我们知道布隆过滤器判断存在有一定的误判率，这里我是这样理解的，如果这个误判率针对你们的业务场景是可被接受的则可以忽略，另外我们在用Guava实现布隆过滤器的时候可以指定误判率不超过多少，你可以指定一个可被你接受的值。再或者，因为布隆过滤器可以过滤掉绝大多数的恶意key，针对少部分的漏网之鱼，我们可以在缓存层面使用功能上面说过的缓存空值或加锁的方案。</code></pre><ul>
 <li><p><strong>缓存空值</strong></p>
-<p>简单粗暴，如果查询DB返回的数据为空，我们仍然把这个空值放到Redis缓存中，只是将它的过期时间设置的很短，另外为了避免不必要的内存消耗，可以定期清理空值的key。</p>
+<p>简单粗暴，如果查询DB返回的数据为空，我们仍然把这个空值放到Redis缓存中，只是将它的过期时间设置的很短，另外为了避免不必要的内存消耗，可以定期清理空值的key。但这种处理方式是有问题的，假如传进来的这个不存在的Key值每次都是随机的，那存进Redis也没有意义。</p>
 </li>
 </ul>
 <h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p>缓存击穿和缓存穿透不一样！</p>
 <p>说缓存击穿之前，我们先来了解一个概念——热点key，某个访问非常频繁，访问量非常大的一个缓存key，我们叫做热点key。</p>
-<p>缓存击穿是指某个热点key在失效的瞬间（一般是缓存时间到期），持续的大并发请求穿破缓存，直接打到数据库，就像在一个屏障上凿开了一个洞，造成数据库压力瞬间增大，这就是缓存击穿。</p>
-<h3 id="缓存击穿的解决方案"><a href="#缓存击穿的解决方案" class="headerlink" title="缓存击穿的解决方案"></a>缓存击穿的解决方案</h3><p>1、设置热点key永不过期</p>
+<p>缓存击穿跟缓存雪崩有点类似，缓存雪崩是大规模的key失效，而缓存击穿是某个热点的key失效，大并发集中对其进行请求，就会造成大量请求读缓存没读到数据，从而导致高并发访问数据库，引起数据库压力剧增。这种现象就叫做缓存击穿。</p>
+<h4 id="问题分析：-1"><a href="#问题分析：-1" class="headerlink" title="问题分析："></a><strong>问题分析：</strong></h4><p>关键在于某个热点的key失效了，导致大并发集中打在数据库上。</p>
+<p>所以要从两个方面解决</p>
+<ul>
+<li>第一是否可以考虑热点key不设置过期时间</li>
+<li>第二是否可以考虑降低打在数据库上的请求数量。</li>
+</ul>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>1、设置热点key永不过期</p>
 <p>2、加锁，根据热点key从缓存中获取到的value为空时，先锁上，再去查DB将数据加载到缓存，若其它线程获取锁失败，则等待一段时间后重试，从而避免了大量请求直接打到DB。单机可以使用synchronized或ReentrantLock，分布式需要加分布式锁，如Redis分布式锁。【为了不阻塞对其他key的请求，此处可以用热点key来加锁】</p>
-<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>缓存雪崩是指缓存由于某些原因整体或者大量失效，导致大量请求打到后端数据库，从而导致数据库崩溃，整个系统崩溃，发生灾难。</p>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>如果缓在某一个时刻出现大规模的key失效，那么就会导致大量的请求打在了数据库上面，导致数据库压力巨大，如果在高并发的情况下，可能瞬间就会导致数据库宕机。这时候如果运维马上又重启数据库，马上又会有新的流量把数据库打死。这就是缓存雪崩。</p>
 <p>导致缓存整体或大量失效的场景一般有：</p>
 <p>1、缓存服务宕机，如Redis集群彻底崩溃；</p>
 <p>2、在某个集中的时间段内，系统预加载的缓存集中失效了；</p>
 <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy80aWNWdnd0d1ZleUhrV1RmdVFWcDJkNTJSZkk3c1dpYWNLWjlwbWVSaHg5RVZJZ0U3amJqd1VxRGd6amRsenloVWRUc3BIY3lrcG1xcHBGMFgxcnZWekVRLzY0MA?x-oss-process=image/format,png" alt="img"></p>
-<h3 id="预防和解决缓存雪崩"><a href="#预防和解决缓存雪崩" class="headerlink" title="预防和解决缓存雪崩"></a>预防和解决缓存雪崩</h3><p>  1、保证缓存层服务高可用性，如使用Redis Sentinel 和 Redis Cluster，双机房部署，保证Redis服务高可用。</p>
-<p>  2、通过设置不同的过期时间，来错开缓存过期，从而避免缓存集中失效。</p>
-<p>限流降级</p>
-<p>数据预热</p>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><p>造成缓存雪崩的关键在于同一时间的大规模的key失效，为什么会出现这个问题？</p>
+<p>主要有两种可能：</p>
+<ul>
+<li>第一种是Redis宕机</li>
+<li>第二种可能就是采用了相同的过期时间。搞清楚原因之后，那么有什么解决方案呢？</li>
+</ul>
+<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a><strong>解决方案：</strong></h4><p>（1）事前：</p>
+<ul>
+<li><p>均匀过期：设置不同的过期时间，让缓存失效的时间尽量均匀，避免相同的过期时间导致缓存雪崩，造成大量数据库的访问。</p>
+</li>
+<li><p>分级缓存：第一级缓存失效的基础上，访问二级缓存，每一级缓存的失效时间都不同。</p>
+</li>
+<li><p>热点数据缓存永远不过期。</p>
+</li>
+</ul>
+<blockquote>
+<p>永不过期实际包含两层意思：</p>
+<ul>
+<li>物理不过期，针对热点key不设置过期时间</li>
+<li>逻辑过期，把过期时间存在key对应的value里，如果发现要过期了，通过一个后台的异步线程进行缓存的构建</li>
+</ul>
+</blockquote>
+<ul>
+<li>保证Redis缓存的高可用，防止Redis宕机导致缓存雪崩的问题。可以使用 主从+ 哨兵，Redis集群来避免 Redis 全盘崩溃的情况。</li>
+</ul>
+<p>（2）事中：</p>
+<ul>
+<li><p>互斥锁：在缓存失效后，通过互斥锁或者队列来控制读数据写缓存的线程数量，比如某个key只允许一个线程查询数据和写缓存，其他线程等待。这种方式会阻塞其他的线程，此时系统的吞吐量会下降</p>
+</li>
+<li><p>使用熔断机制，限流降级。当流量达到一定的阈值，直接返回“系统拥挤”之类的提示，防止过多的请求打在数据库上将数据库击垮，至少能保证一部分用户是可以正常使用，其他用户多刷新几次也能得到结果。</p>
+</li>
+</ul>
+<p>（3）事后：</p>
+<ul>
+<li>开启Redis持久化机制，尽快恢复缓存数据，一旦重启，就能从磁盘上自动加载数据恢复内存中的数据。</li>
+</ul>
+<h3 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a>缓存预热</h3><p>1、什么是缓存预热：</p>
+<p>缓存预热是指系统上线后，提前将相关的缓存数据加载到缓存系统。避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题，用户直接查询事先被预热的缓存数据。</p>
+<p>如果不进行预热，那么Redis初始状态数据为空，系统上线初期，对于高并发的流量，都会访问到数据库中， 对数据库造成流量的压力。</p>
+<p>2、缓存预热解决方案：</p>
+<p>（1）数据量不大的时候，工程启动的时候进行加载缓存动作；</p>
+<p>（2）数据量大的时候，设置一个定时任务脚本，进行缓存的刷新；</p>
+<p>（3）数据量太大的时候，优先保证热点数据进行提前加载到缓存。</p>
+<h3 id="缓存降级"><a href="#缓存降级" class="headerlink" title="缓存降级"></a>缓存降级</h3><p>缓存降级是指缓存失效或缓存服务器挂掉的情况下，不去访问数据库，直接返回默认数据或访问服务的内存数据。降级一般是有损的操作，所以尽量减少降级对于业务的影响程度。</p>
+<p>在项目实战中通常会将部分热点数据缓存到服务的内存中，这样一旦缓存出现异常，可以直接使用服务的内存数据，从而避免数据库遭受巨大压力。</p>
+<h2 id="八、-分布式锁"><a href="#八、-分布式锁" class="headerlink" title="八、 分布式锁"></a>八、 分布式锁</h2><h3 id="什么是分布式锁："><a href="#什么是分布式锁：" class="headerlink" title="什么是分布式锁："></a>什么是分布式锁：</h3><h4 id="什么是分布式锁"><a href="#什么是分布式锁" class="headerlink" title="什么是分布式锁"></a>什么是分布式锁</h4><p>分布式锁，即分布式系统中的锁。在单体应用中我们通过锁解决的是<strong>控制共享资源访问</strong>的问题，而分布式锁，就是解决了<strong>分布式系统中控制共享资源访问</strong>的问题。与单体应用不同的是，分布式系统中竞争共享资源的最小粒度从线程升级成了进程。</p>
+<h4 id="分布式锁应该具备哪些条件"><a href="#分布式锁应该具备哪些条件" class="headerlink" title="分布式锁应该具备哪些条件"></a>分布式锁应该具备哪些条件</h4><ul>
+<li>在分布式系统环境下，一个方法在同一时间只能被一个机器的一个线程执行</li>
+<li>高可用的获取锁与释放锁</li>
+<li>高性能的获取锁与释放锁</li>
+<li>具备可重入特性（可理解为重新进入，由多于一个任务并发使用，而不必担心数据错误）</li>
+<li>具备锁失效机制，即自动解锁，防止死锁</li>
+<li>具备非阻塞锁特性，即没有获取到锁将直接返回获取锁失败</li>
+</ul>
+<h4 id="分布式锁的实现方式"><a href="#分布式锁的实现方式" class="headerlink" title="分布式锁的实现方式"></a><strong>分布式锁的实现方式</strong></h4><ul>
+<li>基于数据库实现分布式锁</li>
+<li>基于Zookeeper实现分布式锁</li>
+<li>基于reids实现分布式锁</li>
+</ul>
+<h3 id="一步一步，看透-Redis-分布式锁中的门道"><a href="#一步一步，看透-Redis-分布式锁中的门道" class="headerlink" title="一步一步，看透 Redis 分布式锁中的门道"></a>一步一步，看透 Redis 分布式锁中的门道</h3><p><code>很多线程去上锁，谁锁成功谁就有权利执行操作逻辑，其他线程要么直接走抢锁失败的逻辑，要么自旋尝试抢锁；</code></p>
+<ul>
+<li><p>比方说 A线程竞争到了锁，开始执行操作逻辑（我的代码逻辑演示中，使用 Jedis客户端为例）；</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// RedisLock是我封装的一个类，后面会讲到</span>
+    RedisLock redisLock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisLock</span><span class="token punctuation">(</span>jedis<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 创建jedis实例的代码省略，不是重点</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        redisLock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 上锁</span>
+
+        <span class="token comment" spellcheck="true">// 处理业务</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" 线程处理业务逻辑中..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" 线程处理业务逻辑完毕"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        redisLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 释放锁</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+</li>
+<li><p>正常情况下，A 线程执行完操作逻辑后，应该将锁释放。如果说执行过程中抛出异常，程序不再继续走正常的释放锁流程，没有释放锁怎么办？所以我们想到：</p>
+</li>
+<li><p>释放锁的流程一定要在 finally{} 块中执行，当然，上锁的流程一定要在 finally{} 对应的 try{} 块中，否则 finally{} 就没用了，如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    RedisLock redisLock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisLock</span><span class="token punctuation">(</span>jedis<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 创建jedis实例的代码省略，不是重点</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        redisLock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 上锁，必须在 try{}中</span>
+
+        <span class="token comment" spellcheck="true">// 处理业务</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" 线程处理业务逻辑中..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" 线程处理业务逻辑完毕"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        redisLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 在finally{} 中释放锁</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p><strong>放在 finally{} 块中就行了吗？</strong></p>
+</blockquote>
+</li>
+</ul>
+<pre class=" language-java"><code class="language-java">     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String lock_key <span class="token operator">=</span> <span class="token string">"haolin-lock"</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 在while中自旋，如果说读者想设置一些自旋次数，等待最大时长等自己去扩展，不是此处的重点</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">"，占锁成功！★★★"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+
+      <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SetParams setParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SetParams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        setParams<span class="token punctuation">.</span><span class="token function">ex</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 超时时间1s</span>
+        setParams<span class="token punctuation">.</span><span class="token function">nx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// nx</span>
+        String response <span class="token operator">=</span> jedis<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> setParams<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 转换为redis命令就是：set haolin-key "" ex 1 nx</span>
+        <span class="token keyword">return</span> <span class="token string">"OK"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span></code></pre>
+<p>注意，上锁的时候，设置key和设置超时时间这两个操作要是<strong>原子性</strong>的，要么都执行，要么都不执行。</p>
+<p>Redis原生支持：</p>
+<pre class=" language-bash"><code class="language-bash">// http://redis.io/commands/set.html
+SET key value <span class="token punctuation">[</span>EX seconds<span class="token punctuation">]</span> <span class="token punctuation">[</span>PX milliseconds<span class="token punctuation">]</span> <span class="token punctuation">[</span>NX<span class="token operator">|</span>XX<span class="token punctuation">]</span></code></pre>
+<p>不要在代码里边分两次调用：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token keyword">set</span> k <span class="token function">v</span>
+exipre k <span class="token function">time</span></code></pre>
+<p>这是错误的，如果第一个命令执行成功后，第二条命令由于各种原因没有执行，就出问题了。 </p>
+<blockquote>
+<p>锁的超时时间该怎么计算？</p>
+</blockquote>
+<ul>
+<li>我们刚才假设的 1s是怎么计算的？这个时间该设多少合适呢？</li>
+<li>锁中的业务逻辑的执行时间，不能瞎写，一般是我们在测试环境进行多次测试，然后在压测环境多轮压测之后，比方说计算出平均的执行时间是 200ms，锁的超时时间放大3-5倍，比如这里我们设置为 1s，为啥要放大，因为如果锁的操作逻辑中有网络 IO操作，线上的网络不会总一帆风顺，我们要给网络抖动留有缓冲时间。这个时候有的同学有想法，那我设置的再大一些，给网络足够充裕的时间，我就设置 10s、1min不是更安全吗？请注意，不要钻到这一个点里边，你要顾全大局，多大算大？越大越好？无穷大？那不等于不设置超时时间吗？同时，这个时间，你要想清楚，如果你设置 10s，果真发生了宕机，那意味着这 10s中间，你的这个分布式锁的服务全部节点都是不可用的，这个和你的业务以及系统的可用性有挂钩，你要去衡量，要慎重。那如果一个节点宕机之后可以通知 redis-server释放锁吗？注意，我是宕机，不可控力，断电了兄弟，通知不了的。回头一想，如果我是优雅停机呢，我不是 kill -9，也不是断电，这样似乎可以去做一些编码去释放锁，你可以参考下 JVM的钩子、Dubbo的优雅停机、或者 linux进程级通信技术来做这件事情。但好像扯远了，我既然是手动停的服务，我为啥不能手动删除掉 redis中的锁，让他及时删除掉。（大家都知道 zookeeper 的临时节点特性被应用在很多场合，但本文不是聊 zookeeper，思路别跑题，回归）</li>
+</ul>
+<blockquote>
+<p>加个超时时间就行了吗？</p>
+</blockquote>
+<ul>
+<li><p>如果说 A线程在执行操作逻辑的过程中，<strong>别的线程直接进行了释放锁的操作，是不是就出问题了？</strong></p>
+</li>
+<li><p>什么？别的线程没有获得锁却直接执行了释放锁？？现在是 A线程上的锁，那肯定只能 A线程释放锁呀！别的线程释放锁算怎么回事？联想 ReentrantLock中的 isHeldByCurrentThread()方法，所以我们想到，必须在锁上加个标记，只有上锁的线程 A线程知道，相当于是一个密语，也就是说释放锁的时候，首先先把密语和锁上的标记进行匹配，如果匹配不上，就没有权利释放锁；</p>
+<pre class=" language-java"><code class="language-java">   <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SetParams setParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SetParams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        setParams<span class="token punctuation">.</span><span class="token function">ex</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 超时时间1s</span>
+        setParams<span class="token punctuation">.</span><span class="token function">nx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// nx</span>
+        String response <span class="token operator">=</span> jedis<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> setParams<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 转换为redis命令就是：set haolin-key "" ex 1 nx</span>
+        <span class="token keyword">return</span> <span class="token string">"OK"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 别的线程直接调用释放锁操作，分布式锁崩溃！</span>
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        jedis<span class="token punctuation">.</span><span class="token function">del</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">" 释放锁成功！☆☆☆"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+     <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">encode</span><span class="token punctuation">(</span>String param<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> param<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p>这个密语value设置成什么呢？</p>
+</blockquote>
+<ul>
+<li>这是有门道的，继续。</li>
+<li>很多说设置成一个 UUID就行了，上锁之前，在该线程代码中生成一个 UUID，将这个作为秘钥，存在锁键的 value中，释放锁的时候，用这个进行校验，因为只有上锁的线程知道这个秘钥，别的线程是不知道的。这个可行吗，当然可行。</li>
+</ul>
+<pre class=" language-java"><code class="language-java">   String releaseLock_lua <span class="token operator">=</span> <span class="token string">"if redis.call(\"get\",KEYS[1]) == ARGV[1] \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return redis.call(\"del\", KEYS[1])\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"else\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return 0\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span>String uuid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SetParams setParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SetParams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        setParams<span class="token punctuation">.</span><span class="token function">ex</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 超时时间1s</span>
+        setParams<span class="token punctuation">.</span><span class="token function">nx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// nx</span>
+        String response <span class="token operator">=</span> jedis<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">,</span> uuid<span class="token punctuation">,</span> setParams<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 转换为redis命令就是：set haolin-key "" ex 1 nx</span>
+        <span class="token keyword">return</span> <span class="token string">"OK"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span>String uuid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> keys <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> args <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>uuid<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+           <span class="token comment" spellcheck="true">// 使用lua脚本，保证原子性</span>
+        <span class="token keyword">long</span> eval <span class="token operator">=</span> <span class="token punctuation">(</span>Long<span class="token punctuation">)</span> jedis<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>releaseLock_lua<span class="token punctuation">)</span><span class="token punctuation">,</span> keys<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>eval <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">" 释放锁成功！☆☆☆"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">" 释放锁失败！该线程未持有锁！！！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+     <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">encode</span><span class="token punctuation">(</span>String param<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> param<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<p><strong>为什么使用 lua脚本？</strong></p>
+<p>保证原子性，因为是两个操作，如果分两步那就是：</p>
+<pre class=" language-bash"><code class="language-bash">get k // 进行秘钥 value的比对
+del k // 比对成功后，删除k</code></pre>
+<p>如果第一步比对成功后，第二步还没来得及执行的时候，锁到期，然后紧接着别的线程获取到锁，里边的 uuid已经变了，也就是说持有锁的线程已经不是该线程了，此时再执行第二步的删除锁操作，肯定是错误的了。</p>
+<blockquote>
+<p>继续，现在把思维先跳出来，想想？可重入怎么搞？</p>
+</blockquote>
+<ul>
+<li>作为一把锁，我们在使用 synchronized、ReentrantLock的时候是不是有可重入性？</li>
+<li>那咱们这把分布式锁该如何实现可重入呢？如果 A线程的锁方法逻辑中调用了 x()方法，x()方法中也需要获取这把锁，按照这个逻辑，x()方法中的锁应该重入进去即可，那是不是需要将刚才生成的这个 UUID秘钥传递给 x()方法？怎么传递？参数？这就侵入业务代码了。</li>
+</ul>
+<blockquote>
+<p>能不侵入业务代码吗？</p>
+</blockquote>
+<ul>
+<li>我们主要是想给上锁的 A线程设置一个只有它自己知道的秘钥，把思路时钟往回拨，想想：</li>
+<li>线程本身的 id（Thread.currentThread().getId()）是不是就是一个唯一标识呢？我们把秘钥 value设置为线程的 id不就行了。</li>
+</ul>
+<pre class=" language-java"><code class="language-java">   String releaseLock_lua <span class="token operator">=</span> <span class="token string">"if redis.call(\"get\",KEYS[1]) == ARGV[1] \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return redis.call(\"del\", KEYS[1])\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"else\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return 0\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">;</span>
+    String addLockLife_lua <span class="token operator">=</span> <span class="token string">"if redis.call(\"exists\", KEYS[1]) == 1\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return redis.call(\"expire\", KEYS[1], ARGV[1])\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"else\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return 0\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             <span class="token comment" spellcheck="true">// 判断是否可重入</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 自旋</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">"，占锁成功！★★★"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+   <span class="token comment" spellcheck="true">// 是否是当前线程占有锁，同时将超时时间重新设置，这个很重要，同样也是原子操作</span>
+     <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> keys <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> args <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>threadId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">encode</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">long</span> eval <span class="token operator">=</span> <span class="token punctuation">(</span>Long<span class="token punctuation">)</span> jedis<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>addLockLife_lua<span class="token punctuation">)</span><span class="token punctuation">,</span> keys<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> eval <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span>String uuid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SetParams setParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SetParams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        setParams<span class="token punctuation">.</span><span class="token function">ex</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 超时时间1s</span>
+        setParams<span class="token punctuation">.</span><span class="token function">nx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// nx</span>
+        String response <span class="token operator">=</span> jedis<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>threadId<span class="token punctuation">)</span><span class="token punctuation">,</span> setParams<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 转换为redis命令就是：set haolin-key xxx ex 1 nx</span>
+        <span class="token keyword">return</span> <span class="token string">"OK"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span>String uuid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> keys <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> args <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>threadId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+           <span class="token comment" spellcheck="true">// 使用lua脚本，保证原子性</span>
+        <span class="token keyword">long</span> eval <span class="token operator">=</span> <span class="token punctuation">(</span>Long<span class="token punctuation">)</span> jedis<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>releaseLock_lua<span class="token punctuation">)</span><span class="token punctuation">,</span> keys<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>eval <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">" 释放锁成功！☆☆☆"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">" 释放锁失败！该线程未持有锁！！！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+     <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">encode</span><span class="token punctuation">(</span>String param<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> param<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>Thread-Id 真能行吗？</p>
+</blockquote>
+<ul>
+<li>不行。</li>
+<li>想想，我们说一个 Thread的id是唯一的，是在同一个 JVM进程中，是在一个操作系统中，也就是在一个机器中。而现实是，我们的部署是集群部署，多个实例节点，那意味着会存在这样一种情况，S1机器上的线程上锁成功，此时锁中秘钥 value是线程id=1，如果说同一时间 S2机器中，正好线程id=1的线程尝试获得这把锁，比对秘钥发现成功，结果也重入了这把锁，也开始执行逻辑，此时，我们的分布式锁崩溃！怎么解决？我们只需要在每个节点中维护不同的标识即可，怎么维护呢？<strong>应用启动的时候，使用 UUID生成一个唯一标识 APP_ID，放在内存中（或者使用zookeeper去分配机器id等等）</strong>。此时，我们的秘钥 value这样存即可：<strong>APP_ID+ThreadId</strong></li>
+</ul>
+<pre class=" language-java"><code class="language-java">   <span class="token comment" spellcheck="true">// static变量，final修饰，加载在内存中，JVM进程生命周期中不变</span>
+   <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String APP_ID <span class="token operator">=</span> UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    String releaseLock_lua <span class="token operator">=</span> <span class="token string">"if redis.call(\"get\",KEYS[1]) == ARGV[1] \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return redis.call(\"del\", KEYS[1])\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"else\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return 0\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">;</span>
+    String addLockLife_lua <span class="token operator">=</span> <span class="token string">"if redis.call(\"exists\", KEYS[1]) == 1\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return redis.call(\"expire\", KEYS[1], ARGV[1])\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"else\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return 0\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             <span class="token comment" spellcheck="true">// 判断是否可重入</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 自旋</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">"，占锁成功！★★★"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 是否是当前线程占有锁，同时将超时时间重新设置，这个很重要，同样也是原子操作</span>
+     <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isHeldByCurrentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> keys <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> args <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>APP_ID <span class="token operator">+</span> String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>threadId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">encode</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">long</span> eval <span class="token operator">=</span> <span class="token punctuation">(</span>Long<span class="token punctuation">)</span> jedis<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>addLockLife_lua<span class="token punctuation">)</span><span class="token punctuation">,</span> keys<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> eval <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span>String uuid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SetParams setParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SetParams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        setParams<span class="token punctuation">.</span><span class="token function">ex</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 超时时间1s</span>
+        setParams<span class="token punctuation">.</span><span class="token function">nx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// nx</span>
+        String response <span class="token operator">=</span> jedis<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">,</span> APP_ID <span class="token operator">+</span> String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>threadId<span class="token punctuation">)</span><span class="token punctuation">,</span> setParams<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 转换为redis命令就是：set haolin-key xxx ex 1 nx</span>
+        <span class="token keyword">return</span> <span class="token string">"OK"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span>String uuid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> keys <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> args <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>APP_ID <span class="token operator">+</span> String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>threadId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+           <span class="token comment" spellcheck="true">// 使用lua脚本，保证原子性</span>
+        <span class="token keyword">long</span> eval <span class="token operator">=</span> <span class="token punctuation">(</span>Long<span class="token punctuation">)</span> jedis<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span><span class="token function">encode</span><span class="token punctuation">(</span>releaseLock_lua<span class="token punctuation">)</span><span class="token punctuation">,</span> keys<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>eval <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">" 释放锁成功！☆☆☆"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"线程："</span> <span class="token operator">+</span> threadName <span class="token operator">+</span> <span class="token string">" 释放锁失败！该线程未持有锁！！！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+     <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">encode</span><span class="token punctuation">(</span>String param<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> param<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>APP_ID + ThreadId 还是 UUID 好呢？</p>
+</blockquote>
+<ul>
+<li>如果 A线程执行逻辑中间开启了一个子线程执行任务，这个子线程任务中也需要重入这把锁，因为子线程获取到的线程 id不一样，导致重入失败。那意味着需要将这个秘钥继续传递给子线程，JUC中 InheritableThreadLocal 派上用场，但是感觉怪怪的，因为线程间传递的是父线程的 id。</li>
+<li>微服务中多服务间调用的话可以借用系统自身有的 traceId作为秘钥即可。</li>
+</ul>
+<blockquote>
+<p>锁重入，就这么简单？</p>
+</blockquote>
+<ul>
+<li>注意，我们上边的主要注意力在怎么重入进去，而我们这是分布式锁，要考虑的事情还有很多，<strong>重入进去后，超时时间随便设吗？有门道吗？</strong></li>
+<li>比方说 A线程在锁方法中调用了 x()方法，而 x()方法中也有获取锁的逻辑，如果 A线程获取锁后，执行过程中，到 x()方法时，这把锁是要重入进去的，但是请注意，这把锁的超时时间如果小于第一次上锁的时间，比方说 A线程设置的超时时间是 1s，在 100ms的时候执行到 x()方法中，而 x()方法中设置的超时时间是 100ms，那么意味着 100ms之后锁就释放了，而这个时候我的 A线程的主方法还没有执行完呢！却被重入锁设置的时间搞坏了！这个怎么搞？</li>
+<li>如果说我在内存中设置一个这把锁设置过的最大的超时时间，重入的时候判断下传进来的时间，我重入时 expire的时候始终设置成最大的时间，而不是由重入锁随意降低锁时间导致上一步的主锁出现问题</li>
+<li>放在内存中行吗？我们上边举例中，调用的 x()方法是在一个 JVM中，如果是调用远程的一个 RPC服务呢（像这种调用的话就需要将秘钥value通过 RpcContext传递过去了）到另一个节点的服务中进行锁重入，这个时间依然是要用当前设置过锁的最大时间的，所以这个最大的时间要存在 redis中而非 JVM内存中</li>
+</ul>
+<pre class=" language-java"><code class="language-java">    <span class="token function">ADD_LOCK_LIFE</span><span class="token punctuation">(</span><span class="token string">"if redis.call(\"get\", KEYS[1]) == ARGV[1]\n"</span> <span class="token operator">+</span>     <span class="token comment" spellcheck="true">// 判断是否是锁持有者</span>
+                <span class="token string">"then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    local thisLockMaxTimeKeepKey=KEYS[1] .. \":maxTime\"\n"</span> <span class="token operator">+</span>  <span class="token comment" spellcheck="true">// 记录锁最大时间的key是：锁名字:maxTime</span>
+                <span class="token string">"    local nowTime=tonumber(ARGV[2])\n"</span> <span class="token operator">+</span>  <span class="token comment" spellcheck="true">// 当前传参进来的time</span>
+                <span class="token string">"    local maxTime=redis.call(\"incr\", thisLockMaxTimeKeepKey)\n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 取出当前锁设置的最大的超时时间，如果这个保持时间的key不存在返回的是字符串nil，这里为了lua脚本的易读性，用incr操作，这样读出来的都是number类型的操作</span>
+                <span class="token string">"    local bigerTime=maxTime\n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 临时变量bigerTime=maxTime</span>
+                <span class="token string">"    if nowTime>maxTime-1\n"</span> <span class="token operator">+</span>    <span class="token comment" spellcheck="true">// 如果传参进来的时间>记录的最大时间</span>
+                <span class="token string">"    then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"        bigerTime=nowTime\n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 则更新bigerTime</span>
+                <span class="token string">"        redis.call(\"set\", thisLockMaxTimeKeepKey, tostring(bigerTime))\n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 设置超时时间为最大的time，是最安全的</span>
+                <span class="token string">"    else \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"        redis.call(\"decr\", thisLockMaxTimeKeepKey)\n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 当前传参time&lt;maxTime，将刚才那次incr减回来</span>
+                <span class="token string">"    end\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return redis.call(\"expire\", KEYS[1], tostring(bigerTime))\n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 重新设置超时时间为当前锁过的最大的time</span>
+                <span class="token string">"else\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return 0\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">)</span><span class="token punctuation">,</span></code></pre>
+<blockquote>
+<p>重入锁的方法中直接执行 unlock？这么大胆！</p>
+</blockquote>
+<ul>
+<li>A线程执行一共需要500ms，执行中需要调用 x()方法，x()方法中有一个重入锁，执行用了 50ms，然后执行完后，x()方法的 finally{} 块中将锁进行释放。</li>
+<li>为啥能释放掉？因为秘钥我有，匹配成功了我就直接释放了。</li>
+<li>这当然是有问题的，所以我们要通过锁重入次数来进行释放锁时候的判断，也就是说上锁的时候需要多维护一个 key来保存当前锁的重入次数，如果执行释放锁时，先进行重入次数 -1，-1后如果是0，可以直接 del，如果&gt;0，说明还有重入的锁在，不能直接 del</li>
+</ul>
+<p>目前为止，算上上一步中设置最大超时时间的key，加上这一步重入次数的key，加上锁本身的key，已经有3个key，需要注意的事情是，这三个key的超时时间是都要设置的！为什么？假如说重入次数的 key没有设置超时时间，服务A节点中在一个JVM中重入了5次后，调用一次 RPC服务，RPC服务中同样重入锁，此时，锁重入次数是 6，这个时候A服务宕机，就意味着无论怎样，这把锁不可能释放了，这个分布式锁提供的完整能力，全线不可用了！<br>所以，这几个 key是要设置超时时间的！怎么设置？我上一个锁要维护这么多 key的超时时间？太复杂了吧，多则乱，则容易出问题。怎么办？我们想一下，是不是最大超时时间的 key和重入次数的 key，都附属于锁，它们都是锁的属性，如果锁不在了，谈它们就毫无意义，这个时候用什么存储呢？redis的 hash数据结构，就可以做，key是锁，里边的 hashKey分别是锁的属性， hashValue是属性值，超时时间只设置锁本身 key就可以了。这个时候，我们的锁的数据结构就要改变一下了。我这儿就不写这个了，大家意会之后可以尝试去改一改，写一写。</p>
+<blockquote>
+<p>终于见到希望？再来一招！</p>
+</blockquote>
+<p>再一次把思路时钟往回拨，回拨到设置超时时间那里，我们预估锁方法执行时间是 200ms，我们放大 5倍后，设置超时时间是 1s，假想一下，如果生产环境中，锁方法中的 IO操作，极端情况下超时严重，比方说 IO就消耗了 2s，那就意味着，在这次 IO还没有结束的时候，我这把锁已经到期释放掉了，就意味着别的线程趁虚而入，分布式锁崩溃！<br><img src="https://img-blog.csdnimg.cn/2020122001432386.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNTU4NjU0Ng==,size_16,color_FFFFFF,t_70" alt="img"></p>
+<blockquote>
+<p>搞了半天，锁还是崩溃了？</p>
+</blockquote>
+<p>再一次把思维从现在的框框里跳出来，想一想，我们要做的是一把分布式锁，想要的目的是同一时刻只有一个线程持有锁，作为服务而言，这个锁现在不管是被哪个线程上锁成功了，我服务应该保证这个线程执行的安全性，怎么办？锁续命。什么意思，一旦这把锁出现了上锁操作，就意味着这把锁开始投入使用，这时我的服务中需要有一个 daemon线程定时去守护我的锁的安全性，怎么守护？比如说锁超时时间设置的是 1s，那么我这个定时任务是每隔 300ms去 redis服务端做一次检查，如果我还持有，你就给我续命，就像 session会话的活跃机制一样。看个例子，我上锁时候超时时间设置的是 1s，实际方法执行时间是 3s，这中间我的定时线程每隔 300ms就会去把这把锁的超时时间重新设置为 1s，每隔 300ms一次，成功将锁续命成功。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisLockIdleThreadPool</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String threadAddLife_lua <span class="token operator">=</span> <span class="token string">"if redis.call(\"exists\", KEYS[1]) == 1\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"then\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return redis.call(\"expire\", KEYS[1], ARGV[1])\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"else\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    return 0\n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> ScheduledExecutorService scheduledThreadPool<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">RedisLockIdleThreadPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>scheduledThreadPool <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>scheduledThreadPool <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    scheduledThreadPool <span class="token operator">=</span> Executors<span class="token punctuation">.</span><span class="token function">newSingleThreadScheduledExecutor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 我这样创建线程池是为了代码的易读性，大家务必使用ThreadPoolExecutor去创建</span>
+
+                    scheduledThreadPool<span class="token punctuation">.</span><span class="token function">scheduleAtFixedRate</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                        <span class="token function">addLife</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MILLISECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">addLife</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// ... 省略jedis的初始化过程</span>
+
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> keys <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span>RedisLock<span class="token punctuation">.</span>lock_key<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> args <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        jedis<span class="token punctuation">.</span><span class="token function">eval</span><span class="token punctuation">(</span>threadAddLife_lua<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> keys<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>这就行吗？还不行！</li>
+<li>为啥？想一下，如果每个服务中都像这样去续命锁，假如说A服务还在执行过程中的时候，还没有执行完，就是说还没有手动释放锁的时候，宕机，此时 redis中锁还在有效期。服务B 也一直在续命这把锁，此时这把锁一直在续命，但是 B的这个续命一直续的是 A当时设的锁，这不是扯吗？我自己在不断续命，导致我的服务上一直获取不到锁，实际上 A已经宕机了呀！该释放了，不应该去续命了，这不是我服务 B该干的活！</li>
+<li><strong>续命的前提是，得判断是不是当前进程持有的锁，也就是我们的 APP_ID，如果不是就不进行续命。</strong></li>
+<li>续命锁的 lua脚本发生改变，如下：</li>
+</ul>
+<pre class=" language-java"><code class="language-java">    <span class="token function">THREAD_ADD_LIFE</span><span class="token punctuation">(</span><span class="token string">"local v=redis.call(\"get\", KEYS[1]) \n"</span> <span class="token operator">+</span>     <span class="token comment" spellcheck="true">// get key</span>
+                <span class="token string">"if v==false \n"</span> <span class="token operator">+</span>  <span class="token comment" spellcheck="true">// 如果不存在key，读出结果v是false</span>
+                <span class="token string">"then \n"</span> <span class="token operator">+</span>         <span class="token comment" spellcheck="true">// 不存在不处理</span>
+                <span class="token string">"else \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    local match = string.find(v, ARGV[1]) \n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 存在，判断是否能和APP_ID匹配，匹配不上时match是nil</span>
+                <span class="token string">"    if match==\"nil\" \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    then \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"    else  \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"        return redis.call(\"expire\", KEYS[1], ARGV[2]) \n"</span> <span class="token operator">+</span> <span class="token comment" spellcheck="true">// 匹配上了返回的是索引位置，如果匹配上了意味着就是当前进程占有的锁，就延长时间</span>
+                <span class="token string">"    end \n"</span> <span class="token operator">+</span> 
+                <span class="token string">"end"</span><span class="token punctuation">)</span></code></pre>
+<blockquote>
+<p>风险！主从部署引来的问题 &lt;master - slave&gt;</p>
+</blockquote>
+<p>哨兵主从部署的时候，会存在一个风险问题，因为 Redis默认的主从复制是异步的，那很自然可以想到一个问题，极端情况下，如果刚往 master节点写入一个分布式锁，而这个指令流还没有来得及同步给任意一个 slave节点，此时，master节点宕机，其中一个 slave被哨兵选举为 master，此时是没有这个锁的，别的线程再次来获取锁，又获取锁成功了。当然，这个概率极低，但是我们必须得承认这个风险的存在。其实，即使 redis部署是单节点的话也会存在问题，如果 redis.conf的相关持久化机制不合理，另外操作系统再配置一些影响参数，都会造成未持久化到磁盘中时，发生宕机且数据丢失，论风险的话如果为了技术而质疑技术这将失去了意义。这块先不展开了，后面有时间我和大家聊聊 Redis持久化、集群的有意思的事。</p>
+<h2 id="九、Redis有多快？"><a href="#九、Redis有多快？" class="headerlink" title="九、Redis有多快？"></a>九、Redis有多快？</h2><p>Redis是基于内存运行的高性能 K-V 数据库，官方提供的测试报告是单机可以支持约10w/s的QPS</p>
+<h3 id="Redis为什么这么快？"><a href="#Redis为什么这么快？" class="headerlink" title="Redis为什么这么快？"></a><strong>Redis为什么这么快？</strong></h3><p>（1）完全基于内存，数据存在内存中，绝大部分请求是纯粹的内存操作，非常快速，跟传统的磁盘文件数据存储相比，避免了通过磁盘IO读取到内存这部分的开销。</p>
+<p>（2）数据结构简单，对数据操作也简单。Redis中的数据结构是专门进行设计的，每种数据结构都有一种或多种数据结构来支持。Redis正是依赖这些灵活的数据结构，来提升读取和写入的性能。</p>
+<p>（3）采用单线程，省去了很多上下文切换的时间以及CPU消耗，不存在竞争条件，不用去考虑各种锁的问题，不存在加锁释放锁操作，也不会出现死锁而导致的性能消耗。</p>
+<p>（4）使用基于IO多路复用机制的线程模型，可以处理并发的链接。</p>
+<p>​    Redis内部使用的<code>文件事件处理器 file event handler</code>，这个文件事件处理器是单线程的，所以Redis才叫做单线程的模型，他采用IO多路复用机制同时监听多个Socket，根据Socket上的事件来选择对应的事件处理器进行处理。文件事件处理器的结构包含4个部分：</p>
+<blockquote>
+<ul>
+<li>多个Socket</li>
+<li>IO多路复用程序</li>
+<li>文件事件分派器</li>
+<li>事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）</li>
+</ul>
+</blockquote>
+<p>多个Socket可能会产生不同的操作，每个操作对应不同的文件事件，但是IO多路复用程序会监听多个Socket，会将Socket产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应的事件处理器进行处理。</p>
+<blockquote>
+<p>多路I/O复用模型是利用 select、poll、epoll 可以同时监察多个流的 I/O 事件的能力，在空闲的时候，会把当前线程阻塞掉，当有一个或多个流有 I/O 事件时，就从阻塞态中唤醒，然后程序就会轮询一遍所有的流（epoll 是只轮询那些真正发出了事件的流），并且依次顺序的处理就绪的流，这种做法就避免了大量的无用操作。</p>
+<p>这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。采用多路 I/O 复用技术可以让单个线程高效的处理多个客户端的网络IO连接请求（尽量减少网络 IO 的时间消耗）</p>
+</blockquote>
+<p>（5）Redis直接自己构建了VM 机制 ，避免调用系统函数的时候，浪费时间去移动和请求</p>
+<h3 id="为什么Redis是单线程？"><a href="#为什么Redis是单线程？" class="headerlink" title="为什么Redis是单线程？"></a>为什么Redis是单线程？</h3><p>这里我们强调的单线程，指的是网络请求模块使用一个线程来处理，即一个线程处理所有网络请求，其他模块仍用了多个线程。</p>
+<blockquote>
+<p>那为什么使用单线程呢？</p>
+</blockquote>
+<p>官方答案是：因为CPU不是Redis的瓶颈，Redis的瓶颈最有可能是机器内存或者网络带宽。既然单线程容易实现，而且CPU不会成为瓶颈，那就顺理成章地采用单线程的方案了。</p>
+<p>但是，我们使用单线程的方式是无法发挥多核CPU 性能，不过我们可以通过在单机开多个Redis 实例来解决这个问题</p>
+<p>四、Redis6.0 的多线程：</p>
+<p><strong>1、Redis6.0 之前为什么一直不使用多线程？</strong></p>
+<p>Redis使用单线程的可维护性高。多线程模型虽然在某些方面表现优异，但是它却引入了程序执行顺序的不确定性，带来了并发读写的一系列问题，增加了系统复杂度、同时可能存在线程切换、甚至加锁解锁、死锁造成的性能损耗。</p>
+<p><strong>2、Redis6.0 为什么要引入多线程呢？</strong></p>
+<p>因为Redis的瓶颈不在内存，而是在网络I/O模块带来CPU的耗时，所以Redis6.0的多线程是用来处理网络I/O这部分，充分利用CPU资源，减少网络I/O阻塞带来的性能损耗。</p>
+<p><strong>3、Redis6.0 如何开启多线程？</strong></p>
+<p>默认情况下Redis是关闭多线程的，可以在conf文件进行配置开启：</p>
+<blockquote>
+<p>io-threads-do-reads yes</p>
+<p>io-threads 线程数</p>
+<p>## 官方建议的线程数设置：4核的机器建议设置为2或3个线程，8核的建议设置为6个线程，线程数一定要小于机器核数，尽量不超过8个。</p>
+</blockquote>
+<p><strong>4、多线程模式下，是否存在线程并发安全问题？</strong></p>
+<p>如图，一次redis请求，要建立连接，然后获取操作的命令，然后执行命令，最后将响应的结果写到socket上。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210201030222228.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>在redis的多线程模式下，获取、解析命令，以及输出结果着两个过程，可以配置成多线程执行的，因为它毕竟是我们定位到的主要耗时点，但是命令的执行，也就是内存操作，依然是单线程运行的。所以，Redis 的多线程部分只是用来处理网络数据的读写和协议解析，执行命令仍然是单线程顺序执行，也就不存在并发安全问题。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1990,7 +2508,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">395.8k</span>&nbsp;字
+                class="white-color">404.2k</span>&nbsp;字
             
             
             
