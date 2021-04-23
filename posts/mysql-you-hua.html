@@ -468,14 +468,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    43.1k
+                    46.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    181 分
+                    191 分
                 </div>
                 
 				
@@ -491,7 +491,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="第-1-章-MySQL-的架构介绍"><a href="#第-1-章-MySQL-的架构介绍" class="headerlink" title="第 1 章 MySQL 的架构介绍"></a>第 1 章 MySQL 的架构介绍</h1><blockquote>
+                <h2 id="第-1-章-MySQL-的架构介绍"><a href="#第-1-章-MySQL-的架构介绍" class="headerlink" title="第 1 章 MySQL 的架构介绍"></a>第 1 章 MySQL 的架构介绍</h2><blockquote>
 <p><strong>MySQL 高手是怎样练成的？</strong></p>
 </blockquote>
 <ol>
@@ -504,7 +504,7 @@
 <li>容灾备份</li>
 <li>sql编程</li>
 </ol>
-<h2 id="1、Linux-安装-MySQL"><a href="#1、Linux-安装-MySQL" class="headerlink" title="1、Linux 安装 MySQL"></a>1、Linux 安装 MySQL</h2><h3 id="1-1、安装-MySQL"><a href="#1-1、安装-MySQL" class="headerlink" title="1.1、安装 MySQL"></a>1.1、安装 MySQL</h3><p><strong>检查当前系统是否安装过 mysql</strong></p>
+<h3 id="1、Linux-安装-MySQL"><a href="#1、Linux-安装-MySQL" class="headerlink" title="1、Linux 安装 MySQL"></a>1、Linux 安装 MySQL</h3><h4 id="1-1、安装-MySQL"><a href="#1-1、安装-MySQL" class="headerlink" title="1.1、安装 MySQL"></a>1.1、安装 MySQL</h4><p><strong>检查当前系统是否安装过 mysql</strong></p>
 <ul>
 <li>检查系统是否安装其他版本的 MySQL 数据库</li>
 </ul>
@@ -555,7 +555,7 @@ mysql-libs.x86_64      5.1.73-5.el6_6   @anaconda-CentOS-201508042137.x86_64/6.7
 <li>然后启动 mysql 的服务</li>
 </ul>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">service</span> mysqld start</code></pre>
-<h3 id="1-2、配置-MySQL"><a href="#1-2、配置-MySQL" class="headerlink" title="1.2、配置 MySQL"></a>1.2、配置 MySQL</h3><blockquote>
+<h4 id="1-2、配置-MySQL"><a href="#1-2、配置-MySQL" class="headerlink" title="1.2、配置 MySQL"></a>1.2、配置 MySQL</h4><blockquote>
 <p><strong>查看安装时创建的 mysql 用户和 mysql 组</strong></p>
 </blockquote>
 <ul>
@@ -680,7 +680,7 @@ select * from user;</code></pre><ul>
 <td align="left">服务启停相关</td>
 </tr>
 </tbody></table>
-<h2 id="2、MySQL-用户组管理"><a href="#2、MySQL-用户组管理" class="headerlink" title="2、MySQL 用户组管理"></a>2、MySQL 用户组管理</h2><h3 id="2-1、用户管理相关命令"><a href="#2-1、用户管理相关命令" class="headerlink" title="2.1、用户管理相关命令"></a>2.1、用户管理相关命令</h3><blockquote>
+<h3 id="2、MySQL-用户组管理"><a href="#2、MySQL-用户组管理" class="headerlink" title="2、MySQL 用户组管理"></a>2、MySQL 用户组管理</h3><h4 id="2-1、用户管理相关命令"><a href="#2-1、用户管理相关命令" class="headerlink" title="2.1、用户管理相关命令"></a>2.1、用户管理相关命令</h4><blockquote>
 <p><strong>创建用户</strong></p>
 </blockquote>
 <ul>
@@ -754,7 +754,7 @@ select * from user;</code></pre><ul>
 <ul>
 <li>注意：不要通过 <code>delete from user u where user='li4'</code> 进行删除， 系 统会有残留信息保留。</li>
 </ul>
-<h3 id="2-2、MySQL-的权限管理"><a href="#2-2、MySQL-的权限管理" class="headerlink" title="2.2、MySQL 的权限管理"></a>2.2、MySQL 的权限管理</h3><blockquote>
+<h4 id="2-2、MySQL-的权限管理"><a href="#2-2、MySQL-的权限管理" class="headerlink" title="2.2、MySQL 的权限管理"></a>2.2、MySQL 的权限管理</h4><blockquote>
 <p><strong>授予权限</strong></p>
 </blockquote>
 <ul>
@@ -795,7 +795,7 @@ select * from user;</code></pre><ul>
 <li>查看当前用户权限：<code>show grants;</code></li>
 <li>查看所有用户权限：<code>select * from user ;</code></li>
 </ol>
-<h2 id="3、MySQL-配置文件"><a href="#3、MySQL-配置文件" class="headerlink" title="3、MySQL 配置文件"></a>3、MySQL 配置文件</h2><blockquote>
+<h3 id="3、MySQL-配置文件"><a href="#3、MySQL-配置文件" class="headerlink" title="3、MySQL 配置文件"></a>3、MySQL 配置文件</h3><blockquote>
 <p><strong>二进制日志文件 log-bin</strong></p>
 </blockquote>
 <p>二进制日志文件 log-bin ：用于主重复制</p>
@@ -823,7 +823,7 @@ select * from user;</code></pre><ul>
 <li>Windows 系统下：my.ini文件</li>
 <li>Linux 系统下：etc/my.cnf</li>
 </ol>
-<h2 id="4、MySQL-逻辑架构介绍"><a href="#4、MySQL-逻辑架构介绍" class="headerlink" title="4、MySQL 逻辑架构介绍"></a>4、MySQL 逻辑架构介绍</h2><blockquote>
+<h3 id="4、MySQL-逻辑架构介绍"><a href="#4、MySQL-逻辑架构介绍" class="headerlink" title="4、MySQL 逻辑架构介绍"></a>4、MySQL 逻辑架构介绍</h3><blockquote>
 <p><strong>mysql 的分层思想</strong></p>
 </blockquote>
 <ol>
@@ -923,7 +923,7 @@ select * from user;</code></pre><ul>
 <li>查询优化器当解析树被认为是合法的了， 并且由优化器将其转化成执行计划。 一条查询可以有很多种执行方式，最后都返回相同的结果。 优化器的作用就是找到这其中最好的执行计划。</li>
 <li>然后， mysql 默认使用的 BTREE 索引， 并且一个大致方向是：无论怎么折腾 sql， 至少在目前来说， mysql 最多只用到表中的一个索引。</li>
 </ol>
-<h2 id="5、MySQL-存储引擎"><a href="#5、MySQL-存储引擎" class="headerlink" title="5、MySQL 存储引擎"></a>5、MySQL 存储引擎</h2><blockquote>
+<h3 id="5、MySQL-存储引擎"><a href="#5、MySQL-存储引擎" class="headerlink" title="5、MySQL 存储引擎"></a>5、MySQL 存储引擎</h3><blockquote>
 <p><strong>查看 mysql 存储引擎</strong></p>
 </blockquote>
 <ul>
@@ -948,25 +948,25 @@ select * from user;</code></pre><ul>
 <li>该公司新建了一款存储引擎叫xtradb完全可以替代innodb，并且在性能和并发上做得更好，阿里巴巴大部分mysql数据库其实使用的percona的原型加以修改。</li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/da04cfac6493cec6f502acd817b968f6.png" alt="image-20200803211429418"></p>
-<h1 id="第-2-章-SQL语句的执行过程"><a href="#第-2-章-SQL语句的执行过程" class="headerlink" title="第 2 章 SQL语句的执行过程"></a>第 2 章 SQL语句的执行过程</h1><h2 id="1、客户端的MySQL驱动："><a href="#1、客户端的MySQL驱动：" class="headerlink" title="1、客户端的MySQL驱动："></a>1、客户端的MySQL驱动：</h2><p>系统在和 MySQL 数据库进行通信前，需要先和数据库建立连接，而这个功能就是由MySQL驱动底层帮我们完成的，建立完连接之后，我们只需要发送 SQL 语句就可以执行 CRUD 了。如下图所示：</p>
+<h2 id="第-2-章-SQL语句的执行过程"><a href="#第-2-章-SQL语句的执行过程" class="headerlink" title="第 2 章 SQL语句的执行过程"></a>第 2 章 SQL语句的执行过程</h2><h3 id="2-1、客户端的MySQL驱动："><a href="#2-1、客户端的MySQL驱动：" class="headerlink" title="2.1、客户端的MySQL驱动："></a>2.1、客户端的MySQL驱动：</h3><p>系统在和 MySQL 数据库进行通信前，需要先和数据库建立连接，而这个功能就是由MySQL驱动底层帮我们完成的，建立完连接之后，我们只需要发送 SQL 语句就可以执行 CRUD 了。如下图所示：</p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/68dce6f6c9d9e998fe3b10751d278f83.png" alt="img"></p>
 <p>一次 SQL 请求就会建立一个连接，多个请求就会建立多个连接。假设我们的系统是部署在 tomcat 容器中的， tomcat 是可以并发处理多个请求的，这就会导致多个请求会去建立多个连接，然后使用完再都去关闭，这样会有什么问题呢？Java系统在通过 MySQL 驱动 和 MySQL 数据库连接的时候是基于 TCP/IP 协议的，所以如果每个请求都是新建连接和销毁连接，这样频繁的创建和销毁连接势必会大大降低我们系统的性能。</p>
 <p>为了解决上面的问题，采用了“池化”的思想，通过连接池维护一定数量的连接线程，当需要使用连接时，就直接从线程池中获取，使用完毕之后，再归还给线程池。通过线程池大大减少了不断创建与销毁线程的开销，也不需要我们去关心连接的创建与销毁，以及线程池是怎么去维护这些连接的。常见的数据库连接池有 Druid、C3P0、DBCP。<br><img src="https://img-blog.csdnimg.cn/img_convert/53f7a5fedffa3ebcea78188aeb3d926b.png" alt="img"></p>
-<h2 id="2、MySql架构的Server层："><a href="#2、MySql架构的Server层：" class="headerlink" title="2、MySql架构的Server层："></a>2、MySql架构的Server层：</h2><p>在介绍MySQL数据库中SQL语句在Server的执行步骤前，我们先了解下MySQL的整体架构：</p>
+<h3 id="2-2、MySql架构的Server层："><a href="#2-2、MySql架构的Server层：" class="headerlink" title="2.2、MySql架构的Server层："></a>2.2、MySql架构的Server层：</h3><p>在介绍MySQL数据库中SQL语句在Server的执行步骤前，我们先了解下MySQL的整体架构：</p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/5b2c927e341c730c33a3ed41eb353691.png" alt="img"></p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/3ca1c9259d8a63cc1b8563e8207b1cef.png" alt="img"></p>
 <p>通过上面的架构图可以得知，Server层中主要由 连接器、查询缓存、解析器/分析器、优化器、执行器 几部分组成的，下面将主要描述下这几部分。</p>
-<h3 id="1、连接器："><a href="#1、连接器：" class="headerlink" title="1、连接器："></a><strong>1、连接器：</strong></h3><p>客户端想要对数据库进行操作时，前提是与数据库建立好连接；而连接器就是用来负责跟客户端建立连接、获取权限、维持和管理连接的。</p>
+<h4 id="2-2-1、连接器："><a href="#2-2-1、连接器：" class="headerlink" title="2.2.1、连接器："></a>2.2.<strong>1、连接器：</strong></h4><p>客户端想要对数据库进行操作时，前提是与数据库建立好连接；而连接器就是用来负责跟客户端建立连接、获取权限、维持和管理连接的。</p>
 <p>（1）连接方式：</p>
 <p>MySQL既支持短连接，也支持长连接。短连接就是操作完毕后，马上close关掉。长连接可以保持打开，减少服务端创建和释放连接的消耗，后续程序访问的时候还可以使用这个连接。</p>
 <p>（2）连接池：</p>
 <p>与客户端的连接池一样，为了减少频繁创建和销毁连接造成的不必要的性能损失，这里也采用了“池化”的思想，通过数据库连接池去管理连接。<strong>一般我们会在连接池中使用长连接，</strong>例如：druid、c3p0、dbcp等</p>
-<h3 id="2、查询缓存："><a href="#2、查询缓存：" class="headerlink" title="2、查询缓存："></a><strong>2、查询缓存：</strong></h3><p>MySQL缓存是默认关闭的，也就是说不推荐使用缓存，并且在 <strong>MySQL 8.0</strong> 版本直接将查询缓存的整块功能删掉了</p>
+<h4 id="2-2-2、查询缓存："><a href="#2-2-2、查询缓存：" class="headerlink" title="2.2.2、查询缓存："></a><strong>2.2.2、查询缓存：</strong></h4><p>MySQL缓存是默认关闭的，也就是说不推荐使用缓存，并且在 <strong>MySQL 8.0</strong> 版本直接将查询缓存的整块功能删掉了</p>
 <p><strong>（1）MySql为什么默认不开启缓存呢？</strong></p>
 <p>主要是由于它的使用场景限制的：</p>
 <p>① 先说下缓存中数据存储格式：key（sql语句）- value（数据值），所以如果SQL语句（key）只要存在一点不同之处就会直接进行数据库查询了；</p>
 <p>② 由于表中的数据不是一成不变的，大多数是经常变化的，而当数据库中的数据变化了，那么相应的与此表相关的缓存数据就需要移除掉；</p>
-<h3 id="3、分析-解析器："><a href="#3、分析-解析器：" class="headerlink" title="3、分析/解析器："></a><strong>3、分析/解析器：</strong></h3><p>分析器的工作主要是对要执行的SQL语句进行解析，最终得到抽象语法树，然后再使用预处理器判断抽象语法树中的表是否存在，如果存在的话，在接着判断select投影列字段是否在表中存在等。</p>
+<h4 id="2-2-3、分析-解析器："><a href="#2-2-3、分析-解析器：" class="headerlink" title="2.2.3、分析/解析器："></a><strong>2.2.3、分析/解析器：</strong></h4><p>分析器的工作主要是对要执行的SQL语句进行解析，最终得到抽象语法树，然后再使用预处理器判断抽象语法树中的表是否存在，如果存在的话，在接着判断select投影列字段是否在表中存在等。</p>
 <p>（1）词法分析：</p>
 <p>词法分析用于将SQL拆解为不可再分的原子符号，称为Token。并根据不同数据库方言所提供的字典，将其归类为关键字，表达式，字面量和操作符。</p>
 <p>（2）语法分析：</p>
@@ -980,19 +980,19 @@ select * from user;</code></pre><ul>
 </blockquote>
 <p>（3）预处理器：</p>
 <p>预处理是用来对生成的 <strong>抽象语法树</strong> 进行语义校验，语义校验就是对查询的表、select投影列字段进行校验，判断表、字段是否存在等；</p>
-<h3 id="4、优化器："><a href="#4、优化器：" class="headerlink" title="4、优化器："></a><strong>4、优化器：</strong></h3><p>优化器的作用主要是将SQL经过词法解析/语法解析后得到的语法树，通过MySQL的数据字典和统计信息的内容，经过<strong>一系列运算</strong> ，最终得出一个<strong>执行计划</strong>，包括选择使用哪个索引。</p>
+<h4 id="2-2-4、优化器："><a href="#2-2-4、优化器：" class="headerlink" title="2.2.4、优化器："></a>2.2.<strong>4、优化器：</strong></h4><p>优化器的作用主要是将SQL经过词法解析/语法解析后得到的语法树，通过MySQL的数据字典和统计信息的内容，经过<strong>一系列运算</strong> ，最终得出一个<strong>执行计划</strong>，包括选择使用哪个索引。</p>
 <p>在优化过程中，经过的一系列运算是什么呢？</p>
 <p>（1）逻辑变换：例如SQL的where条件中存在 8&gt;9，那逻辑转换就是将语法树中存在的这种常量表达式直接进行化简，化简为 false；除了化简还有常量表达式计算等。</p>
 <p>（2）代价优化：就是通过付出一些数据统计分析的代价，来得到这个SQL执行是否可以走索引，以及走哪些索引；除此之外，在多表关联查询中，确定最终表join的顺序等；</p>
 <blockquote>
 <p>在分析是否走索引查询时，是通过进行<strong>动态数据采样统计分析</strong>出来；只要是统计分析出来的，那就可能会存在分析错误的情况，所以在SQL执行不走索引时，也要考虑到这方面的因素</p>
 </blockquote>
-<h3 id="5、执行器："><a href="#5、执行器：" class="headerlink" title="5、执行器："></a><strong>5、执行器：</strong></h3><p><code>MySQL 通过分析器知道了你要做什么，通过优化器知道了该怎么做</code>，于是就进入了执行器阶段，开始执行语句。执行器最终就是根据一系列的执行计划去调用存储引擎提供的API接口去调用操作数据，完成SQL的执行。</p>
+<h4 id="2-2-5、执行器："><a href="#2-2-5、执行器：" class="headerlink" title="2.2.5、执行器："></a>2.2.<strong>5、执行器：</strong></h4><p><code>MySQL 通过分析器知道了你要做什么，通过优化器知道了该怎么做</code>，于是就进入了执行器阶段，开始执行语句。执行器最终就是根据一系列的执行计划去调用存储引擎提供的API接口去调用操作数据，完成SQL的执行。</p>
 <blockquote>
 <p>开始执行的时候，要先判断一下建立连接的对象对这个表有没有执行操作的权限，如果没有，就会返回没有权限的错误；如果有，就按照生成的执行计划进行执行。</p>
 </blockquote>
-<h2 id="3、InnoDB存储引擎："><a href="#3、InnoDB存储引擎：" class="headerlink" title="3、InnoDB存储引擎："></a>3、InnoDB存储引擎：</h2><p>存储引擎是对底层物理数据执行实际操作的组件，为Server服务器层提供各种操作数据的 API，数据是被存放在内存或者是磁盘中的。MySQL 支持插件式的存储引擎，包括 InnoDB 、MyISAM、Memory 等。一般情况下，MySQL默认使用的存储引擎是 InnoDB。如下图所示，InnoDB存储引擎整体分为内存架构（Memory Structures）和磁盘架构（Disk Structures）<br><img src="https://img-blog.csdnimg.cn/img_convert/aaeb5d2832328ca62846c8b60fc5518c.png" alt="img"></p>
-<h3 id="1、Buffer-Pool："><a href="#1、Buffer-Pool：" class="headerlink" title="1、Buffer Pool："></a>1、Buffer Pool：</h3><p>Buffer Pool （缓冲池）是 InnoDB 存储引擎中非常重要的内存结构，类似 Redis 一样的作用，起到一个缓存的作用。MySQL 的数据最终是存储在磁盘中的，如果没有 Buffer Pool，那么每次的数据库请求都会磁盘中查找，这样必然会存在 IO 操作。但是有了 Buffer Pool，只有第一次在查询的时候会将查询的结果存到 Buffer Pool 中，这样后面再有请求的时候就会先从缓冲池中去查询，如果没有再去磁盘中查找，然后在放到 Buffer Pool 中，如下图</p>
+<h3 id="3、InnoDB存储引擎："><a href="#3、InnoDB存储引擎：" class="headerlink" title="3、InnoDB存储引擎："></a>3、InnoDB存储引擎：</h3><p>存储引擎是对底层物理数据执行实际操作的组件，为Server服务器层提供各种操作数据的 API，数据是被存放在内存或者是磁盘中的。MySQL 支持插件式的存储引擎，包括 InnoDB 、MyISAM、Memory 等。一般情况下，MySQL默认使用的存储引擎是 InnoDB。如下图所示，InnoDB存储引擎整体分为内存架构（Memory Structures）和磁盘架构（Disk Structures）<br><img src="https://img-blog.csdnimg.cn/img_convert/aaeb5d2832328ca62846c8b60fc5518c.png" alt="img"></p>
+<h4 id="3-1、Buffer-Pool："><a href="#3-1、Buffer-Pool：" class="headerlink" title="3.1、Buffer Pool："></a>3.1、Buffer Pool：</h4><p>Buffer Pool （缓冲池）是 InnoDB 存储引擎中非常重要的内存结构，类似 Redis 一样的作用，起到一个缓存的作用。MySQL 的数据最终是存储在磁盘中的，如果没有 Buffer Pool，那么每次的数据库请求都会磁盘中查找，这样必然会存在 IO 操作。但是有了 Buffer Pool，只有第一次在查询的时候会将查询的结果存到 Buffer Pool 中，这样后面再有请求的时候就会先从缓冲池中去查询，如果没有再去磁盘中查找，然后在放到 Buffer Pool 中，如下图</p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/0459d3fa2f68b760bbea6bba052dabc9.png" alt="image-20210105101150038"></p>
 <p><code>UPDATE students SET stuName = '小强' WHERE id = 1</code></p>
 <p>比如这条SQL，按照上面的那幅图，SQL 语句的执行步骤大致是这样子的：</p>
@@ -1006,11 +1006,11 @@ select * from user;</code></pre><ul>
 </blockquote>
 <p>（1）查询缓存：查询缓存位于Server层，MySQL Server首选会从查询缓存中查看是否曾经执行过这个SQL，如果曾经执行过的话，之前执行的查询结果会以Key-Value的形式保存在查询缓存中。key是SQL语句，value是查询结果。我们将这个过程称为查询缓存！</p>
 <p>（2）Buffer Pool位于存储引擎层。Buffer Pool就是MySQL存储引擎为了加速数据的读取速度而设计的缓冲机制</p>
-<h3 id="2、undo日志文件：记录数据被修改前的样子"><a href="#2、undo日志文件：记录数据被修改前的样子" class="headerlink" title="2、undo日志文件：记录数据被修改前的样子"></a>2、undo日志文件：记录数据被修改前的样子</h3><p>Innodb 存储引擎的最大特点就是支持事务，如果事务提交失败，那么该事务中所有的操作都必须回滚到执行前的样子，而这个回滚的操作，就是利用undo log文件完成的。</p>
+<h4 id="3-2、undo日志文件：记录数据被修改前的样子"><a href="#3-2、undo日志文件：记录数据被修改前的样子" class="headerlink" title="3.2、undo日志文件：记录数据被修改前的样子"></a>3.2、undo日志文件：记录数据被修改前的样子</h4><p>Innodb 存储引擎的最大特点就是支持事务，如果事务提交失败，那么该事务中所有的操作都必须回滚到执行前的样子，而这个回滚的操作，就是利用undo log文件完成的。</p>
 <p>undo 顾名思义，就是没有做，没发生的意思。undo log 就是没有发生事情（原本事情是什么）的一些日志</p>
 <p>刚才我们介绍过了，在准备更新一条SQL语句的时候，该条语句对应的数据已经被加载到 Buffer pool 中了，实际上这里还有这样的操作，就是在将该条语句加载到 Buffer Pool 中的时候同时会往 undo 日志文件中插入一条日志，也就是将 id=1 的这条记录的原来的值记录下来，便于事务失败后进行回滚<br><img src="https://img-blog.csdnimg.cn/img_convert/e088e86d843c6da12e8fee301dadbfba.png" alt="img"></p>
 <p>到这一步，我们执行的 SQL 语句对应的数据已经被加载到 Buffer Pool 中了，然后开始更新这条语句，更新的操作实际是在Buffer Pool中执行的。那问题来了，更新完数据之后，Buffer Pool缓冲池中的中的数据就会和数据库中的数据库不一致，那就是说Buffer Pool 中的数据成了脏数据？没错，目前这条数据就是脏数据，Buffer Pool 中的记录是“小强”数据库中的记录是“旺财” ，这种情况 MySQL是怎么处理的呢？我们接着往下看</p>
-<h3 id="3、redo日志文件：记录数据被修改后的样子"><a href="#3、redo日志文件：记录数据被修改后的样子" class="headerlink" title="3、redo日志文件：记录数据被修改后的样子"></a>3、redo日志文件：记录数据被修改后的样子</h3><blockquote>
+<h4 id="3-3、redo日志文件：记录数据被修改后的样子"><a href="#3-3、redo日志文件：记录数据被修改后的样子" class="headerlink" title="3.3、redo日志文件：记录数据被修改后的样子"></a>3.3、redo日志文件：记录数据被修改后的样子</h4><blockquote>
 <p>前言：redo 日志文件是 InnoDB 特有的，他是存储引擎级别的，不是 MySQL 级别的</p>
 </blockquote>
 <p>除了从磁盘中加载文件和将操作前的记录保存到 undo 日志文件中之外，其他的操作是在内存中完成的，内存中的数据的特点就是：断电丢失。如果此时 MySQL 所在的服务器宕机了，那么 Buffer Pool 中的数据会全部丢失的。这个时候 redo 日志文件就需要来大显神通了</p>
@@ -1035,7 +1035,7 @@ select * from user;</code></pre><ul>
 <li>2：每次事务提交时，将 redo log buffer 中的数据写入日志文件，并每秒flush一次到磁盘。在机器crash并重启后，有可能丢失数据</li>
 </ul>
 <p>（7）myslq 重启的时候会将 redo 日志恢复到缓冲池中</p>
-<h3 id="4、bin-log日志文件：记录整个操作过程"><a href="#4、bin-log日志文件：记录整个操作过程" class="headerlink" title="4、bin log日志文件：记录整个操作过程"></a>4、bin log日志文件：记录整个操作过程</h3><blockquote>
+<h4 id="3-4、bin-log日志文件：记录整个操作过程"><a href="#3-4、bin-log日志文件：记录整个操作过程" class="headerlink" title="3.4、bin log日志文件：记录整个操作过程"></a>3.4、bin log日志文件：记录整个操作过程</h4><blockquote>
 <p>前言：bin log和 redo log有些相似，两者的主要区别有：</p>
 <p>（1）redo log是 InnoDB 存储引擎特有的日志文件，而bin log属于是 MySQL 级别的日志</p>
 <p>（2）redo log适用于崩溃恢复，bin log适用于主从复制和数据恢复</p>
@@ -1050,8 +1050,8 @@ select * from user;</code></pre><ul>
 <p>到目前为止，一个更新操作我们基本介绍得差不多，但是你有没有感觉少了哪件事情还没有做？是不是你也发现这个时候被更新记录仅仅是在内存中执行的，哪怕是宕机又恢复了也仅仅是将更新后的记录加载到Buffer Pool中，这个时候 MySQL 数据库中的这条记录依旧是旧值，也就是说内存中的数据在我们看来依旧是脏数据，那这个时候怎么办呢？</p>
 <p>其实 MySQL 会有一个后台线程，它会在某个时机将我们Buffer Pool中的脏数据刷到 MySQL 数据库中，这样就将内存和数据库的数据保持统一了。</p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/08379beec752e3a8f37e808a7368479e.png" alt="img"></p>
-<h3 id="5、小结："><a href="#5、小结：" class="headerlink" title="5、小结："></a>5、小结：</h3><p>（1）首先MySQL执行器根据 执行计划 调用存储引擎的API查询数据<br>（2）存储引擎先从缓存池buffer pool中查询数据，如果没有就会去磁盘中查询，如果查询到了就将其放到缓存池中<br>（3）在数据加载到 Buffer Pool 的同时，会将这条数据的原始记录保存到 undo 日志文件中<br>（4）innodb 会在 Buffer Pool 中执行更新操作<br>（5）更新后的数据会记录在 redo log buffer 中<br>（6）提交事务在提交的同时会做以下三件事<br>（7）（第一件事）将redo log buffer中的数据刷入到redo log文件中<br>（8）（第二件事）将本次操作记录写入到 bin log文件中<br>（9）（第三件事）将bin log文件名字和更新内容在 bin log 中的位置记录到redo log中，同时在 redo log 最后添加 commit 标记<br>（10）使用一个后台线程，它会在某个时机将我们Buffer Pool中的更新后的数据刷到 MySQL 数据库中，这样就将内存和数据库的数据保</p>
-<h1 id="第-3-章-索引优化分析"><a href="#第-3-章-索引优化分析" class="headerlink" title="第 3 章 索引优化分析"></a>第 3 章 索引优化分析</h1><h2 id="1、慢-SQL"><a href="#1、慢-SQL" class="headerlink" title="1、慢 SQL"></a>1、慢 SQL</h2><blockquote>
+<h3 id="4、小结："><a href="#4、小结：" class="headerlink" title="4、小结："></a>4、小结：</h3><p>（1）首先MySQL执行器根据 执行计划 调用存储引擎的API查询数据<br>（2）存储引擎先从缓存池buffer pool中查询数据，如果没有就会去磁盘中查询，如果查询到了就将其放到缓存池中<br>（3）在数据加载到 Buffer Pool 的同时，会将这条数据的原始记录保存到 undo 日志文件中<br>（4）innodb 会在 Buffer Pool 中执行更新操作<br>（5）更新后的数据会记录在 redo log buffer 中<br>（6）提交事务在提交的同时会做以下三件事<br>（7）（第一件事）将redo log buffer中的数据刷入到redo log文件中<br>（8）（第二件事）将本次操作记录写入到 bin log文件中<br>（9）（第三件事）将bin log文件名字和更新内容在 bin log 中的位置记录到redo log中，同时在 redo log 最后添加 commit 标记<br>（10）使用一个后台线程，它会在某个时机将我们Buffer Pool中的更新后的数据刷到 MySQL 数据库中，这样就将内存和数据库的数据保</p>
+<h2 id="第-3-章-索引优化分析"><a href="#第-3-章-索引优化分析" class="headerlink" title="第 3 章 索引优化分析"></a>第 3 章 索引优化分析</h2><h3 id="1、慢-SQL"><a href="#1、慢-SQL" class="headerlink" title="1、慢 SQL"></a>1、慢 SQL</h3><blockquote>
 <p><strong>性能下降、 SQL 慢、执行时间长、等待时间长的原因分析</strong></p>
 </blockquote>
 <ol>
@@ -1064,7 +1064,7 @@ select * from user;</code></pre><ul>
 <li>关联查询太多join(设计缺陷或不得已的需求)</li>
 <li>服务器调优及各个参数设置(缓冲、线程数等)</li>
 </ol>
-<h2 id="2、join-查询"><a href="#2、join-查询" class="headerlink" title="2、join 查询"></a>2、join 查询</h2><h3 id="2-1、SQL-执行顺序"><a href="#2-1、SQL-执行顺序" class="headerlink" title="2.1、SQL 执行顺序"></a>2.1、SQL 执行顺序</h3><blockquote>
+<h3 id="2、join-查询"><a href="#2、join-查询" class="headerlink" title="2、join 查询"></a>2、join 查询</h3><h4 id="2-1、SQL-执行顺序"><a href="#2-1、SQL-执行顺序" class="headerlink" title="2.1、SQL 执行顺序"></a>2.1、SQL 执行顺序</h4><blockquote>
 <p><strong>我们手写的 SQL 顺序</strong></p>
 </blockquote>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/6f63313638288480abfa89c49ecf6ae0.png" alt="image-20200803212731183"></p>
@@ -1080,7 +1080,7 @@ select * from user;</code></pre><ul>
 <li>总结：mysql 从 FROM 开始执行~</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/292e157cd8d0efd2570d8c2c93284da4.png" alt="image-20200803212936111"></p>
-<h3 id="2-2、JOIN-连接查询"><a href="#2-2、JOIN-连接查询" class="headerlink" title="2.2、JOIN 连接查询"></a>2.2、JOIN 连接查询</h3><blockquote>
+<h4 id="2-2、JOIN-连接查询"><a href="#2-2、JOIN-连接查询" class="headerlink" title="2.2、JOIN 连接查询"></a>2.2、JOIN 连接查询</h4><blockquote>
 <p><strong>常见的 JOIN 查询图</strong></p>
 </blockquote>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/2060feedc52769bca0af01c91711d217.png" alt="image-20200803213106434"></p>
@@ -1253,7 +1253,7 @@ select * from user;</code></pre><ul>
 </ol>
 </li>
 </ol>
-<h2 id="3、索引简介"><a href="#3、索引简介" class="headerlink" title="3、索引简介"></a>3、索引简介</h2><h3 id="3-1、索引是什么"><a href="#3-1、索引是什么" class="headerlink" title="3.1、索引是什么"></a>3.1、索引是什么</h3><blockquote>
+<h3 id="3、索引简介"><a href="#3、索引简介" class="headerlink" title="3、索引简介"></a>3、索引简介</h3><h4 id="3-1、索引是什么"><a href="#3-1、索引是什么" class="headerlink" title="3.1、索引是什么"></a>3.1、索引是什么</h4><blockquote>
 <p><strong>索引是个什么东东？</strong></p>
 </blockquote>
 <ol>
@@ -1263,7 +1263,7 @@ select * from user;</code></pre><ul>
 <li>我们平时所说的索引，如果没有特别指明，都是指B树(多路搜索树，并不一定是二叉树)结构组织的索引。</li>
 <li>聚集索引，次要索引，覆盖索引，复合索引，前缀索引，唯一索引默认都是使用B+树索引，统称索引。当然，除了B+树这种类型的索引之外，还有哈希索引(hash index)等。</li>
 </ol>
-<h3 id="3-2、索引原理"><a href="#3-2、索引原理" class="headerlink" title="3.2、索引原理"></a>3.2、索引原理</h3><blockquote>
+<h4 id="3-2、索引原理"><a href="#3-2、索引原理" class="headerlink" title="3.2、索引原理"></a>3.2、索引原理</h4><blockquote>
 <p><strong>将索引理解为”排好序的快速查找数据结构”</strong></p>
 </blockquote>
 <ol>
@@ -1298,7 +1298,7 @@ select * from user;</code></pre><ul>
 <p>第二个与MyISAM索引的不同是InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引：</p>
 <p>这里以英文字符的ASCII码作为比较准则。聚集索引这种实现方式使得按主键的搜索十分高效，<code>但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录</code>。不过由于辅助索引会包含主键列，所以，如果主键使用过长的字段，将会导致其他辅助索变得更大。所以争取尽量把主键定义得小一些。</p>
 <p><code>InnoDB 表是基于聚簇索引建立的。</code></p>
-<h3 id="3-3、索引优劣势"><a href="#3-3、索引优劣势" class="headerlink" title="3.3、索引优劣势"></a>3.3、索引优劣势</h3><blockquote>
+<h4 id="3-3、索引优劣势"><a href="#3-3、索引优劣势" class="headerlink" title="3.3、索引优劣势"></a>3.3、索引优劣势</h4><blockquote>
 <p><strong>索引的优势</strong></p>
 </blockquote>
 <ol>
@@ -1313,7 +1313,7 @@ select * from user;</code></pre><ul>
 <li>虽然索引大大提高了查询速度，<strong>同时却会降低更新表的速度</strong>，如果对表INSERT，UPDATE和DELETE。因为更新表时，MySQL不仅要不存数据，还要保存一下索引文件每次更新添加了索引列的字段，都会调整因为更新所带来的键值变化后的索引信息</li>
 <li>索引只是提高效率的一个因素，如果你的MySQL有大数据量的表，就需要花时间研究建立优秀的索引，或优化查询语句</li>
 </ol>
-<h3 id="3-4、MySQL-索引分类"><a href="#3-4、MySQL-索引分类" class="headerlink" title="3.4、MySQL 索引分类"></a>3.4、MySQL 索引分类</h3><blockquote>
+<h4 id="3-4、MySQL-索引分类"><a href="#3-4、MySQL-索引分类" class="headerlink" title="3.4、MySQL 索引分类"></a>3.4、MySQL 索引分类</h4><blockquote>
 <p><strong>mysql 索引分类</strong></p>
 </blockquote>
 <p>参考资料：<a href="https://www.cnblogs.com/luyucheng/p/6289714.html" target="_blank" rel="noopener">https://www.cnblogs.com/luyucheng/p/6289714.html</a></p>
@@ -1346,7 +1346,7 @@ select * from user;</code></pre><ul>
 <p>表中记录的物理顺序与索引值的顺序不一致的索引组织，一个基本表可以有多个聚簇索引。</p>
 </li>
 </ol>
-<h3 id="3-5、MySQL-索引语法"><a href="#3-5、MySQL-索引语法" class="headerlink" title="3.5、MySQL 索引语法"></a>3.5、MySQL 索引语法</h3><blockquote>
+<h4 id="3-5、MySQL-索引语法"><a href="#3-5、MySQL-索引语法" class="headerlink" title="3.5、MySQL 索引语法"></a>3.5、MySQL 索引语法</h4><blockquote>
 <p><strong>建立索引的 SQL 语句</strong></p>
 </blockquote>
 <p>创建索引：</p>
@@ -1375,11 +1375,11 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 | tbl_emp |          0 | PRIMARY    |            1 | id          | A         |           8 |     NULL | NULL   |      | BTREE      |         |               |
 | tbl_emp |          1 | fk_dept_Id |            1 | deptId      | A         |           8 |     NULL | NULL   | YES  | BTREE      |         |               |
 +---------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
-2 rows in set (0.00 sec)</code></pre><h3 id="3-6、MySQL-索引结构"><a href="#3-6、MySQL-索引结构" class="headerlink" title="3.6、MySQL 索引结构"></a>3.6、MySQL 索引结构</h3><p>般来说，索引本身也很大，不可能全部存储在内存中，<strong>因此索引往往以索引文件的形式存储在磁盘上</strong>。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，索引的数据结构要尽量减少查找过程中磁盘I/O的存取次数。</p>
+2 rows in set (0.00 sec)</code></pre><h4 id="3-6、MySQL-索引结构"><a href="#3-6、MySQL-索引结构" class="headerlink" title="3.6、MySQL 索引结构"></a>3.6、MySQL 索引结构</h4><p>般来说，索引本身也很大，不可能全部存储在内存中，<strong>因此索引往往以索引文件的形式存储在磁盘上</strong>。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，索引的数据结构要尽量减少查找过程中磁盘I/O的存取次数。</p>
 <p><strong>局部性原理与磁盘预读：</strong></p>
 <p>由于存储介质的特性，磁盘本身存取就比主存慢很多，再加上机械运动耗费，磁盘的存取速度往往是主存的几百分之一，因此为了提高效率，要尽量减少磁盘I/O。为了达到这个目的，磁盘往往不是严格按需读取，而是每次都会预读，即使只需要一个字节，磁盘也会从这个位置开始，顺序向后读取一定长度的数据放入内存。这样做的理论依据是计算机科学中著名的局部性原理：当一个数据被用到时，其附近的数据也通常会马上被使用。程序运行期间所需要的数据通常比较集中。</p>
 <p>由于磁盘顺序读取的效率很高（不需要寻道时间，只需很少的旋转时间），因此对于具有局部性的程序来说，预读可以提高I/O效率。预读的长度一般为页的整倍数。当程序要读取的数据不在主存中时，会触发一个缺页异常，此时系统会向磁盘发出读盘信号，磁盘会找到数据的起始位置并向后连续读取一页或几页载入内存中，然后异常返回，程序继续运行。</p>
-<h4 id="3-6-1、Btree-索引"><a href="#3-6-1、Btree-索引" class="headerlink" title="3.6.1、Btree 索引"></a>3.6.1、Btree 索引</h4><blockquote>
+<h5 id="3-6-1、Btree-索引"><a href="#3-6-1、Btree-索引" class="headerlink" title="3.6.1、Btree 索引"></a>3.6.1、Btree 索引</h5><blockquote>
 <p><strong>Btree 索引搜索过程</strong></p>
 </blockquote>
 <p>【初始化介绍】</p>
@@ -1396,7 +1396,7 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 <li>通过指针加载磁盘块 8 到内存， 发生第三次 IO， 同时内存中做二分查找找到 29， 结束查询， 总计三次 IO。</li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/e4942aa1472d9d720bd14b12c1561965.png" alt="image-20200804093236612"></p>
-<h4 id="3-6-2、B-tree-索引"><a href="#3-6-2、B-tree-索引" class="headerlink" title="3.6.2、B+tree 索引"></a>3.6.2、B+tree 索引</h4><blockquote>
+<h5 id="3-6-2、B-tree-索引"><a href="#3-6-2、B-tree-索引" class="headerlink" title="3.6.2、B+tree 索引"></a>3.6.2、B+tree 索引</h5><blockquote>
 <p><strong>B+tree 索引搜索过程</strong></p>
 </blockquote>
 <p><strong>【B+Tree 与 BTree 的区别】</strong></p>
@@ -1416,14 +1416,14 @@ ALTER mytable ADD [UNIQUE]  INDEX [indexName] ON(columnname(length));</code></pr
 <li>B+树有利于对数据库的扫描：B树在提高了磁盘IO性能的同时并没有解决元素遍历的效率低下的问题，而B+树只需要遍历叶子节点就可以解决对全部关键字信息的扫描，所以范围查询、排序等操作，B+树有着更高的性能。</li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/7f5ea19eb42404dd4437667bfc29dd84.png" alt="image-20200811145838930"></p>
-<h4 id="3-6-3、Hash索引："><a href="#3-6-3、Hash索引：" class="headerlink" title="3.6.3、Hash索引："></a>3.6.3、<strong>Hash索引：</strong></h4><p>MySQL中，只有Memory存储引擎支持hash索引，是Memory表的默认索引类型。hash索引把数据以hash值形式组织起来，因此检索效率非常高，可以一次定位。</p>
+<h5 id="3-6-3、Hash索引："><a href="#3-6-3、Hash索引：" class="headerlink" title="3.6.3、Hash索引："></a>3.6.3、<strong>Hash索引：</strong></h5><p>MySQL中，只有Memory存储引擎支持hash索引，是Memory表的默认索引类型。hash索引把数据以hash值形式组织起来，因此检索效率非常高，可以一次定位。</p>
 <pre><code>hash索引的缺点：
 
 （1）Hash索引仅能满足等值的查询，不能满足范围查询、排序。因为数据在经过Hash算法后，其大小关系就可能发生变化。
 
 （2）当创建组合索引时，不能只适用组合索引的部分列进行查询。因为hash索引是把多个列数据合并后再计算Hash值，所以对单独列数据计算Hash值是没有意义的。
 
-（3）当发生Hash碰撞时，Hash索引不能避免表数据的扫描。因为仅仅比较Hash值是不够的，需要比较实际的值以判定是否符合要求。</code></pre><h3 id="3-7、何时需要建索引"><a href="#3-7、何时需要建索引" class="headerlink" title="3.7、何时需要建索引"></a>3.7、何时需要建索引</h3><blockquote>
+（3）当发生Hash碰撞时，Hash索引不能避免表数据的扫描。因为仅仅比较Hash值是不够的，需要比较实际的值以判定是否符合要求。</code></pre><h4 id="3-7、何时需要建索引"><a href="#3-7、何时需要建索引" class="headerlink" title="3.7、何时需要建索引"></a>3.7、何时需要建索引</h4><blockquote>
 <p><strong>哪些情况下适合建立索引</strong></p>
 </blockquote>
 <ol>
@@ -2962,7 +2962,7 @@ mysql&gt; EXPLAIN SELECT * FROM test03 WHERE c1='a1' AND c2 like '%kk%' AND c3='
 <p>LIKE 百分写最右， 覆盖索引不写 *；</p>
 <p>不等空值还有 OR， 索引影响要注意；</p>
 <p>VAR 引号不可丢， SQL 优化有诀窍。</p>
-<h1 id="第-4-章-查询截取分析"><a href="#第-4-章-查询截取分析" class="headerlink" title="第 4 章 查询截取分析"></a>第 4 章 查询截取分析</h1><h2 id="1、查询优化"><a href="#1、查询优化" class="headerlink" title="1、查询优化"></a>1、查询优化</h2><h3 id="1-1、MySQL-优化原则"><a href="#1-1、MySQL-优化原则" class="headerlink" title="1.1、MySQL 优化原则"></a>1.1、MySQL 优化原则</h3><blockquote>
+<h2 id="第-4-章-查询截取分析"><a href="#第-4-章-查询截取分析" class="headerlink" title="第 4 章 查询截取分析"></a>第 4 章 查询截取分析</h2><h3 id="1、查询优化"><a href="#1、查询优化" class="headerlink" title="1、查询优化"></a>1、查询优化</h3><h4 id="1-1、MySQL-优化原则"><a href="#1-1、MySQL-优化原则" class="headerlink" title="1.1、MySQL 优化原则"></a>1.1、MySQL 优化原则</h4><blockquote>
 <p><strong>mysql 的调优大纲</strong></p>
 </blockquote>
 <ol>
@@ -3022,7 +3022,7 @@ mysql&gt; EXPLAIN SELECT * FROM test03 WHERE c1='a1' AND c2 like '%kk%' AND c3='
 |  6 | s7   |      3 |
 |  7 | s8   |      4 |
 +----+------+--------+
-7 rows in set (0.00 sec)</code></pre><h3 id="1-2、ORDER-BY-优化"><a href="#1-2、ORDER-BY-优化" class="headerlink" title="1.2、ORDER BY 优化"></a>1.2、ORDER BY 优化</h3><blockquote>
+7 rows in set (0.00 sec)</code></pre><h4 id="1-2、ORDER-BY-优化"><a href="#1-2、ORDER-BY-优化" class="headerlink" title="1.2、ORDER BY 优化"></a>1.2、ORDER BY 优化</h4><blockquote>
 <p><strong>ORDER BY子句，尽量使用Index方式排序，避免使用FileSort方式排序</strong></p>
 </blockquote>
 <p><strong>创建表</strong></p>
@@ -3162,7 +3162,7 @@ mysql&gt; EXPLAIN SELECT * FROM tblA ORDER BY age DESC, birth DESC;
 <p><strong>Order By 排序索引优化的总结</strong></p>
 </blockquote>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/0c88f6d981ceaa6d99490c37a92da354.png" alt="image-20200805111725731"></p>
-<h3 id="1-3、GROUP-BY-优化"><a href="#1-3、GROUP-BY-优化" class="headerlink" title="1.3、GROUP BY 优化"></a>1.3、GROUP BY 优化</h3><blockquote>
+<h4 id="1-3、GROUP-BY-优化"><a href="#1-3、GROUP-BY-优化" class="headerlink" title="1.3、GROUP BY 优化"></a>1.3、GROUP BY 优化</h4><blockquote>
 <p><strong>group by关键字优化</strong></p>
 </blockquote>
 <ol>
@@ -3171,7 +3171,7 @@ mysql&gt; EXPLAIN SELECT * FROM tblA ORDER BY age DESC, birth DESC;
 <li>where高于having，能写在where限定的条件就不要去having限定了</li>
 <li>其余的规则均和 order by 一致</li>
 </ol>
-<h2 id="2、慢查询日志"><a href="#2、慢查询日志" class="headerlink" title="2、慢查询日志"></a>2、慢查询日志</h2><h3 id="2-1、慢查询日志介绍"><a href="#2-1、慢查询日志介绍" class="headerlink" title="2.1、慢查询日志介绍"></a>2.1、慢查询日志介绍</h3><blockquote>
+<h3 id="2、慢查询日志"><a href="#2、慢查询日志" class="headerlink" title="2、慢查询日志"></a>2、慢查询日志</h3><h4 id="2-1、慢查询日志介绍"><a href="#2-1、慢查询日志介绍" class="headerlink" title="2.1、慢查询日志介绍"></a>2.1、慢查询日志介绍</h4><blockquote>
 <p><strong>慢查询日志是什么？</strong></p>
 </blockquote>
 <ol>
@@ -3179,7 +3179,7 @@ mysql&gt; EXPLAIN SELECT * FROM tblA ORDER BY age DESC, birth DESC;
 <li>long_query_time的默认值为10，意思是运行10秒以上的SQL语句会被记录下来</li>
 <li>由他来查看哪些SQL超出了我们的最大忍耐时间值，比如一条sql执行超过5秒钟，我们就算慢SQL，希望能收集超过5秒的sql，结合之前explain进行全面分析。</li>
 </ol>
-<h3 id="2-2、慢查询日志开启"><a href="#2-2、慢查询日志开启" class="headerlink" title="2.2、慢查询日志开启"></a>2.2、慢查询日志开启</h3><blockquote>
+<h4 id="2-2、慢查询日志开启"><a href="#2-2、慢查询日志开启" class="headerlink" title="2.2、慢查询日志开启"></a>2.2、慢查询日志开启</h4><blockquote>
 <p><strong>怎么玩？</strong></p>
 </blockquote>
 <p><strong>说明：</strong></p>
@@ -3246,7 +3246,7 @@ slow_query_log_file=/var/lib/mysql/Heygo-slow.log</code></pre><ul>
 <li>可以使用命令修改，也可以在my.cnf参数里面修改。</li>
 <li>假如运行时间正好等于long_query_time的情况，并不会被记录下来。也就是说，在mysql源码里是判断大于long_query_time，而非大于等于。</li>
 </ul>
-<h3 id="2-3、慢查询日志示例"><a href="#2-3、慢查询日志示例" class="headerlink" title="2.3、慢查询日志示例"></a>2.3、慢查询日志示例</h3><blockquote>
+<h4 id="2-3、慢查询日志示例"><a href="#2-3、慢查询日志示例" class="headerlink" title="2.3、慢查询日志示例"></a>2.3、慢查询日志示例</h4><blockquote>
 <p><strong>案例讲解</strong></p>
 </blockquote>
 <ul>
@@ -3351,7 +3351,7 @@ log_output=FILE</code></pre><blockquote>
 <p>得到访问次数最多的10个SQL</p>
 <pre><code>mysqldumpslow -s c- t 10/var/lib/mysql/Heygo-slow.log</code></pre><p>得到按照时间排序的前10条里面含有左连接的查询语句</p>
 <pre><code>mysqldumpslow -s t -t 10 -g "left join" /var/lib/mysql/Heygo-slow.log</code></pre><p>另外建议在使用这些命令时结合 | 和more使用，否则有可能出现爆屏情况</p>
-<pre><code>mysqldumpslow -s r -t 10 /var/lib/mysql/Heygo-slow.log | more</code></pre><h2 id="3、批量数据脚本"><a href="#3、批量数据脚本" class="headerlink" title="3、批量数据脚本"></a>3、批量数据脚本</h2><blockquote>
+<pre><code>mysqldumpslow -s r -t 10 /var/lib/mysql/Heygo-slow.log | more</code></pre><h3 id="3、批量数据脚本"><a href="#3、批量数据脚本" class="headerlink" title="3、批量数据脚本"></a>3、批量数据脚本</h3><blockquote>
 <p><strong>创建表</strong></p>
 </blockquote>
 <ul>
@@ -3485,7 +3485,7 @@ CALL insert_dept(100, 10);</code></pre>
 </ul>
 <pre class=" language-mysql"><code class="language-mysql">DELIMITER ;
 CALL insert_emp(100001, 500000);</code></pre>
-<h2 id="4、Show-Profile"><a href="#4、Show-Profile" class="headerlink" title="4、Show Profile"></a>4、Show Profile</h2><blockquote>
+<h3 id="4、Show-Profile"><a href="#4、Show-Profile" class="headerlink" title="4、Show Profile"></a>4、Show Profile</h3><blockquote>
 <p><strong>Show Profile 是什么？</strong></p>
 </blockquote>
 <ol>
@@ -3601,7 +3601,7 @@ mysql&gt; show variables like 'profiling%';
 <p><strong>举例</strong></p>
 <p>奇了怪了。。。老师的慢 SQL 复现不了，下面是老师的例子</p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/d3ab0ee45d1accb580c8f9cc8a9499de.png" alt="image-20200805143307302"></p>
-<h2 id="5、全局查询日志"><a href="#5、全局查询日志" class="headerlink" title="5、全局查询日志"></a>5、全局查询日志</h2><p><strong>永远不要在生产环境开启这个功能。</strong></p>
+<h3 id="5、全局查询日志"><a href="#5、全局查询日志" class="headerlink" title="5、全局查询日志"></a>5、全局查询日志</h3><p><strong>永远不要在生产环境开启这个功能。</strong></p>
 <blockquote>
 <p>配置启用全局查询日志</p>
 </blockquote>
@@ -3635,7 +3635,7 @@ set global log_output='TABLE';</code></pre>
 | 2020-08-05 14:41:12 | root[root] @ localhost [] |        14 |         0 | Query        | select COUNT(*) from emp                      |
 | 2020-08-05 14:41:30 | root[root] @ localhost [] |        14 |         0 | Query        | select * from mysql.general_log               |
 +---------------------+---------------------------+-----------+-----------+--------------+-----------------------------------------------+
-3 rows in set (0.00 sec)</code></pre><h1 id="第-5-章-MySQL-锁机制"><a href="#第-5-章-MySQL-锁机制" class="headerlink" title="第 5 章 MySQL 锁机制"></a>第 5 章 MySQL 锁机制</h1><h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><h3 id="1-1、锁的定义"><a href="#1-1、锁的定义" class="headerlink" title="1.1、锁的定义"></a>1.1、锁的定义</h3><blockquote>
+3 rows in set (0.00 sec)</code></pre><h2 id="第-5-章-MySQL-锁机制"><a href="#第-5-章-MySQL-锁机制" class="headerlink" title="第 5 章 MySQL 锁机制"></a>第 5 章 MySQL 锁机制</h2><h3 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h3><h4 id="1-1、锁的定义"><a href="#1-1、锁的定义" class="headerlink" title="1.1、锁的定义"></a>1.1、锁的定义</h4><blockquote>
 <p><strong>锁的定义</strong></p>
 </blockquote>
 <ol>
@@ -3644,7 +3644,7 @@ set global log_output='TABLE';</code></pre>
 <li>如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。</li>
 <li>从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</li>
 </ol>
-<h3 id="1-2、锁的分类"><a href="#1-2、锁的分类" class="headerlink" title="1.2、锁的分类"></a>1.2、锁的分类</h3><blockquote>
+<h4 id="1-2、锁的分类"><a href="#1-2、锁的分类" class="headerlink" title="1.2、锁的分类"></a>1.2、锁的分类</h4><blockquote>
 <p><strong>锁的分类</strong></p>
 </blockquote>
 <ul>
@@ -3659,11 +3659,11 @@ set global log_output='TABLE';</code></pre>
 </ul>
 </li>
 </ul>
-<h2 id="2、表锁"><a href="#2、表锁" class="headerlink" title="2、表锁"></a>2、表锁</h2><blockquote>
+<h3 id="2、表锁"><a href="#2、表锁" class="headerlink" title="2、表锁"></a>2、表锁</h3><blockquote>
 <p><strong>表锁的特点</strong></p>
 </blockquote>
 <p><strong>偏向MyISAM存储引擎</strong>，开销小，加锁快，无死锁，锁定粒度大，<strong>发生锁冲突的概率最高，并发最低</strong></p>
-<h3 id="2-1、表锁案例"><a href="#2-1、表锁案例" class="headerlink" title="2.1、表锁案例"></a>2.1、表锁案例</h3><blockquote>
+<h4 id="2-1、表锁案例"><a href="#2-1、表锁案例" class="headerlink" title="2.1、表锁案例"></a>2.1、表锁案例</h4><blockquote>
 <p><strong>表锁案例分析</strong></p>
 </blockquote>
 <p><strong>创建表</strong></p>
@@ -3696,7 +3696,7 @@ set global log_output='TABLE';</code></pre>
 <li>释放表锁 </li>
 </ul>
 <pre class=" language-mysql"><code class="language-mysql">unlock tables;</code></pre>
-<h4 id="2-1-1、读锁示例"><a href="#2-1-1、读锁示例" class="headerlink" title="2.1.1、读锁示例"></a>2.1.1、读锁示例</h4><blockquote>
+<h5 id="2-1-1、读锁示例"><a href="#2-1-1、读锁示例" class="headerlink" title="2.1.1、读锁示例"></a>2.1.1、读锁示例</h5><blockquote>
 <p><strong>读锁示例</strong></p>
 </blockquote>
 <ul>
@@ -3717,7 +3717,7 @@ Query OK, 0 rows affected (0.00 sec)</code></pre><ul>
 <li>当前 session 不能读取其他表，并且不能修改加了读锁的表</li>
 <li>其他 session 想要修改加了读锁的表，必须等待其读锁释放</li>
 </ol>
-<h4 id="2-1-2、写锁示例"><a href="#2-1-2、写锁示例" class="headerlink" title="2.1.2、写锁示例"></a>2.1.2、写锁示例</h4><blockquote>
+<h5 id="2-1-2、写锁示例"><a href="#2-1-2、写锁示例" class="headerlink" title="2.1.2、写锁示例"></a>2.1.2、写锁示例</h5><blockquote>
 <p><strong>写锁示例</strong></p>
 </blockquote>
 <ul>
@@ -3755,7 +3755,7 @@ Query OK, 0 rows affected (0.00 sec)</code></pre><ul>
 <li>对MyISAM表的写操作（加写锁），会阻塞其他进程对同一表的读和写操作，只有当写锁释放后，才会执行其它进程的读写操作</li>
 <li>简而言之，<strong>就是读锁会阻塞写，但是不会堵塞读。而写锁则会把读和写都堵塞。</strong></li>
 </ol>
-<h3 id="2-2、表锁分析"><a href="#2-2、表锁分析" class="headerlink" title="2.2、表锁分析"></a>2.2、表锁分析</h3><blockquote>
+<h4 id="2-2、表锁分析"><a href="#2-2、表锁分析" class="headerlink" title="2.2、表锁分析"></a>2.2、表锁分析</h4><blockquote>
 <p><strong>表锁分析</strong></p>
 </blockquote>
 <ul>
@@ -3770,14 +3770,14 @@ Query OK, 0 rows affected (0.00 sec)</code></pre><ul>
 <ul>
 <li>此外，Myisam的读写锁调度是写优先，这也是myisam不适合做写为主表的引擎。因为写锁后，其他线程不能做任何操作，<strong>大量的更新会使查询很难得到锁</strong>，从而造成永远阻塞</li>
 </ul>
-<h2 id="3、行锁"><a href="#3、行锁" class="headerlink" title="3、行锁"></a>3、行锁</h2><blockquote>
+<h3 id="3、行锁"><a href="#3、行锁" class="headerlink" title="3、行锁"></a>3、行锁</h3><blockquote>
 <p><strong>行锁的特点</strong></p>
 </blockquote>
 <ol>
 <li><strong>偏向InnoDB存储引擎</strong>，开销大，加锁慢；会出现死锁；<strong>锁定粒度最小，发生锁冲突的概率最低，并发度也最高</strong>。</li>
 <li>InnoDB与MyISAM的最大不同有两点：<strong>一是支持事务（TRANSACTION）；二是采用了行级锁</strong></li>
 </ol>
-<h3 id="3-1、事务复习"><a href="#3-1、事务复习" class="headerlink" title="3.1、事务复习"></a>3.1、事务复习</h3><blockquote>
+<h4 id="3-1、事务复习"><a href="#3-1、事务复习" class="headerlink" title="3.1、事务复习"></a>3.1、事务复习</h4><blockquote>
 <p><strong>行锁支持事务，复习下老知识</strong></p>
 </blockquote>
 <p><strong>事务（Transation）及其ACID属性</strong></p>
@@ -3820,7 +3820,7 @@ Query OK, 0 rows affected (0.00 sec)</code></pre><ul>
 <li>查看当前数据库的事务隔离级别：<code>show variables like 'tx_isolation';</code> mysql 默认是可重复读</li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/762c292ec819d23175d4974181676a2a.png" alt="image-20200805155415247"></p>
-<h3 id="3-2、行锁案例"><a href="#3-2、行锁案例" class="headerlink" title="3.2、行锁案例"></a>3.2、行锁案例</h3><blockquote>
+<h4 id="3-2、行锁案例"><a href="#3-2、行锁案例" class="headerlink" title="3.2、行锁案例"></a>3.2、行锁案例</h4><blockquote>
 <p><strong>行锁案例分析</strong></p>
 </blockquote>
 <p><strong>创建表</strong></p>
@@ -3905,7 +3905,7 @@ Rows matched: 1  Changed: 1  Warnings: 0</code></pre><ul>
 Query OK, 0 rows affected (0.00 sec)
 
 mysql&gt; update test_innodb_lock set b='9001' where a=9;
-# 在这儿阻塞着呢~~~</code></pre><h3 id="3-3、间隙锁"><a href="#3-3、间隙锁" class="headerlink" title="3.3、间隙锁"></a>3.3、间隙锁</h3><blockquote>
+# 在这儿阻塞着呢~~~</code></pre><h4 id="3-3、间隙锁"><a href="#3-3、间隙锁" class="headerlink" title="3.3、间隙锁"></a>3.3、间隙锁</h4><blockquote>
 <p><strong>什么是间隙锁</strong></p>
 </blockquote>
 <ol>
@@ -3950,7 +3950,7 @@ Rows matched: 3  Changed: 3  Warnings: 0</code></pre><ul>
 Query OK, 0 rows affected (0.00 sec)
 
 mysql&gt; insert into test_innodb_lock values(2,'2000');
-# 在这儿阻塞着呢~~~</code></pre><h3 id="3-4、手动行锁"><a href="#3-4、手动行锁" class="headerlink" title="3.4、手动行锁"></a>3.4、手动行锁</h3><blockquote>
+# 在这儿阻塞着呢~~~</code></pre><h4 id="3-4、手动行锁"><a href="#3-4、手动行锁" class="headerlink" title="3.4、手动行锁"></a>3.4、手动行锁</h4><blockquote>
 <p><strong>如何锁定一行</strong></p>
 </blockquote>
 <ul>
@@ -3973,7 +3973,7 @@ mysql&gt; select * from test_innodb_lock  where a=8 for update;
 Query OK, 0 rows affected (0.00 sec)
 
 mysql&gt; update test_innodb_lock set b='XXX' where a=8;
-# 在这儿阻塞着呢~~~</code></pre><h3 id="3-5、行锁分析"><a href="#3-5、行锁分析" class="headerlink" title="3.5、行锁分析"></a>3.5、行锁分析</h3><blockquote>
+# 在这儿阻塞着呢~~~</code></pre><h4 id="3-5、行锁分析"><a href="#3-5、行锁分析" class="headerlink" title="3.5、行锁分析"></a>3.5、行锁分析</h4><blockquote>
 <p><strong>案例结论</strong></p>
 </blockquote>
 <ol>
@@ -4014,7 +4014,7 @@ mysql&gt; update test_innodb_lock set b='XXX' where a=8;
 <li>Innodb_row_lock_time（等待总时长）</li>
 </ol>
 <p>尤其是当等待次数很高，而且每次等待时长也不小的时候，我们就需要分析系统中为什么会有如此多的等待，然后根据分析结果着手指定优化计划。</p>
-<h3 id="3-6、行锁优化"><a href="#3-6、行锁优化" class="headerlink" title="3.6、行锁优化"></a>3.6、行锁优化</h3><blockquote>
+<h4 id="3-6、行锁优化"><a href="#3-6、行锁优化" class="headerlink" title="3.6、行锁优化"></a>3.6、行锁优化</h4><blockquote>
 <p><strong>优化建议</strong></p>
 </blockquote>
 <ol>
@@ -4029,12 +4029,12 @@ mysql&gt; update test_innodb_lock set b='XXX' where a=8;
 <li><p>尽可能低级别事务隔离</p>
 </li>
 </ol>
-<h2 id="4、页锁"><a href="#4、页锁" class="headerlink" title="4、页锁"></a>4、页锁</h2><ol>
+<h3 id="4、页锁"><a href="#4、页锁" class="headerlink" title="4、页锁"></a>4、页锁</h3><ol>
 <li>开销和加锁时间界于表锁和行锁之间：会出现死锁；</li>
 <li>锁定粒度界于表锁和行锁之间，并发度一般。</li>
 <li>了解即可</li>
 </ol>
-<h1 id="第-6-章-主从复制"><a href="#第-6-章-主从复制" class="headerlink" title="第 6 章 主从复制"></a>第 6 章 主从复制</h1><h2 id="1、复制的基本原理"><a href="#1、复制的基本原理" class="headerlink" title="1、复制的基本原理"></a>1、复制的基本原理</h2><blockquote>
+<h2 id="第-6-章-主从复制"><a href="#第-6-章-主从复制" class="headerlink" title="第 6 章 主从复制"></a>第 6 章 主从复制</h2><h3 id="1、复制的基本原理"><a href="#1、复制的基本原理" class="headerlink" title="1、复制的基本原理"></a>1、复制的基本原理</h3><blockquote>
 <p><strong>复制的基本原理</strong></p>
 </blockquote>
 <p><strong>slave会从master读取binlog来进行数据同步，主从复制的三步骤</strong></p>
@@ -4044,13 +4044,13 @@ mysql&gt; update test_innodb_lock set b='XXX' where a=8;
 <li><strong>slave重做中继日志中的事件</strong>，将改变应用到自己的数据库中。MySQL复制是异步的且串行化的</li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/c21246f5720506676e51b872ab77b7ce.png" alt="image-20200805190201268"></p>
-<h2 id="2、复制的基本原则"><a href="#2、复制的基本原则" class="headerlink" title="2、复制的基本原则"></a>2、复制的基本原则</h2><ol>
+<h3 id="2、复制的基本原则"><a href="#2、复制的基本原则" class="headerlink" title="2、复制的基本原则"></a>2、复制的基本原则</h3><ol>
 <li>每个slave只有一个master</li>
 <li>每个slave只能有一个唯一的服务器ID</li>
 <li>每个master可以有多个salve</li>
 </ol>
-<h2 id="3、复制最大问题"><a href="#3、复制最大问题" class="headerlink" title="3、复制最大问题"></a>3、复制最大问题</h2><p>因为发生多次 IO， 存在延时问题</p>
-<h2 id="4、一主一从常见配置"><a href="#4、一主一从常见配置" class="headerlink" title="4、一主一从常见配置"></a>4、一主一从常见配置</h2><blockquote>
+<h3 id="3、复制最大问题"><a href="#3、复制最大问题" class="headerlink" title="3、复制最大问题"></a>3、复制最大问题</h3><p>因为发生多次 IO， 存在延时问题</p>
+<h3 id="4、一主一从常见配置"><a href="#4、一主一从常见配置" class="headerlink" title="4、一主一从常见配置"></a>4、一主一从常见配置</h3><blockquote>
 <p><strong>前提：mysql 版本一致，主从机在同一网段下</strong></p>
 </blockquote>
 <p><strong>ping 测试</strong></p>
@@ -4359,12 +4359,12 @@ Master_SSL_Verify_Server_Cert: No
 <li>如何停止从服务复制功能</li>
 </ul>
 <pre class=" language-bash"><code class="language-bash">stop slave<span class="token punctuation">;</span></code></pre>
-<h1 id="第-7-章-事务和ACID实现原理"><a href="#第-7-章-事务和ACID实现原理" class="headerlink" title="第 7 章 事务和ACID实现原理"></a>第 7 章 事务和ACID实现原理</h1><h2 id="1、什么是事务："><a href="#1、什么是事务：" class="headerlink" title="1、什么是事务："></a>1、什么是事务：</h2><p>数据库的事务是并发控制的基本单位，是指逻辑上的一组操作，要么全部执行，要么全部不执行。</p>
-<h3 id="1、事务的特性："><a href="#1、事务的特性：" class="headerlink" title="1、事务的特性："></a>1、事务的特性：</h3><p>（1）原子性：事务是一个不可分割的工作单元，事务里的操作要么都成功，要么都失败，如果事务执行失败，则需要进行回滚。</p>
+<h2 id="第-7-章-事务和ACID实现原理"><a href="#第-7-章-事务和ACID实现原理" class="headerlink" title="第 7 章 事务和ACID实现原理"></a>第 7 章 事务和ACID实现原理</h2><h3 id="1、什么是事务："><a href="#1、什么是事务：" class="headerlink" title="1、什么是事务："></a>1、什么是事务：</h3><p>数据库的事务是并发控制的基本单位，是指逻辑上的一组操作，要么全部执行，要么全部不执行。</p>
+<h4 id="1、事务的特性："><a href="#1、事务的特性：" class="headerlink" title="1、事务的特性："></a>1、事务的特性：</h4><p>（1）原子性：事务是一个不可分割的工作单元，事务里的操作要么都成功，要么都失败，如果事务执行失败，则需要进行回滚。</p>
 <p>（2）隔离性：事务的所操作的数据在提交之前，对其他事务的可见程度。</p>
 <p>（3）持久性：一旦事务提交，它对数据库中数据的改变就是永久的。</p>
 <p>（4）一致性：事务不能破坏数据的完整性和业务的一致性。例如在转账时，不管事务成功还是失败，双方钱的总额不变。</p>
-<h2 id="2、事务ACID特性的实现原理："><a href="#2、事务ACID特性的实现原理：" class="headerlink" title="2、事务ACID特性的实现原理："></a>2、事务ACID特性的实现原理：</h2><h3 id="1、原子性："><a href="#1、原子性：" class="headerlink" title="1、原子性："></a><strong>1、原子性：</strong></h3><p>原子性是通过MySQL的回滚日志<code>undo log来</code>实现的：当事务对数据库进行修改时，InnoDB会生成对应的<code>undo log；</code>如果事务执行失败或调用了<code>rollback</code>，导致事务需要回滚，便可以利用<code>undo log</code>中的信息将数据回滚到修改之前的样子。</p>
+<h3 id="2、事务ACID特性的实现原理："><a href="#2、事务ACID特性的实现原理：" class="headerlink" title="2、事务ACID特性的实现原理："></a>2、事务ACID特性的实现原理：</h3><h4 id="1、原子性："><a href="#1、原子性：" class="headerlink" title="1、原子性："></a><strong>1、原子性：</strong></h4><p>原子性是通过MySQL的回滚日志<code>undo log来</code>实现的：当事务对数据库进行修改时，InnoDB会生成对应的<code>undo log；</code>如果事务执行失败或调用了<code>rollback</code>，导致事务需要回滚，便可以利用<code>undo log</code>中的信息将数据回滚到修改之前的样子。</p>
 <blockquote>
 <p>undo log (回滚日志)：是采用段(segment)的方式来记录的，每个undo操作在记录的时候占用一个undo log segment。在数据更改操作时，记录了相对应的undo log的目的在于：</p>
 <ul>
@@ -4372,7 +4372,7 @@ Master_SSL_Verify_Server_Cert: No
 <li>通过mvcc + undo log实现Innodb事务可重复读和读已提交隔离级别。</li>
 </ul>
 </blockquote>
-<h3 id="2、隔离性："><a href="#2、隔离性：" class="headerlink" title="2、隔离性："></a><strong>2、隔离性：</strong></h3><p>隔离性是事务所操作的数据在提交之前，对其他事务的可见程度。</p>
+<h4 id="2、隔离性："><a href="#2、隔离性：" class="headerlink" title="2、隔离性："></a><strong>2、隔离性：</strong></h4><p>隔离性是事务所操作的数据在提交之前，对其他事务的可见程度。</p>
 <p><strong>2.1、事务隔离级别：</strong></p>
 <p>为保证在并发环境下读取数据的完整性和一致性，数据库提供了四种事务隔离级别，隔离级别越高，越能保证数据的完整性和一致性，但对高并发性能影响也越大，执行效率越低。（四种隔离级别从上往下依次升高）</p>
 <blockquote>
@@ -4421,9 +4421,9 @@ Master_SSL_Verify_Server_Cert: No
 </tr>
 <tr>
 <td>读未提交</td>
-<td></td>
-<td></td>
-<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
 </tr>
 </tbody></table>
 <p><strong>2.3、事务隔离性的实现原理：</strong></p>
@@ -4456,11 +4456,11 @@ Master_SSL_Verify_Server_Cert: No
 <p>（4）UPDATE：InnoDB为插入一行新记录，保存当前事务编号作为行版本号，同时保存当前事务编号到原来的行作为行删除标识。</p>
 <p>保存这两个额外系统版本号，使大多数读操作都可以不用加锁。这样设计使得读数据操作很简单，性能很好，并且也能保证只会读取到符合标准的行，不足之处是每行记录都需要额外的存储空间，需要做更多的行检查工作，以及一些额外的维护工作。</p>
 </blockquote>
-<h3 id="3、持久性："><a href="#3、持久性：" class="headerlink" title="3、持久性："></a><strong>3、持久性：</strong></h3><p>持久性的实现关键在于redo log日志<code>，</code>在执行SQL时会保存已执行的SQL语句到一个指定的Log文件，当执行<code>recovery</code>时重新执行<code>redo log</code>记录的SQL操作。</p>
+<h4 id="3、持久性："><a href="#3、持久性：" class="headerlink" title="3、持久性："></a><strong>3、持久性：</strong></h4><p>持久性的实现关键在于redo log日志<code>，</code>在执行SQL时会保存已执行的SQL语句到一个指定的Log文件，当执行<code>recovery</code>时重新执行<code>redo log</code>记录的SQL操作。</p>
 <p><strong>3.1、redo log日志：</strong></p>
 <p>当向数据库写入数据时，执行过程会首先写入Buffer Pool，Buffer Pool中修改的数据会定期刷新到磁盘中（这一过程叫做刷盘），这整一过程称为redo log。redo log 分为：</p>
 <p>Buffer Pool内存中的日志缓冲(redo log buffer)，该部分日志是易失性的；<br>磁盘上的重做日志文件(redo log file)，该部分日志是持久的。</p>
-<h3 id="4、一致性："><a href="#4、一致性：" class="headerlink" title="4、一致性："></a><strong>4、一致性：</strong></h3><p>一致性指的是事务不能破坏数据的完整性和业务的一致性 ：</p>
+<h4 id="4、一致性："><a href="#4、一致性：" class="headerlink" title="4、一致性："></a><strong>4、一致性：</strong></h4><p>一致性指的是事务不能破坏数据的完整性和业务的一致性 ：</p>
 <blockquote>
 <ul>
 <li>数据的完整性： 实体完整性、列完整性（如字段的类型、大小、长度要符合要求）、外键约束等</li>
@@ -4471,7 +4471,7 @@ Master_SSL_Verify_Server_Cert: No
 <blockquote>
 <p>原子性：语句要么全执行，要么全不执行，是事务最核心的特性，事务本身就是以原子性来定义的；主要基于undo log实现<br>持久性：保证事务提交后不会因为宕机等原因导致数据丢失；主要基于redo log实现<br>隔离性：保证事务执行尽可能不受其他事务影响；InnoDB默认的隔离级别是RR，RR的实现主要基于锁机制（包含next-key lock）、MVCC（包括数据的隐藏列、基于undo log的版本链、ReadView）</p>
 </blockquote>
-<h1 id="第-8-章-分区Partition"><a href="#第-8-章-分区Partition" class="headerlink" title="第 8 章 分区Partition"></a>第 8 章 分区Partition</h1><h3 id="一、分区："><a href="#一、分区：" class="headerlink" title="一、分区："></a>一、分区：</h3><p>分区就是将表的数据按照特定规则存放在不同的区域，也就是将表的数据文件分割成多个小块，在查询数据的时候，只要知道数据数据存储在哪些区域，然后直接在对应的区域进行查询，不需要对表数据进行全部的查询，提高查询的性能。同时，如果表数据特别大，一个磁盘磁盘放不下时，我们也可以将数据分配到不同的磁盘去，解决存储瓶颈的问题，利用多个磁盘，也能够提高磁盘的IO效率，提高数据库的性能。常见的分区类型有：Range分区、List分区、Hash分区、Key分区：</p>
+<h2 id="第-8-章-分区Partition"><a href="#第-8-章-分区Partition" class="headerlink" title="第 8 章 分区Partition"></a>第 8 章 分区Partition</h2><h3 id="一、分区："><a href="#一、分区：" class="headerlink" title="一、分区："></a>一、分区：</h3><p>分区就是将表的数据按照特定规则存放在不同的区域，也就是将表的数据文件分割成多个小块，在查询数据的时候，只要知道数据数据存储在哪些区域，然后直接在对应的区域进行查询，不需要对表数据进行全部的查询，提高查询的性能。同时，如果表数据特别大，一个磁盘磁盘放不下时，我们也可以将数据分配到不同的磁盘去，解决存储瓶颈的问题，利用多个磁盘，也能够提高磁盘的IO效率，提高数据库的性能。常见的分区类型有：Range分区、List分区、Hash分区、Key分区：</p>
 <blockquote>
 <p>（1）Range分区：按照连续的区间范围进行分区<br>（2）List分区：按照给定的集合中的值进行选择分区。<br>（3）Hash分区：基于用户定义的表达式的返回值进行分区，该表达式使用将要插入到表中的这些行的列值进行计算。这个函数可以包含MySQL中有效的、产生非负整数值的任何表达式。<br>（4）Key分区：类似于按照HASH分区，区别在于Key分区只支持计算一列或多列，且key分区的哈希函数是由 MySQL 服务器提供。</p>
 </blockquote>
@@ -4616,8 +4616,8 @@ partitions <span class="token number">4</span><span class="token punctuation">;<
 
 <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>以上例子，对 RANGE 分区再次进行子分区划分，子分区采用 HASH 类型。</p>
-<h2 id="二、常见分区操作："><a href="#二、常见分区操作：" class="headerlink" title="二、常见分区操作："></a>二、常见分区操作：</h2><p><img src="https://img-blog.csdn.net/20161021204232167" alt="这里写图片描述"></p>
-<h1 id="第-9-章-范式"><a href="#第-9-章-范式" class="headerlink" title="第 9 章 范式"></a>第 9 章 范式</h1><h3 id="1、1NF-第一范式-："><a href="#1、1NF-第一范式-：" class="headerlink" title="1、1NF(第一范式)："></a>1、1NF(第一范式)：</h3><p><code>第一范式，就是数据表的列不可再分</code>，数据库表中的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不能有重复的属性。</p>
+<h3 id="二、常见分区操作："><a href="#二、常见分区操作：" class="headerlink" title="二、常见分区操作："></a>二、常见分区操作：</h3><p><img src="https://img-blog.csdn.net/20161021204232167" alt="这里写图片描述"></p>
+<h2 id="第-9-章-范式"><a href="#第-9-章-范式" class="headerlink" title="第 9 章 范式"></a>第 9 章 范式</h2><h3 id="1、1NF-第一范式-："><a href="#1、1NF-第一范式-：" class="headerlink" title="1、1NF(第一范式)："></a>1、1NF(第一范式)：</h3><p><code>第一范式，就是数据表的列不可再分</code>，数据库表中的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不能有重复的属性。</p>
 <p>看下面数据表，对于选课列明显是可以再分的，所以它是违反第一范式的。</p>
 <table>
 <thead>
@@ -4815,6 +4815,96 @@ partitions <span class="token number">4</span><span class="token punctuation">;<
 <p>即存在关键字段决定关键字段的情况，因此其不符合BCNF。把仓库管理关系表分解为两个关系表 仓库管理表(仓库号，管理员号) 和 仓库表(仓库号，存储物品号，数量)，这样这个数据库表是符合BCNF的，并消除了删除异常、插入异常和更新异常。</p>
 <h3 id="5、4NF-第四范式-："><a href="#5、4NF-第四范式-：" class="headerlink" title="5、4NF(第四范式)："></a>5、4NF(第四范式)：</h3><p>设R是一个关系模型，D是R上的多值依赖集合。如果D中存在多值依赖X-&gt;Y时，X必是R的超键，那么称R是第四范式的模式。</p>
 <p>例如，职工表(职工编号，职工孩子姓名，职工选修课程)，在这个表中，同一个职工可能会有多个职工孩子姓名，同样，同一个职工也可能会有多个职工选修课程，即这里存在着多值事实，不符合第四范式。如果要符合第四范式，只需要将上表分为两个表，使它们只有一个多值事实，例如职工表一(职工编号，职工孩子姓名)，职工表二(职工编号，职工选修课程)，两个表都只有一个多值事实，所以符合第四范式。</p>
+<h2 id="第-10-章-分库分表"><a href="#第-10-章-分库分表" class="headerlink" title="第 10 章 分库分表"></a>第 10 章 分库分表</h2><h3 id="10-1-分库分表是什么"><a href="#10-1-分库分表是什么" class="headerlink" title="10.1 分库分表是什么"></a>10.1 分库分表是什么</h3><p>下边以电商系统中的例子来说明，下图是电商系统卖家模块的表结构：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190903073940867.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA2MjMzOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>通过以下SQL能够获取到商品相关的店铺信息、地理区域信息：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> p<span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">,</span>r<span class="token punctuation">.</span><span class="token punctuation">[</span>地理区域名称<span class="token punctuation">]</span><span class="token punctuation">,</span>s<span class="token punctuation">.</span><span class="token punctuation">[</span>店铺名称<span class="token punctuation">]</span><span class="token punctuation">,</span>s<span class="token punctuation">.</span><span class="token punctuation">[</span>信誉<span class="token punctuation">]</span>
+<span class="token keyword">FROM</span> <span class="token punctuation">[</span>商品信息<span class="token punctuation">]</span> p 
+<span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span> <span class="token punctuation">[</span>地理区域<span class="token punctuation">]</span> r <span class="token keyword">ON</span> p<span class="token punctuation">.</span><span class="token punctuation">[</span>产地<span class="token punctuation">]</span> <span class="token operator">=</span> r<span class="token punctuation">.</span><span class="token punctuation">[</span>地理区域编码<span class="token punctuation">]</span>
+<span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span> <span class="token punctuation">[</span>店铺信息<span class="token punctuation">]</span> s <span class="token keyword">ON</span> p<span class="token punctuation">.</span>id <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token punctuation">[</span>所属店铺<span class="token punctuation">]</span>
+<span class="token keyword">WHERE</span> p<span class="token punctuation">.</span>id <span class="token operator">=</span> ?</code></pre>
+<p>随着公司业务快速发展，数据库中的数据量猛增，访问性能也变慢了，优化迫在眉睫。分析一下问题出现在哪儿呢？ 关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到1000W或100G以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。</p>
+<blockquote>
+<p>方案1：</p>
+</blockquote>
+<p>通过提升服务器硬件能力来提高数据处理能力，比如增加存储容量 、CPU等，这种方案成本很高，并且如果瓶颈在MySQL本身那么提高硬件也是有很的。</p>
+<blockquote>
+<p>方案2：</p>
+</blockquote>
+<p>把数据分散在不同的数据库中，使得单一数据库的数据量变小来缓解单一数据库的性能问题，从而达到提升数据库性能的目的，如下图：将电商数据库拆分为若干独立的数据库，并且对于大表也拆分为若干小表，通过这种数据库拆分的方法来解决数据库的性能问题。</p>
+<p><img src="https://img-blog.csdnimg.cn/2019090307403380.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA2MjMzOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>分库分表就是为了解决由于数据量过大而导致数据库性能降低的问题，将原来独立的数据库拆分成若干数据库组成 ，将数据大表拆分成若干数据表组成，使得单一数据库、单一数据表的数据量变小，从而达到提升数据库性能的目的。</strong></p>
+<h3 id="10-2-垂直分表"><a href="#10-2-垂直分表" class="headerlink" title="10.2 垂直分表"></a>10.2 垂直分表</h3><p>通常在商品列表中是不显示商品详情信息的，如下图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190903074155957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA2MjMzOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>用户在浏览商品列表时，只有对某商品感兴趣时才会查看该商品的详细描述。因此，商品信息中商品描述字段访问频次较低，且该字段存储占用空间较大，访问单个数据IO时间较长；商品信息中商品名称、商品图片、商品价格等其他字段数据访问频次较高。</p>
+<p>由于这两种数据的特性不一样，因此他考虑将商品信息表拆分如下：</p>
+<p>将访问频次低的商品描述信息单独存放在一张表中，访问频次较高的商品基本信息单独放在一张表中。<br><img src="https://img-blog.csdnimg.cn/20190903074236479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA2MjMzOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>商品列表可采用以下sql：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> p<span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">,</span>r<span class="token punctuation">.</span><span class="token punctuation">[</span>地理区域名称<span class="token punctuation">]</span><span class="token punctuation">,</span>s<span class="token punctuation">.</span><span class="token punctuation">[</span>店铺名称<span class="token punctuation">]</span><span class="token punctuation">,</span>s<span class="token punctuation">.</span><span class="token punctuation">[</span>信誉<span class="token punctuation">]</span>
+<span class="token keyword">FROM</span> <span class="token punctuation">[</span>商品信息<span class="token punctuation">]</span> p 
+<span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span> <span class="token punctuation">[</span>地理区域<span class="token punctuation">]</span> r <span class="token keyword">ON</span> p<span class="token punctuation">.</span><span class="token punctuation">[</span>产地<span class="token punctuation">]</span> <span class="token operator">=</span> r<span class="token punctuation">.</span><span class="token punctuation">[</span>地理区域编码<span class="token punctuation">]</span>
+<span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span> <span class="token punctuation">[</span>店铺信息<span class="token punctuation">]</span> s <span class="token keyword">ON</span> p<span class="token punctuation">.</span>id <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token punctuation">[</span>所属店铺<span class="token punctuation">]</span>
+<span class="token keyword">WHERE</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token keyword">LIMIT</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<p>需要获取商品描述时，再通过以下sql获取：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> <span class="token punctuation">[</span>商品描述<span class="token punctuation">]</span> 
+<span class="token keyword">WHERE</span> <span class="token punctuation">[</span>商品ID<span class="token punctuation">]</span> <span class="token operator">=</span> ?</code></pre>
+<p><strong>垂直分表定义：将一个表按照字段分成多表，每个表存储其中一部分字段。</strong><br>它带来的提升是：</p>
+<p>1.为了避免IO争抢并减少锁表的几率，查看详情的用户与商品信息浏览互不影响</p>
+<p>2.充分发挥热门数据的操作效率，商品信息的操作的高效率不会被商品描述的低效率所拖累。</p>
+<blockquote>
+<p>为什么大字段IO效率低：第一是由于数据量本身大，需要更长的读取时间；第二是跨页，页是数据库存储单位，很多查找及定位操作都是以页为单位，单页内的数据行越多数据库整体性能越好，而大字段占用空间大，单页内存储行数少，因此IO效率较低。第三，数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘IO，从而提升了数据库性能。</p>
+</blockquote>
+<p>一般来说，某业务实体中的各个数据项的访问频次是不一样的，部分数据项可能是占用存储空间比较大的BLOB或是TEXT。例如上例中的商品描述。所以，当表数据量很大时，可以将表按字段切开，将热门字段、冷门字段分开放置在不同库中，这些库可以放在不同的存储设备上，避免IO争抢。垂直切分带来的性能提升主要集中在热门数据的操作效率上，而且磁盘争用情况减少。</p>
+<p>通常我们按以下原则进行垂直拆分:</p>
+<ol>
+<li>把不常用的字段单独放在一张表;</li>
+<li>把text，blob等大字段拆分出来放在附表中;</li>
+<li>经常组合查询的列放在一张表中;</li>
+</ol>
+<h3 id="10-3-垂直分库"><a href="#10-3-垂直分库" class="headerlink" title="10.3 垂直分库"></a>10.3 垂直分库</h3><p>通过垂直分表性能得到了一定程度的提升，但是还没有达到要求，并且磁盘空间也快不够了，因为数据还是始终限制在一台服务器，库内垂直分表只解决了单一表数据量过大的问题，但没有将表分布到不同的服务器上，因此每个表还是竞争同一个物理机的CPU、内存、网络IO、磁盘。</p>
+<p>经过思考，把原有的SELLER_DB(卖家库)，分为了PRODUCT_DB(商品库)和STORE_DB(店铺库)，并把这两个库分散到不同服务器，如下图：<br><img src="https://img-blog.csdnimg.cn/20190903074403726.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA2MjMzOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>由于商品信息与商品描述业务耦合度较高，因此一起被存放在PRODUCT_DB(商品库)；而店铺信息相对独立，因此单独被存放在STORE_DB(店铺库)。</p>
+<p><strong>垂直分库是指按照业务将表进行分类，分布到不同的数据库上面，每个库可以放在不同的服务器上，它的核心理念是专库专用。</strong></p>
+<p>它带来的提升是：</p>
+<ul>
+<li>解决业务层面的耦合，业务清晰</li>
+<li>能对不同业务的数据进行分级管理、维护、监控、扩展等</li>
+<li>高并发场景下，垂直分库一定程度的提升IO、数据库连接数、降低单机硬件资源的瓶颈</li>
+</ul>
+<p>垂直分库通过将表按业务分类，然后分布在不同数据库，并且可以将这些数据库部署在不同服务器上，从而达到多个服务器共同分摊压力的效果，但是依然没有解决单表数据量过大的问题。</p>
+<h3 id="10-4-水平分库"><a href="#10-4-水平分库" class="headerlink" title="10.4 水平分库"></a>10.4 水平分库</h3><p>经过垂直分库后，数据库性能问题得到一定程度的解决，但是随着业务量的增长，PRODUCT_DB(商品库)单库存储数据已经超出预估。粗略估计，目前有8w店铺，每个店铺平均150个不同规格的商品，再算上增长，那商品数量得往1500w+上预估，并且PRODUCT_DB(商品库)属于访问非常频繁的资源，单台服务器已经无法支撑。此时该如何优化？</p>
+<p>再次分库？但是从业务角度分析，目前情况已经无法再次垂直分库。</p>
+<p>尝试水平分库，将店铺ID为单数的和店铺ID为双数的商品信息分别放在两个库中。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190903074531453.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDA2MjMzOQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>也就是说，要操作某条数据，先分析这条数据所属的店铺ID。如果店铺ID为双数，将此操作映射至RRODUCT_DB1(商品库1)；如果店铺ID为单数，将操作映射至RRODUCT_DB2(商品库2)。此操作要访问数据库名称的表达式为RRODUCT_DB[店铺ID%2 + 1] 。</p>
+<p><strong>水平分库是把同一个表的数据按一定规则拆到不同的数据库中，每个库可以放在不同的服务器上。</strong></p>
+<blockquote>
+<p>垂直分库是把不同表拆到不同数据库中，它是对数据行的拆分，不影响表结构</p>
+</blockquote>
+<p>它带来的提升是：</p>
+<ul>
+<li>解决了单库大数据，高并发的性能瓶颈。</li>
+<li>提高了系统的稳定性及可用性。</li>
+</ul>
+<blockquote>
+<p>稳定性体现在IO冲突减少，锁定减少，可用性指某个库出问题，部分可用`</p>
+</blockquote>
+<p>当一个应用难以再细粒度的垂直切分，或切分后数据量行数巨大，存在单库读写、存储性能瓶颈，这时候就需要进行水平分库了，经过水平切分的优化，往往能解决单库存储量及性能瓶颈。但由于同一个表被分配在不同的数据库，需要额外进行数据操作的路由工作，因此大大提升了系统复杂度。</p>
+<h3 id="10-5-水平分表"><a href="#10-5-水平分表" class="headerlink" title="10.5 水平分表"></a>10.5 水平分表</h3><p>按照水平分库的思路对他把PRODUCT_DB_X(商品库)内的表也可以进行水平拆分，其目的也是为解决单表数据量大的问题，如下图：</p>
+<p>与水平分库的思路类似，不过这次操作的目标是表，商品信息及商品描述被分成了两套表。如果商品ID为双数，将此操作映射至商品信息1表；如果商品ID为单数，将操作映射至商品信息2表。此操作要访问表名称的表达式为商品信息[商品ID%2 + 1] 。</p>
+<p><strong>水平分表是在同一个数据库内，把同一个表的数据按一定规则拆到多个表中。</strong></p>
+<p>它带来的提升是：</p>
+<ul>
+<li>优化单一表数据量过大而产生的性能问题</li>
+<li>避免IO争抢并减少锁表的几率</li>
+</ul>
+<p>库内的水平分表，解决了单一表数据量过大的问题，分出来的小表中只包含一部分数据，从而使得单个表的数据量变小，提高检索性能。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>垂直分表：可以把一个宽表的字段按访问频次、是否是大字段的原则拆分为多个表，这样既能使业务清晰，还能提升部分性能。拆分后，尽量从业务角度避免联查，否则性能方面将得不偿失。</p>
+<p>垂直分库：可以把多个表按业务耦合松紧归类，分别存放在不同的库，这些库可以分布在不同服务器，从而使访问压力被多服务器负载，大大提升性能，同时能提高整体架构的业务清晰度，不同的业务库可根据自身情况定制优化方案。但是它需要解决跨库带来的所有复杂问题。</p>
+<p>水平分库：可以把一个表的数据(按数据行)分到多个不同的库，每个库只有这个表的部分数据，这些库可以分布在不同服务器，从而使访问压力被多服务器负载，大大提升性能。它不仅需要解决跨库带来的所有复杂问题，还要解决数据路由的问题(数据路由问题后边介绍)。</p>
+<p>水平分表：可以把一个表的数据(按数据行)分到多个同一个数据库的多张表中，每个表只有这个表的部分数据，这样做能小幅提升性能，它仅仅作为水平分库的一个补充优化。</p>
+<p>一般来说，在系统设计阶段就应该根据业务耦合松紧来确定垂直分库，垂直分表方案，在数据量及访问压力不是特别大的情况，首先考虑缓存、读写分离、索引技术等方案。若数据量极大，且持续增长，再考虑水平分库水平分表方案。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -5607,7 +5697,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">392.8k</span>&nbsp;字
+                class="white-color">395.8k</span>&nbsp;字
             
             
             
