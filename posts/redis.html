@@ -468,14 +468,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    15.8k
+                    18.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    61 分
+                    71 分
                 </div>
                 
 				
@@ -1720,6 +1720,93 @@ del k // 比对成功后，删除k</code></pre>
 <p>如图，一次redis请求，要建立连接，然后获取操作的命令，然后执行命令，最后将响应的结果写到socket上。</p>
 <p><img src="https://img-blog.csdnimg.cn/20210201030222228.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70" alt="img"></p>
 <p>在redis的多线程模式下，获取、解析命令，以及输出结果着两个过程，可以配置成多线程执行的，因为它毕竟是我们定位到的主要耗时点，但是命令的执行，也就是内存操作，依然是单线程运行的。所以，Redis 的多线程部分只是用来处理网络数据的读写和协议解析，执行命令仍然是单线程顺序执行，也就不存在并发安全问题。</p>
+<h2 id="十、过期清除策略-与-内存淘汰策略"><a href="#十、过期清除策略-与-内存淘汰策略" class="headerlink" title="十、过期清除策略 与 内存淘汰策略"></a>十、过期清除策略 与 内存淘汰策略</h2><p>在使用Redis时，我们一般会为Redis的缓存空间设置一个大小，不会让数据无限制地放入Redis缓存中。可以使用下面命令来设定缓存的大小，比如设置为4GB：</p>
+<blockquote>
+<p>CONFIG SET maxmemory 4gb</p>
+</blockquote>
+<p>既然 Redis 设置了缓存的容量大小，那缓存被写满就是不可避免的。当缓存被写满时，我们需要考虑下面两个问题：决定淘汰哪些数据，如何处理那些被淘汰的数据。</p>
+<h3 id="Redis的数据过期清除策略："><a href="#Redis的数据过期清除策略：" class="headerlink" title="Redis的数据过期清除策略："></a><strong>Redis的数据过期清除策略：</strong></h3><p>如果我们设置了Redis的key-value的过期时间，当缓存中的数据过期之后，Redis就需要将这些数据进行清除，释放占用的内存空间。Redis中主要使用 定期删除 + 惰性删除 两种数据过期清除策略。</p>
+<blockquote>
+<p>过期策略：定期删除+惰性删除</p>
+</blockquote>
+<p>（1）定期删除：redis默认每隔100ms就随机抽取一些设置了过期时间的key，检查其是否过期，如果有过期就删除。注意这里是随机抽取的。为什么要随机呢？你想一想假如 redis 存了几十万个 key ，每隔100ms就遍历所有的设置过期时间的 key 的话，就会给 CPU 带来很大的负载。</p>
+<blockquote>
+<p>为什么不用定时删除策略呢？</p>
+<p>定时删除，用一个定时器来负责监视key，过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key，因此没有采用这一策略。</p>
+</blockquote>
+<p>（2）惰性删除：定期删除可能导致很多过期的key 到了时间并没有被删除掉。这时就要使用到惰性删除。在你获取某个key的时候，redis会检查一下，这个key如果设置了过期时间并且过期了，是的话就删除。</p>
+<p><strong>2、定期删除+惰性删除存在的问题：</strong></p>
+<p>如果某个key过期后，定期删除没删除成功，然后也没再次去请求key，也就是说惰性删除也没生效。这时，如果大量过期的key堆积在内存中，redis的内存会越来越高，导致redis的内存块耗尽。那么就应该采用内存淘汰机制。</p>
+<h3 id="Redis的缓存淘汰策略："><a href="#Redis的缓存淘汰策略：" class="headerlink" title="Redis的缓存淘汰策略："></a>Redis的缓存淘汰策略：</h3><p>Redis共提供了8中缓存淘汰策略，其中 volatile-lfu 和 allkeys-lfu 是Redis 4.0版本新增的。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210129020952881.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>1、noeviction：不进行淘汰数据。一旦缓存被写满，再有写请求进来，Redis就不再提供服务，而是直接返回错误。Redis 用作缓存时，实际的数据集通常都是大于缓存容量的，总会有新的数据要写入缓存，这个策略本身不淘汰数据，也就不会腾出新的缓存空间，我们不把它用在 Redis 缓存中。</p>
+<p>2、volatile-ttl：在设置了过期时间的键值对中，移除即将过期的键值对。</p>
+<p>3、volatile-random：在设置了过期时间的键值对中，随机移除某个键值对。</p>
+<p>4、volatile-lru：在设置了过期时间的键值对中，移除最近最少使用的键值对。</p>
+<p>5、volatile-lfu：在设置了过期时间的键值对中，移除最近最不频繁使用的键值对</p>
+<p>6、allkeys-random：在所有键值对中，随机移除某个key。</p>
+<p>7、allkeys-lru：在所有的键值对中，移除最近最少使用的键值对。</p>
+<p>8、allkeys-lfu：在所有的键值对中，移除最近最不频繁使用的键值对</p>
+<blockquote>
+<p>通常情况下推荐优先使用 allkeys-lru 策略。这样可以充分利用 LRU 这一经典缓存算法的优势，把最近最常访问的数据留在缓存中，提升应用的访问性能。</p>
+<p>如果你的业务数据中有明显的冷热数据区分，建议使用 allkeys-lru 策略。</p>
+<p>如果业务应用中的数据访问频率相差不大，没有明显的冷热数据区分，建议使用 allkeys-random 策略，随机选择淘汰的数据就行。</p>
+<p>如果没有设置过期时间的键值对，那么 volatile-lru，volatile-lfu，volatile-random 和 volatile-ttl 策略的行为, 和 noeviction 基本上一致。</p>
+</blockquote>
+<h3 id="Redis中的LRU和LFU算法："><a href="#Redis中的LRU和LFU算法：" class="headerlink" title="Redis中的LRU和LFU算法："></a>Redis中的LRU和LFU算法：</h3><p><strong>1、LRU算法：</strong></p>
+<p>LRU 算法的全称是 Least Recently Uses，按照最近最少使用的原则来筛选数据，最不常用的数据会被筛选出来。LRU 会把所有的数据组织成一个链表，链表的头和尾分别表示 MRU 端和 LRU 端，分别代表最近最常使用的数据和最近最不常用的数据。我们看一个例子。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/27b3894cd4b1f28a3b2717ebe4572939.png" alt="img"></p>
+<p>如果有一个新数据 45 要被写入缓存，但此时已经没有缓存空间了，也就是链表没有空余位置了，那么LRU 算法做两件事：数据 45 是刚被访问的，所以它会被放到 MRU 端；算法把 LRU 端的数据 5 从缓存中删除，相应的链表中就没有数据 5 的记录了。LRU认为刚刚被访问的数据，肯定还会被再次访问，所以就把它放在 MRU 端；长久不访问的数据，肯定就不会再被访问了，所以就让它逐渐后移到 LRU 端，在缓存满时，就优先删除它。</p>
+<p>LRU 算法在实际实现时，需要用链表管理所有的缓存数据，移除元素时直接从链表队尾移除，增加时加到头部就可以了，但这会带来额外的空间开销。而且，当有数据被访问时，需要在链表上把该数据移动到 MRU 端，如果有大量数据被访问，就会带来很多链表移动操作，会很耗时，进而会降低 Redis 缓存性能。</p>
+<p>所以，在 Redis 中，LRU 算法被做了简化，以减轻数据淘汰对缓存性能的影响。具体来说：Redis 默认会记录每个数据的最近一次访问的时间戳（由键值对数据结构 RedisObject 中的 lru 字段记录）。然后，Redis 在决定淘汰的数据时，第一次会随机选出 N 个数据，把它们作为一个候选集合。接下来，Redis 会比较这 N 个数据的 lru 字段，把 lru 字段值最小的数据从缓存中淘汰出去。当需要再次淘汰数据时，Redis 需要挑选数据进入第一次淘汰时创建的候选集合。这里的挑选标准是：能进入候选集合的数据的 lru 字段值必须小于候选集合中最小的 lru 值。当有新数据进入候选数据集后，如果候选数据集中的数据个数达到了 N 个，Redis 就把候选数据集中 lru 字段值最小的数据淘汰出去。这样一来，Redis 缓存不用为所有的数据维护一个大链表，也不用在每次数据访问时都移动链表项，提升了缓存的性能。</p>
+<p>Redis 提供了一个配置参数 maxmemory-samples，这个参数就是 Redis 选出的数据个数 N。例如，我们执行如下命令，可以让 Redis 选出 100 个数据作为候选数据集：</p>
+<blockquote>
+<p>CONFIG SET maxmemory-samples 100</p>
+</blockquote>
+<p>RedisObject 的定义如下：（简单理解为一个 key-value）</p>
+<pre><code>typedef struct redisObject {
+    unsigned type:4;
+    unsigned encoding:4;
+    unsigned lru:LRU_BITS; /* LRU time (relative to global lru_clock) or
+                            * LFU data (least significant 8 bits frequency
+                            * and most significant 16 bits access time). */
+    int refcount;
+    void *ptr;
+} robj;</code></pre><p><strong>2、LFU算法：</strong></p>
+<p>LFU是在Redis4.0后出现的，它的核心思想是根据key的最近被访问的频率进行淘汰，很少被访问的优先被淘汰，被访问的多的则被留下来。LFU算法能更好的表示一个key被访问的热度。假如你使用的是LRU算法，一个key很久没有被访问到，只刚刚是偶尔被访问了一次，那么它就被认为是热点数据，不会被淘汰，而有些key将来是很有可能被访问到的则被淘汰了。如果使用LFU算法则不会出现这种情况，因为使用一次并不会使一个key成为热点数据。它的使用与LRU有所区别：</p>
+<blockquote>
+<p>LFU (Least Frequently Used) ：最近最不频繁使用，跟使用的次数有关，淘汰使用次数最少的。</p>
+<p>LRU (Least Recently Used)：最近最少使用，跟使用的最后一次时间有关，淘汰最近使用时间离现在最久的。</p>
+</blockquote>
+<p>LRU的最近最少使用实际上并不精确，考虑下面的情况，如果在 “|” 处删除，那么A距离的时间最久，但实际上A的使用频率要比D频繁，所以合理的淘汰策略应该是淘汰D。LFU就是为应对这种情况而生的。</p>
+<pre><code>~~~~~A~~~~~A~~~~~A~~~~A~~~~~A~~~~~A~~|
+~~R~~R~~R~~R~~R~~R~~R~~R~~R~~R~~R~~R~|
+~~~~~~~~~~C~~~~~~~~~C~~~~~~~~~C~~~~~~|
+~~~~~D~~~~~~~~~~D~~~~~~~~~D~~~~~~~~~D|</code></pre><p>每个波浪号代表一秒，A 每五秒，R 每两秒，C 和 D 每十秒 ， 最近被访问的字符是 D，但显然按照现有的规律，下一个被访问的更可能是 R 而不是 D。</p>
+<p>LFU 实现比较复杂，需要考虑几个问题：</p>
+<ul>
+<li>如果实现为链表，当对象被访问时按访问次数移动到链表的某个有序位置可能是低效的，因为可能存在大量访问次数相同的 key，最差情况是O(n) </li>
+<li>某些 key 访问次数可能非常之大，理论上可以无限大，但实际上我们并不需要精确的访问次数</li>
+<li>访问次数特别大的 key 可能以后都不再访问了，但是因为访问次数大而一直占用着内存不被淘汰，需要一个方法来逐步“驱除”（有点 LRU的意思），最简单的就是逐步衰减访问次数</li>
+</ul>
+<p>本着能省则省的原则，Redis 只用了 24bit （server.lruclock 也是24bit）来记录上述的信息，是的不是 24byte，连32位指针都放不下！</p>
+<blockquote>
+<p>16bit : 上一次递减时间 （解决第三个问题）</p>
+<p>8bit : 访问次数 （解决第二个问题）</p>
+</blockquote>
+<p>访问次数的计算如下：</p>
+<pre class=" language-cpp"><code class="language-cpp">uint8_t <span class="token function">LFULogIncr</span><span class="token punctuation">(</span>uint8_t counter<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>counter <span class="token operator">==</span> <span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">255</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> r <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span><span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span>RAND_MAX<span class="token punctuation">;</span>
+    <span class="token keyword">double</span> baseval <span class="token operator">=</span> counter <span class="token operator">-</span> LFU_INIT_VAL<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>baseval <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> baseval <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> p <span class="token operator">=</span> <span class="token number">1.0</span><span class="token operator">/</span><span class="token punctuation">(</span>baseval<span class="token operator">*</span>server<span class="token punctuation">.</span>lfu_log_factor<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>r <span class="token operator">&lt;</span> p<span class="token punctuation">)</span> counter<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> counter<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>核心就是访问次数越大，访问次数被递增的可能性越小，最大 255，可以在配置 redis.conf 中写明访问多少次递增多少。由于访问次数是有限的，所以第一个问题也被解决了，直接一个255数组或链表都可以。</p>
+<p>16bit 部分保存的是时间戳的后16位（分钟），表示上一次递减的时间，算法是这样执行，随机采样N个key，检查递减时间，如果距离现在超过 N 分钟（可配置），则递减或者减半（如果访问次数数值比较大）。</p>
+<p>此外，由于新加入的 key 访问次数很可能比不被访问的老 key小，为了不被马上淘汰，新key访问次数设为 5。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2508,7 +2595,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">404.2k</span>&nbsp;字
+                class="white-color">422.3k</span>&nbsp;字
             
             
             
