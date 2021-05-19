@@ -461,14 +461,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-04-15
+                    2021-05-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    30k
+                    30.2k
                 </div>
                 
 
@@ -1242,6 +1242,11 @@ E <span class="token function">unlink</span><span class="token punctuation">(</s
         <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
 <p>如果指定大小，每次都按照<code>2倍</code>扩容</p>
+<blockquote>
+<p>Vector的get() 、remove()、size()方法都是同步的，但是在多线程环境下，如果不在方法调用端做额外的同步措施，使用这段代码仍然是不安全的。</p>
+<p>虽然源代码注释里面说这个是线程安全的，因为确实很多方法都加上了同步关键字synchronized，但是对于符合操作而言，只是同步方法并没有解决线程安全的问题。</p>
+<p>要真正达成线程安全，还需要以vector对象为锁，来进行操作。</p>
+</blockquote>
 <h2 id="Set结构的集合类"><a href="#Set结构的集合类" class="headerlink" title="Set结构的集合类"></a>Set结构的集合类</h2><h3 id="HashSet源码分析"><a href="#HashSet源码分析" class="headerlink" title="HashSet源码分析"></a>HashSet源码分析</h3><h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>（1）集合（Collection）和集合（Set）有什么区别？</p>
 <p>（2）HashSet怎么保证添加元素不重复？</p>
 <p>（3）HashSet是否允许null元素？</p>
@@ -4790,7 +4795,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">494.7k</span>&nbsp;字
+                class="white-color">494.9k</span>&nbsp;字
             
             
             
