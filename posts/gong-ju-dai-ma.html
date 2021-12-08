@@ -457,21 +457,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-22
+                    2021-12-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.9k
+                    8.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    40 分
+                    41 分
                 </div>
                 
 				
@@ -914,7 +914,89 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>springProfile</span><span class="token punctuation">></span></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
-<h2 id="1-6-Spring整合"><a href="#1-6-Spring整合" class="headerlink" title="1.6 Spring整合"></a>1.6 Spring整合</h2><h3 id="1-6-1-spring-dao-xml"><a href="#1-6-1-spring-dao-xml" class="headerlink" title="1.6.1 spring-dao.xml"></a>1.6.1 spring-dao.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<h2 id="1-6-JSR303后端数据校验"><a href="#1-6-JSR303后端数据校验" class="headerlink" title="1.6 JSR303后端数据校验"></a>1.6 JSR303后端数据校验</h2><p>1、添加maven：</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--        对提交的数据进行校验--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>javax.validation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>validation-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0.1.Final<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.hibernate.validator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>hibernate-validator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>6.1.5.Final<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>compile<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></code></pre>
+<p>2、在字段上添加注解</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token annotation punctuation">@TableName</span><span class="token punctuation">(</span><span class="token string">"pms_brand"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BrandEntity</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> 1L<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 品牌id
+     */</span>
+    <span class="token annotation punctuation">@TableId</span>
+    <span class="token keyword">private</span> Long brandId<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 品牌名
+     */</span>
+    <span class="token annotation punctuation">@NotBlank</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"品牌名称不能为空"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 品牌logo地址
+     */</span>
+    <span class="token annotation punctuation">@NotEmpty</span>
+    <span class="token annotation punctuation">@URL</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"logo必须是一个合法的url地址"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String logo<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 介绍
+     */</span>
+    <span class="token keyword">private</span> String descript<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 显示状态[0-不显示；1-显示]
+     */</span>
+
+    <span class="token keyword">private</span> Integer showStatus<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@TableLogic</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"1"</span><span class="token punctuation">,</span>delval <span class="token operator">=</span> <span class="token string">"0"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer deleted<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 检索首字母
+     */</span>
+    <span class="token annotation punctuation">@Pattern</span><span class="token punctuation">(</span>regexp <span class="token operator">=</span> <span class="token string">"/^[a-zA-Z]$/"</span><span class="token punctuation">,</span>message <span class="token operator">=</span> <span class="token string">"检索首字母必须是一个字母"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String firstLetter<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 排序
+     */</span>
+    <span class="token annotation punctuation">@NotNull</span>
+    <span class="token annotation punctuation">@Min</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>message <span class="token operator">=</span> <span class="token string">"排序字段必须大于0"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer sort<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span></code></pre>
+<p>3、在传输的实体参数上加 <strong>@Valid</strong>注解</p>
+<p><code>BindingResult result:</code>这个参数必须紧跟着被校验的实体数据，用来接收校验的结果</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/save"</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">//@RequiresPermissions("product:brand:save")</span>
+    <span class="token keyword">public</span> R <span class="token function">save</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Valid</span> <span class="token annotation punctuation">@RequestBody</span> BrandEntity brand<span class="token punctuation">,</span> BindingResult result<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 针对校验的结果进行处理</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token function">hasErrors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">// 如果校验出来错误</span>
+            Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>String<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment" spellcheck="true">// 把错误的字段和错误封装在map中按照异常抛出</span>
+            result<span class="token punctuation">.</span><span class="token function">getFieldErrors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>v <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span> 
+                String message <span class="token operator">=</span> v<span class="token punctuation">.</span><span class="token function">getDefaultMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                String filed <span class="token operator">=</span> v<span class="token punctuation">.</span><span class="token function">getField</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>filed<span class="token punctuation">,</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span><span class="token string">"提交的数据不合法"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"data"</span><span class="token punctuation">,</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">// 如果校验通过，继续走业务流程</span>
+            brandService<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>brand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h2 id="1-7-Spring整合"><a href="#1-7-Spring整合" class="headerlink" title="1.7 Spring整合"></a>1.7 Spring整合</h2><h3 id="1-7-1-spring-dao-xml"><a href="#1-7-1-spring-dao-xml" class="headerlink" title="1.7.1 spring-dao.xml"></a>1.7.1 spring-dao.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/context<span class="token punctuation">"</span></span>
@@ -976,7 +1058,7 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>constructor-arg</span> <span class="token attr-name">index</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>6379<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span></code></pre>
-<h3 id="1-6-2-spring-service-xml"><a href="#1-6-2-spring-service-xml" class="headerlink" title="1.6.2 spring-service.xml"></a>1.6.2 spring-service.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<h3 id="1-7-2-spring-service-xml"><a href="#1-7-2-spring-service-xml" class="headerlink" title="1.7.2 spring-service.xml"></a>1.7.2 spring-service.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/context<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>tx</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/tx<span class="token punctuation">"</span></span>
@@ -1001,7 +1083,7 @@
 
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span></code></pre>
-<h3 id="1-6-3-spring-web-xml"><a href="#1-6-3-spring-web-xml" class="headerlink" title="1.6.3 spring-web.xml"></a>1.6.3 spring-web.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<h3 id="1-7-3-spring-web-xml"><a href="#1-7-3-spring-web-xml" class="headerlink" title="1.7.3 spring-web.xml"></a>1.7.3 spring-web.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/context<span class="token punctuation">"</span></span>
@@ -1037,7 +1119,7 @@
     <span class="token comment" spellcheck="true">&lt;!--4:扫描web相关的controller--></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cn.codingxiaxw.web<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span></code></pre>
-<h2 id="1-7-Redis"><a href="#1-7-Redis" class="headerlink" title="1.7 Redis"></a>1.7 Redis</h2><h3 id="1-7-1-Redis常用操作封装"><a href="#1-7-1-Redis常用操作封装" class="headerlink" title="1.7.1 Redis常用操作封装"></a>1.7.1 Redis常用操作封装</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
+<h2 id="1-8-Redis"><a href="#1-8-Redis" class="headerlink" title="1.8 Redis"></a>1.8 Redis</h2><h3 id="1-8-1-Redis常用操作封装"><a href="#1-8-1-Redis常用操作封装" class="headerlink" title="1.8.1 Redis常用操作封装"></a>1.8.1 Redis常用操作封装</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>LoggerFactory<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>geo<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
@@ -1776,7 +1858,7 @@
         <span class="token keyword">return</span> radius<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<h3 id="1-7-2-Redis配置类–方法1"><a href="#1-7-2-Redis配置类–方法1" class="headerlink" title="1.7.2 Redis配置类–方法1"></a>1.7.2 Redis配置类–方法1</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>JsonAutoDetect<span class="token punctuation">;</span>
+<h3 id="1-8-2-Redis配置类–方法1"><a href="#1-8-2-Redis配置类–方法1" class="headerlink" title="1.8.2 Redis配置类–方法1"></a>1.8.2 Redis配置类–方法1</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>JsonAutoDetect<span class="token punctuation">;</span>
 <span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>PropertyAccessor<span class="token punctuation">;</span>
 <span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>databind<span class="token punctuation">.</span>ObjectMapper<span class="token punctuation">;</span>
 
@@ -1823,7 +1905,7 @@
         <span class="token keyword">return</span> template<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<h3 id="1-7-2-Redis配置类–方法2"><a href="#1-7-2-Redis配置类–方法2" class="headerlink" title="1.7.2 Redis配置类–方法2"></a>1.7.2 Redis配置类–方法2</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>fastjson<span class="token punctuation">.</span>JSON<span class="token punctuation">;</span>
+<h3 id="1-8-2-Redis配置类–方法2"><a href="#1-8-2-Redis配置类–方法2" class="headerlink" title="1.8.2 Redis配置类–方法2"></a>1.8.2 Redis配置类–方法2</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>fastjson<span class="token punctuation">.</span>JSON<span class="token punctuation">;</span>
 <span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>fastjson<span class="token punctuation">.</span>support<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>FastJsonRedisSerializer<span class="token punctuation">;</span>
 <span class="token keyword">import</span> lombok<span class="token punctuation">.</span>extern<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Slf4j<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>cache<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>CachingConfigurerSupport<span class="token punctuation">;</span>
@@ -1933,7 +2015,7 @@
         <span class="token keyword">return</span> redisCacheManager<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<h2 id="1-8-判断两个时间段是否存在交集"><a href="#1-8-判断两个时间段是否存在交集" class="headerlink" title="1.8 判断两个时间段是否存在交集"></a>1.8 判断两个时间段是否存在交集</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>bitsun<span class="token punctuation">.</span>bizcenter<span class="token punctuation">.</span>pc<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>util<span class="token punctuation">;</span>
+<h2 id="1-9-判断两个时间段是否存在交集"><a href="#1-9-判断两个时间段是否存在交集" class="headerlink" title="1.9 判断两个时间段是否存在交集"></a>1.9 判断两个时间段是否存在交集</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>bitsun<span class="token punctuation">.</span>bizcenter<span class="token punctuation">.</span>pc<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>util<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
 <span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Getter<span class="token punctuation">;</span>
@@ -2032,7 +2114,7 @@
     <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span></code></pre>
-<h2 id="1-9-获取以周为周期的活动的每次执行的准确时间"><a href="#1-9-获取以周为周期的活动的每次执行的准确时间" class="headerlink" title="1.9 获取以周为周期的活动的每次执行的准确时间"></a>1.9 获取以周为周期的活动的每次执行的准确时间</h2><p>给定一个时间区间，例如：”2021-08-01”, “2021-10-01”，再给一个字符串类型的星期，例如： “2,4,6,7”（表示周二，周四，周六，周日），得出在时间区间内，每周二，周四，周六，周日的具体日期。</p>
+<h2 id="1-10-获取以周为周期的活动的每次执行的准确时间"><a href="#1-10-获取以周为周期的活动的每次执行的准确时间" class="headerlink" title="1.10 获取以周为周期的活动的每次执行的准确时间"></a>1.10 获取以周为周期的活动的每次执行的准确时间</h2><p>给定一个时间区间，例如：”2021-08-01”, “2021-10-01”，再给一个字符串类型的星期，例如： “2,4,6,7”（表示周二，周四，周六，周日），得出在时间区间内，每周二，周四，周六，周日的具体日期。</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springbootdemo<span class="token punctuation">.</span>demo<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>text<span class="token punctuation">.</span>DateFormat<span class="token punctuation">;</span>
@@ -2112,7 +2194,7 @@
         <span class="token keyword">return</span> Datelist<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<h2 id="1-10-获取以月为周期的活动的每次执行的准确时间"><a href="#1-10-获取以月为周期的活动的每次执行的准确时间" class="headerlink" title="1.10 获取以月为周期的活动的每次执行的准确时间"></a>1.10 获取以月为周期的活动的每次执行的准确时间</h2><p>给定一个时间区间，例如：”2021-08-01”, “2021-10-01”，再给一个字符串类型的日期，例如： “12,15,19”（表示12号，15号，19号），得出在时间区间内，每月的12号，15号，19号的具体日期。</p>
+<h2 id="1-11-获取以月为周期的活动的每次执行的准确时间"><a href="#1-11-获取以月为周期的活动的每次执行的准确时间" class="headerlink" title="1.11 获取以月为周期的活动的每次执行的准确时间"></a>1.11 获取以月为周期的活动的每次执行的准确时间</h2><p>给定一个时间区间，例如：”2021-08-01”, “2021-10-01”，再给一个字符串类型的日期，例如： “12,15,19”（表示12号，15号，19号），得出在时间区间内，每月的12号，15号，19号的具体日期。</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>hct<span class="token punctuation">.</span>springbootdemo<span class="token punctuation">.</span>demo<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>collection<span class="token punctuation">.</span>CollectionUtil<span class="token punctuation">;</span>
@@ -2968,7 +3050,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">530.9k</span>&nbsp;字
+                class="white-color">531.3k</span>&nbsp;字
             
             
             
