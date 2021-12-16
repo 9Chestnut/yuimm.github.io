@@ -464,14 +464,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.3k
+                    8.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    41 分
+                    43 分
                 </div>
                 
 				
@@ -996,7 +996,53 @@
 
         <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
-<h2 id="1-7-Spring整合"><a href="#1-7-Spring整合" class="headerlink" title="1.7 Spring整合"></a>1.7 Spring整合</h2><h3 id="1-7-1-spring-dao-xml"><a href="#1-7-1-spring-dao-xml" class="headerlink" title="1.7.1 spring-dao.xml"></a>1.7.1 spring-dao.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<h2 id="使用统一的数据校验"><a href="#使用统一的数据校验" class="headerlink" title="使用统一的数据校验"></a>使用统一的数据校验</h2><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@RestControllerAdvice</span><span class="token punctuation">(</span>basePackages <span class="token operator">=</span> <span class="token string">"com.hct.gulimall.product.controller"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GulimllExceptionControllerAdvice</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> MethodArgumentNotValidException<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> R <span class="token function">handleValidException</span><span class="token punctuation">(</span>MethodArgumentNotValidException e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"数据校验出现异常{},异常类型{}"</span><span class="token punctuation">,</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>e<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BindingResult bindingResult <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">getBindingResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>String<span class="token operator">></span> errorMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        bindingResult<span class="token punctuation">.</span><span class="token function">getFieldErrors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>v <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            errorMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>v<span class="token punctuation">.</span><span class="token function">getField</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>v<span class="token punctuation">.</span><span class="token function">getDefaultMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span><span class="token string">"数据校验出现异常"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"data"</span><span class="token punctuation">,</span>errorMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>方法参数中，不需要再加<code>BindingResult result</code></p>
+<pre class=" language-java"><code class="language-java"> <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/save"</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">//@RequiresPermissions("product:brand:save")</span>
+    <span class="token keyword">public</span> R <span class="token function">save</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Valid</span> <span class="token annotation punctuation">@RequestBody</span> BrandEntity brand <span class="token comment" spellcheck="true">/*, BindingResult result */</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token comment" spellcheck="true">//        if (result.hasErrors()){</span>
+<span class="token comment" spellcheck="true">//            Map&lt;String,String> map = new HashMap&lt;>();</span>
+<span class="token comment" spellcheck="true">//            result.getFieldErrors().forEach(v -> {</span>
+<span class="token comment" spellcheck="true">//                String message = v.getDefaultMessage();</span>
+<span class="token comment" spellcheck="true">//                String filed = v.getField();</span>
+<span class="token comment" spellcheck="true">//                map.put(filed,message);</span>
+<span class="token comment" spellcheck="true">//            });</span>
+<span class="token comment" spellcheck="true">//            return R.error(400,"提交的数据不合法").put("data",map);</span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">//        }else {</span>
+            brandService<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>brand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//        }</span>
+
+        <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h2 id="JSR303-分组校验"><a href="#JSR303-分组校验" class="headerlink" title="JSR303 分组校验"></a>JSR303 分组校验</h2><p>字段：</p>
+<pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * 品牌id,添加 groups，值为一个接口，接口中没有任何方法
+     */</span>
+    <span class="token annotation punctuation">@Null</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"新增的时候不能指定ID"</span><span class="token punctuation">,</span>groups <span class="token operator">=</span> <span class="token punctuation">{</span>SaveValid<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@NotNull</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"更新的时候必须指定ID"</span><span class="token punctuation">,</span>groups <span class="token operator">=</span> <span class="token punctuation">{</span>UpdateVaild<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@TableId</span>
+    <span class="token keyword">private</span> Long brandId<span class="token punctuation">;</span></code></pre>
+<p>方法：</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 使用@Validated 注解，同样指定接口方法</span>
+<span class="token keyword">public</span> R <span class="token function">save</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Validated</span><span class="token punctuation">(</span>SaveValid<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token annotation punctuation">@RequestBody</span> BrandEntity brand <span class="token comment" spellcheck="true">/*, BindingResult result */</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span></code></pre>
+<p><strong>备注：</strong>使用分组校验后，没有添加分组信息的字段将不再进行校验，即以前的校验注解失效。</p>
+<h2 id="自定义校验注解"><a href="#自定义校验注解" class="headerlink" title="自定义校验注解"></a>自定义校验注解</h2><h2 id="1-7-Spring整合"><a href="#1-7-Spring整合" class="headerlink" title="1.7 Spring整合"></a>1.7 Spring整合</h2><h3 id="1-7-1-spring-dao-xml"><a href="#1-7-1-spring-dao-xml" class="headerlink" title="1.7.1 spring-dao.xml"></a>1.7.1 spring-dao.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
        <span class="token attr-name"><span class="token namespace">xmlns:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/context<span class="token punctuation">"</span></span>
@@ -3050,7 +3096,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">531.3k</span>&nbsp;字
+                class="white-color">534.9k</span>&nbsp;字
             
             
             
