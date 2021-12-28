@@ -457,7 +457,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-08
+                    2021-12-28
                 </div>
                 
 
@@ -782,7 +782,7 @@ t1<span class="token punctuation">.</span><span class="token function">join</spa
 <li>如果一个线程在在运行中被打断，打断标记会被置为<code>true</code> 。</li>
 <li>如果是打断因<code>sleep wait join</code>方法而被阻塞的线程，会将打断标记置为 <code>false</code> 。</li>
 </ul>
-<p><strong>isInterrupted() 与 interrupted() 比较，如下：</strong><br>首先，isInterrupted 是实例方法，interrupted 是静态方法，它们的用处都是查看当前打断的状态，但是 isInterrupted 方法查看线程的时候，不会将打断标记清空，也就是置为 false，interrupted 查看线程打断状态后，会将打断标志置为 false，也就是清空打断标记，简单来说，interrupt() 方法类似于 setter 设置中断值，isInterrupted() 类似于 getter 获取中断值，interrupted() 类似于 getter + setter 先获取中断值，然后清除标志。</p>
+<p><strong>isInterrupted() 与 interrupted() 比较，如下：</strong><br>首先，isInterrupted 是实例方法，interrupted 是静态方法，它们的用处都是查看当前打断的状态，但是 isInterrupted 方法查看线程的时候，不会将打断标记清空，也就是置为 false，interrupted 查看线程打断状态后，会将打断标志置为 false，也就是清空打断标记，简单来说，interrupted() 方法类似于 setter 设置中断值，isInterrupted() 类似于 getter 获取中断值，interrupted() 类似于 getter + setter 先获取中断值，然后清除标志。</p>
 <p><strong>终止模式之两阶段终止模式，如下：</strong><br>Two Phase Termination，就是考虑在一个线程T1中如何优雅地终止另一个线程T2？这里的优雅指的是给T2一个料理后事的机会（如释放锁）。</p>
 <p><img src="https://img-blog.csdnimg.cn/2021012811453967.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MDI4MDU3Ng==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>代码实现如下：</p>
@@ -3489,7 +3489,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">534.9k</span>&nbsp;字
+                class="white-color">538.1k</span>&nbsp;字
             
             
             
