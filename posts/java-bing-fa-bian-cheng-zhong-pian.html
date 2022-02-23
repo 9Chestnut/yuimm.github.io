@@ -457,21 +457,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-08
+                    2021-12-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    11.7k
+                    13.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    49 分
+                    54 分
                 </div>
                 
 				
@@ -1105,6 +1105,92 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
+<h2 id="AbstractQueuedSynchronizer"><a href="#AbstractQueuedSynchronizer" class="headerlink" title="AbstractQueuedSynchronizer"></a>AbstractQueuedSynchronizer</h2><p><a href="https://so.csdn.net/so/search?q=队列同步器" target="_blank" rel="noopener">队列同步器</a>AbstractQueuedSynchronizer（以下简称同步器或AQS），是用来构建锁或者其他同步组件的基础框架，它使用了一个内置的int成员变量表示同步状态，通过内置的FIFO队列来完成资源获取线程的排队工作。</p>
+<p>同步器的主要使用方式是继承，子类通过继承同步器并实现它的抽象方法来管理同步状态，在抽象方法的实现过程中免不了要对同步状态进行更改，这就是需要使用同步器提供的3个方法：getState()、setState(int)和compareAndSetState(int, int)来进行操作，因为它们能够保证状态的改变是安全的。子类推荐被定义为自定义同步组件的静态内部类，同步器自身没有实现任何同步接口，它仅仅是定义了若干同步状态获取和释放的方法，来供自定义同步组件使用，同步器既支持独占式地获取同步状态，也支持共享式地获取同步状态，可以很方便地实现不同类型的同步组件（如<code>ReentrantLock</code>、<code>ReentrantReadWriteLock</code>和<code>CountDownLatch</code>等）。</p>
+<p>同步器的接口<br>同步器的设计是基于模板方法模式的，也就是说，使用者需要继承同步器并重写指定的方法，随后将同步器组合在自定义同步组件的实现中，并调用同步器提供的模板方法，而这些模板方法会调用使用者重写的方法。</p>
+<p>重写同步器指定的方法时，需要使用同步器提供的如下3个方法来访问或修改同步状态：</p>
+<ul>
+<li>getState()：获取当前同步状态；</li>
+<li>setState(int)：设置当前同步状态；</li>
+<li>compareAndSetState(int, int)：使用CAS来设置当前状态，该方法能够保证状态设置的原子性。</li>
+</ul>
+<p>同步器可重写的方法与描述如下所示（这些方法的默认实现都是直接抛出了UnsupportedOperationException异常）：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法名称</th>
+<th align="center">描 述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">protected boolean tryAcquire(int arg)</td>
+<td align="center">独占式地获取同步状态，实现该方法需要查询当前状态并判断当前状态是否符合预期，然后再进行CAS设置同步状态</td>
+</tr>
+<tr>
+<td align="center">protected boolean tryRelease(int arg)</td>
+<td align="center">独占式释放同步状态，等待获取同步状态的线程将有机会获取同步状态</td>
+</tr>
+<tr>
+<td align="center">protected int tryAcquireShared(int arg)</td>
+<td align="center">共享式获取同步状态，返回大于等于0的值，表示获取成功，反之，获取失败</td>
+</tr>
+<tr>
+<td align="center">protected boolean tryReleaseShared(int arg)</td>
+<td align="center">共享式释放同步状态</td>
+</tr>
+<tr>
+<td align="center">protected boolean isHeldExclusively()</td>
+<td align="center">当前同步器是否在独占模式下被线程占用，一般该方法表示是否被当前线程所独占</td>
+</tr>
+</tbody></table>
+<p>实现自定义同步组件时，将会调用同步器提供的模板方法，部分模板方法与描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描 述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void acquire(int arg)</td>
+<td>独占式获取同步状态，如果当前线程获取同步状态成功，则由该方法返回，否则，将会进入同步队列等待，该方法将会调用可重写的tryAcquire(int arg)方法</td>
+</tr>
+<tr>
+<td>void acquireInterruptibly(int arg)</td>
+<td>与acquire(int arg)相同，但是该方法响应中断，当前线程为获取到同步状态而进入到同步队列中，如果当前线程被中断，则该方法会抛出InterruptedException异常并返回</td>
+</tr>
+<tr>
+<td>boolean tryAcquireNanos(int arg,long nanos)</td>
+<td>超时获取同步状态，如果当前线程在nanos时间内没有获取到同步状态，那么将会返回false，已经获取则返回true</td>
+</tr>
+<tr>
+<td>void acquireShared(int arg)</td>
+<td>共享式获取同步状态，如果当前线程未获取到同步状态，将会进入同步队列等待，与独占式的主要区别是在同一时刻可以有多个线程获取到同步状态</td>
+</tr>
+<tr>
+<td>void acquireSharedInterruptibly(int arg)</td>
+<td>与acquireShared(int arg)相同，该方法相应中断</td>
+</tr>
+<tr>
+<td>boolean tryAcquireSharedNanos(int arg, long nanosTimeout)</td>
+<td>在acquireSharedInterruptibly(int arg)的基础上，增加了超时限制</td>
+</tr>
+<tr>
+<td>boolean release(int arg)</td>
+<td>独占式释放同步状态，该方法会在释放同步状态之后，将同步队列中第一个节点包含的线程唤醒</td>
+</tr>
+<tr>
+<td>Boolean releaseShared(int arg)</td>
+<td>共享式释放同步状态</td>
+</tr>
+<tr>
+<td>Collection<thread> getQueuedThreads()</thread></td>
+<td>获取等待在同步队列上的线程集合</td>
+</tr>
+</tbody></table>
+<p>同步器提供的模板方法基本上分为三类：独占式获取与释放同步状态、共享式获取与释放同步状态和查询同步队列中的等待线程情况，自定义同步组件将使用同步器提供的模板方法来实现自己的同步语义。</p>
+<p>同步器依赖于内部的FIFO双向等待队列来完成同步状态的管理，该等待队列是CLH队列的变种，CLH队列通常用于自旋锁，同步器中的等待队列可以简单的理解为“等待锁的线程队列”。当前线程获取同步状态失败时，同步器会将当前线程以及等待状态等信息构造成一个节点（Node）并将其加入同步队列，同时会阻塞当前线程，当同步状态释放时，会把首节点中的线程唤醒，使其再次尝试获取同步状态。</p>
+<p>同步队列中的节点（Node）用来保存获取同步状态失败的线程引用、等待状态以及前驱和后继节点，Node类的定义如下：</p>
 <h2 id="2、CAS-与-volatile"><a href="#2、CAS-与-volatile" class="headerlink" title="2、CAS 与 volatile"></a>2、CAS 与 volatile</h2><h3 id="1）cas"><a href="#1）cas" class="headerlink" title="1）cas"></a>1）cas</h3><p>前面看到的 AtomicInteger 的解决方法，内部并没有用锁来保护共享变量的线程安全。那么它是如何实现的呢？<br>其中的关键是 compareAndSwap（比较并设置值），它的简称<strong>就是 CAS</strong> （也有 Compare And Swap 的说法），它必须<strong>是原子操作</strong>。</p>
 <p><img src="https://img-blog.csdnimg.cn/20210202215325496.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MDI4MDU3Ng==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>如图所示，它的工作流程如下：<br>当一个线程要去修改 Account 对象中的值时，先获取值 preVal（调用get方法），然后再将其设置为新的值 nextVal（调用 cas 方法）。在调用 cas 方法时，会将 pre 与 Account 中的余额进行比较。</p>
@@ -2764,7 +2850,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">538.1k</span>&nbsp;字
+                class="white-color">540.4k</span>&nbsp;字
             
             
             
