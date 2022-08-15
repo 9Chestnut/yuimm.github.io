@@ -461,21 +461,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-22
+                    2022-08-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    46.2k
+                    46.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    191 分
+                    192 分
                 </div>
                 
 				
@@ -2326,11 +2326,11 @@ mysql&gt; SHOW INDEX FROM phone;
 <li>不要在索引列上做任何操作（计算、函数、（自动or手动）类型转换），会导致索引失效而转向全表扫描</li>
 <li>存储引擎不能使用索引中范围条件右边的列</li>
 <li>尽量使用覆盖索引（只访问索引的查询（索引列和查询列一致）），减少<code>select *</code></li>
-<li>mysql在使用不等于（!=或者&lt;&gt;）的时候无法使用索引会导致全表扫描</li>
-<li><code>is null</code>，<code>is not null</code> 也无法使用索引（早期版本不能走索引，后续版本应该优化过，可以走索引）</li>
+<li>mysql在使用不等于（!=或者&lt;&gt;）（早期版本不能走索引，8版本应该优化过，可以走索引）</li>
+<li><code>is null</code>，<code>is not null</code> 也无法使用索引</li>
 <li>like以通配符开头（’%abc…’）mysql索引失效会变成全表扫描操作</li>
 <li>字符串不加单引号索引失效</li>
-<li>少用or，用它连接时会索引失效</li>
+<li>少用or，用它连接时会索引失效 (单索引时不失效；复合索引，单独使用索引中第一个字段不会失效，单独使用后面的字段，或者第一个和后面的组合查询时会失效【8.0版本】)</li>
 </ol>
 <blockquote>
 <p> <strong>最佳左匹配法则：带头大哥不能死，中间兄弟不能断</strong></p>
@@ -2472,7 +2472,7 @@ mysql&gt; SHOW INDEX FROM phone;
 |  1 | SIMPLE      | staffs | ref  | index_staffs_nameAgePos | index_staffs_nameAgePos | 74      | const |    1 | Using where; Using index |
 +----+-------------+--------+------+-------------------------+-------------------------+---------+-------+------+--------------------------+
 1 row in set (0.00 sec)</code></pre><blockquote>
-<p><strong>mysql在使用不等于（!=或者&lt;&gt;）的时候无法使用索引会导致全表扫描</strong></p>
+<p><em><em>mysql在使用不等于（!=或者&lt;&gt;）的时候无法使用索引会导致全表扫描</em>【8.0版本不会失效】</em></p>
 </blockquote>
 <ul>
 <li>在使用 != 会 &lt;&gt; 时会导致索引失效：<ul>
@@ -2692,7 +2692,7 @@ mysql&gt; explain select * from staffs where name='2000';
 |  1 | SIMPLE      | staffs | ALL  | index_staffs_nameAgePos | NULL | NULL    | NULL |    3 | Using where |
 +----+-------------+--------+------+-------------------------+------+---------+------+------+-------------+
 1 row in set (0.00 sec)</code></pre><blockquote>
-<p><strong>少用or，用它连接时会索引失效</strong></p>
+<p><strong>少用or，用它连接时会索引失效 (单索引时不失效；复合索引，单独使用索引中第一个字段不会失效，单独使用后面的字段，或者第一个和后面的组合查询时会失效【8.0版本】)</strong></p>
 </blockquote>
 <ul>
 <li>使用 or 连接，会导致索引失效</li>
@@ -5697,7 +5697,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">540.4k</span>&nbsp;字
+                class="white-color">544.9k</span>&nbsp;字
             
             
             
